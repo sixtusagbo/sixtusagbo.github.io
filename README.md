@@ -1,6 +1,5 @@
 # Overview
 
-* [Contact Manager](https://sixtusagbo.github.io/contact_manager/)
-* [Arbitropolis](/arbitropolis)
-* [Kimano Protocol](/kimano)
-
+- [Contact Manager](/contact_manager)
+- [Arbitropolis](/arbitropolis)
+- [Kimano Protocol](/kimano)

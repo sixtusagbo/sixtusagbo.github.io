@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { Code } from "lucide-react";
+import { Code, BookOpen, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projects, skills } from "../config/constants";
-import { ProjectCard, SkillBadge } from "../components";
+import { projects, skills, blogPosts } from "../config/constants";
+import { ProjectCard, SkillBadge, BlogPostCard } from "../components";
 
-import { Twitter, Linkedin, Github, Mail, BookOpen, User } from "lucide-react";
+import { Twitter, Linkedin, Github, Mail } from "lucide-react";
 
 interface HomeProps {
   socialLinks: {
@@ -19,6 +19,9 @@ interface HomeProps {
 function Home({ socialLinks }: HomeProps) {
   // Use first 4 projects as featured projects
   const featuredProjects = projects.slice(0, 4);
+
+  // Use first 3 blog posts as recent blog posts
+  const recentBlogPosts = blogPosts.slice(0, 3);
 
   return (
     <div className="space-y-12">
@@ -151,6 +154,26 @@ function Home({ socialLinks }: HomeProps) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {skills.map((skill, index) => (
             <SkillBadge key={index} skill={skill} index={index} />
+          ))}
+        </div>
+      </section>
+
+      {/* Recent Blog Posts */}
+      <section className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-semibold flex items-center gap-2">
+            <BookOpen size={24} />
+            Recent Blog Posts
+          </h2>
+          <Link
+            to="/blog"
+            className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity">
+            View All Posts
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {recentBlogPosts.map((post, index) => (
+            <BlogPostCard key={index} post={post} index={index} />
           ))}
         </div>
       </section>

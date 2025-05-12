@@ -10,13 +10,21 @@ import {
   Zap,
   Terminal,
   Code2,
+  Mail,
+  MessageSquare,
+  MapPin,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { skillsData, blogPosts } from "../config/constants";
 import { projects } from "../config/projects";
-import { ProjectCard, SkillBadge, BlogPostCard } from "../components";
+import {
+  ProjectCard,
+  SkillBadge,
+  BlogPostCard,
+  SocialLinks,
+} from "../components";
 
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { Twitter, Linkedin, Github } from "lucide-react";
 import TechBadge from "../components/TechBadge";
 
 interface HomeProps {
@@ -262,11 +270,11 @@ function Home({ socialLinks }: HomeProps) {
                 <span className="relative z-10">View My Work</span>
                 <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
               </Link>
-              <Link
-                to="/contact"
+              <a
+                href="#contact"
                 className="px-8 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors">
                 Let's Connect
-              </Link>
+              </a>
             </motion.div>
 
             {/* Social media links with hover effects */}
@@ -372,11 +380,11 @@ function Home({ socialLinks }: HomeProps) {
               back to the tech community.
             </p>
             <div className="pt-4">
-              <Link
-                to="/contact"
+              <a
+                href="#contact"
                 className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity inline-block">
                 Get In Touch
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -468,6 +476,79 @@ function Home({ socialLinks }: HomeProps) {
           {featuredProjects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="scroll-mt-24">
+        <div className="max-w-3xl mx-auto space-y-8">
+          <motion.div
+            className="text-center space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}>
+            <h2 className="text-2xl font-semibold">Let's Connect</h2>
+            <p className="text-gray-300">
+              I'm always open to discussing new projects, creative ideas, or
+              opportunities to be part of your visions.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="backdrop-blur-xl bg-white/10 rounded-2xl p-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <Mail size={24} className="text-blue-400" />
+                  <div>
+                    <h3 className="font-semibold">Email</h3>
+                    <a
+                      href="mailto:miracleagbosixtus@gmail.com"
+                      className="text-gray-300 hover:text-white">
+                      miracleagbosixtus@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MessageSquare size={24} className="text-purple-400" />
+                  <div>
+                    <h3 className="font-semibold">Social Media</h3>
+                    <SocialLinks
+                      links={socialLinks}
+                      className="flex gap-4 mt-2"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin size={24} className="text-green-400" />
+                  <div>
+                    <h3 className="font-semibold">Location</h3>
+                    <p className="text-gray-300">
+                      Based in Nigeria • Available for remote work worldwide
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="rounded-lg overflow-hidden border border-white/10 w-full h-[350px] shadow-lg">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8070638.877426228!2d3.378967867064404!3d8.995904548336721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0baf7da48d0d%3A0x99a8fe4168c50bc8!2sNigeria!5e0!3m2!1sen!2sng!4v1747037361004!5m2!1sen!2sng"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Map of Nigeria"
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

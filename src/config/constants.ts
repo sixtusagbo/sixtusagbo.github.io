@@ -71,7 +71,7 @@ export const navigation = [
   { name: "Projects", path: "/projects" },
   { name: "Resume", path: "/resume" },
   { name: "Blog", path: "/blog" },
-  { name: "Contact", path: "/contact" },
+  { name: "Contact", path: "/#contact" },
 ];
 
 // Blog posts data

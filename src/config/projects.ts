@@ -3,7 +3,7 @@ export const projects = [
   {
     title: "Lifepadi",
     description: "E-commerce and logistics mobile app",
-    image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",
+    image: "/images/projects/lifepadi.png",
     tech: ["Flutter", "Dart", "Firebase"],
     links: {
       live: "https://lifepadi.com",
@@ -16,7 +16,7 @@ export const projects = [
     title: "FinView",
     description:
       "Financial data visualization web application for Apple's annual income statements",
-    image: "https://images.pexels.com/photos/6801647/pexels-photo-6801647.jpeg",
+    image: "/images/projects/finview.png",
     tech: ["React", "TypeScript", "Vite", "TailwindCSS"],
     links: {
       live: "https://finview-omega.vercel.app",
@@ -27,26 +27,27 @@ export const projects = [
     title: "FinView API",
     description:
       "API for fetching and analyzing Apple's annual income statements",
-    image: "https://images.pexels.com/photos/7567460/pexels-photo-7567460.jpeg",
+    image: "/images/projects/finview-api.png",
     tech: ["Python", "FastAPI"],
     links: {
       live: "https://finview-api.vercel.app",
       docs: "https://finview-api.vercel.app/docs",
+      github: "https://github.com/sixtusagbo/finview-api",
     },
   },
   {
     title: "ustackschool",
     description: "Educational platform built with NextJS and TypeScript",
-    image: "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg",
+    image: "/images/projects/ustackschool.png",
     tech: ["NextJS", "TypeScript", "TailwindCSS"],
     links: {
-      live: "https://ustackschool.com",
+      live: "https://devops-213600042639.europe-west2.run.app/",
     },
   },
   {
     title: "Ace iT Pro",
     description: "Exam preparation mobile app",
-    image: "https://images.pexels.com/photos/5905555/pexels-photo-5905555.jpeg",
+    image: "/images/projects/aceit.png",
     tech: ["Flutter", "Dart", "Firebase"],
     links: {
       github: "https://github.com/sixtusagbo/aceit",
@@ -55,7 +56,7 @@ export const projects = [
   {
     title: "Vitrine",
     description: "Brand showcase application",
-    image: "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg",
+    image: "/images/projects/vitrine.png",
     tech: ["Python", "Flask", "MySQL", "SQLAlchemy"],
     links: {
       github: "https://github.com/sixtusagbo/vitrine",

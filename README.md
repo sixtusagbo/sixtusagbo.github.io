@@ -1,6 +1,3 @@
-# Overview
+# My personal portfolio website
 
-- [Contact Manager](/contact_manager)
-- [Arbitropolis](/arbitropolis)
-- [Kimano Protocol](/kimano)
-- [Mini Portfolio](/mini-portfolio)
+This is my personal portfolio website, built using React, TypeScript, and Tailwind CSS. It showcases my projects, skills, and experience in a clean and modern design.

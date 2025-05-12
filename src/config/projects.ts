@@ -35,7 +35,7 @@ export const projects = [
     },
   },
   {
-    title: "ustackschool",
+    title: "uStackSchool",
     description: "Educational platform built with NextJS and TypeScript",
     image: "/images/projects/ustackschool.png",
     tech: ["NextJS", "TypeScript", "TailwindCSS", "HTML", "CSS"],

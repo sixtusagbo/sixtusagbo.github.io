@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Moon } from "lucide-react";
 import { socialLinks, navigation } from "./config/constants";
 import { SocialLinks } from "./components";
 
@@ -13,7 +13,7 @@ import Blog from "./pages/Blog";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -25,8 +25,8 @@ function App() {
       <div
         className={`min-h-screen ${
           isDarkMode
-            ? "bg-gradient-to-br from-purple-900 via-blue-900 to-black text-white"
-            : "bg-gradient-to-br from-purple-100 via-blue-100 to-white text-gray-900"
+            ? "bg-gradient-to-br from-dark-purple-950 via-dark-blue-950 to-black text-white"
+            : "bg-gradient-to-br from-purple-900 via-blue-900 to-black text-white"
         }`}>
         {/* Navigation */}
         <nav className="backdrop-blur-xl bg-white/10 border-b border-white/10">
@@ -51,7 +51,11 @@ function App() {
                 <button
                   onClick={toggleTheme}
                   className="p-2 rounded-full hover:bg-white/10 transition-colors">
-                  {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                  {isDarkMode ? (
+                    <Moon size={20} className="text-purple-300" />
+                  ) : (
+                    <Moon size={20} />
+                  )}
                 </button>
               </div>
 
@@ -60,7 +64,11 @@ function App() {
                 <button
                   onClick={toggleTheme}
                   className="p-2 rounded-full hover:bg-white/10 transition-colors">
-                  {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                  {isDarkMode ? (
+                    <Moon size={20} className="text-purple-300" />
+                  ) : (
+                    <Moon size={20} />
+                  )}
                 </button>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}

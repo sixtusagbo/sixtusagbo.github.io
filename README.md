@@ -32,6 +32,11 @@ The project follows a modular architecture for better maintainability and reusab
 - `src/components/` - Reusable UI components
 - `src/pages/` - Application pages/routes
 
+# Theme
+
+- Light Mode (Default): The original dark purplish-blue gradient (from-purple-900 via-blue-900 to-black)
+- Dark Mode: An even darker purplish-blue gradient (from-dark-purple-950 via-dark-blue-950 to-black)
+
 ## Features
 
 - Responsive design for all device sizes

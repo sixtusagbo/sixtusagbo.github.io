@@ -83,7 +83,6 @@ export const projects = [
     tech: ["NextJS", "TypeScript", "TailwindCSS"],
     links: {
       live: "https://ustackschool.com",
-      github: "https://github.com/sixtusagbo/ustackschool",
     },
   },
   {
@@ -92,26 +91,27 @@ export const projects = [
     image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",
     tech: ["Flutter", "Dart", "Firebase"],
     links: {
-      playstore: "https://play.google.com/store/apps/details?id=com.lifepadi",
-      appstore: "https://apps.apple.com/app/lifepadi",
+      playstore:
+        "https://play.google.com/store/apps/details?id=com.lifepadi.app",
+      appstore: "https://apps.apple.com/us/app/lifepadi/id6741829265",
     },
   },
   {
     title: "Ace iT Pro",
     description: "Exam preparation mobile app",
     image: "https://images.pexels.com/photos/5905555/pexels-photo-5905555.jpeg",
-    tech: ["Flutter", "Dart", "SQLite"],
+    tech: ["Flutter", "Dart", "Firebase", "Cloud Firestore"],
     links: {
       playstore: "https://play.google.com/store/apps/details?id=com.aceitpro",
+      github: "https://github.com/sixtusagbo/aceit",
     },
   },
   {
     title: "Vitrine",
     description: "Brand showcase application",
     image: "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg",
-    tech: ["Python", "Flask", "PostgreSQL"],
+    tech: ["Python", "Flask", "MySQL", "SQLAlchemy"],
     links: {
-      live: "https://vitrine-demo.com",
       github: "https://github.com/sixtusagbo/vitrine",
     },
   },

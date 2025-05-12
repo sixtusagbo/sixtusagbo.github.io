@@ -86,6 +86,28 @@ export const projects = [
     },
   },
   {
+    title: "FinView",
+    description:
+      "Financial data visualization web application for Apple's annual income statements",
+    image: "https://images.pexels.com/photos/6801647/pexels-photo-6801647.jpeg",
+    tech: ["React", "TypeScript", "Vite", "TailwindCSS"],
+    links: {
+      live: "https://finview-omega.vercel.app",
+      github: "https://github.com/sixtusagbo/finview",
+    },
+  },
+  {
+    title: "FinView API",
+    description:
+      "API for fetching and analyzing Apple's annual income statements",
+    image: "https://images.pexels.com/photos/7567460/pexels-photo-7567460.jpeg",
+    tech: ["Python", "FastAPI", "Vercel"],
+    links: {
+      live: "https://finview-api.vercel.app",
+      docs: "https://finview-api.vercel.app/docs",
+    },
+  },
+  {
     title: "Lifepadi",
     description: "E-commerce and logistics mobile app",
     image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",

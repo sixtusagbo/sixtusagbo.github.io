@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Code, BookOpen, User, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -23,21 +23,47 @@ function Home({ socialLinks }: HomeProps) {
 
   // Use first 3 blog posts as recent blog posts
   const recentBlogPosts = blogPosts.slice(0, 3);
-  
+
   // State for tracking which skill categories are expanded
-  const [expandedCategories, setExpandedCategories] = useState<{[key: string]: boolean}>({
-    "Programming Languages & Frameworks": true,
-    "Development Tools & Practices": true,
-    "Soft Skills & Abilities": true
+  const [expandedCategories, setExpandedCategories] = useState<{
+    [key: string]: boolean;
+  }>(() => {
+    // 768px corresponds to Tailwind's "md" breakpoint
+    const isMobile = window.innerWidth < 768;
+    return {
+      "Programming Languages & Frameworks": !isMobile,
+      "Development Tools & Practices": !isMobile,
+      "Soft Skills & Abilities": !isMobile,
+    };
   });
-  
+
   // Toggle category expansion
   const toggleCategory = (category: string) => {
-    setExpandedCategories(prev => ({
+    setExpandedCategories((prev) => ({
       ...prev,
-      [category]: !prev[category]
+      [category]: !prev[category],
     }));
   };
+
+  // Update expanded state on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      // Auto-collapse categories when transitioning to mobile view
+      // and expand them when transitioning to desktop view
+      setExpandedCategories({
+        "Programming Languages & Frameworks": !isMobile,
+        "Development Tools & Practices": !isMobile,
+        "Soft Skills & Abilities": !isMobile,
+      });
+    };
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="space-y-12">
@@ -171,32 +197,32 @@ function Home({ socialLinks }: HomeProps) {
         {Object.entries(skillsData).map(
           ([category, categorySkills], categoryIndex) => (
             <div key={categoryIndex} className="space-y-4">
-              <button 
+              <button
                 onClick={() => toggleCategory(category)}
                 className="w-full flex items-center justify-between text-xl font-medium text-blue-400 border-b border-blue-500/20 pb-2 hover:text-blue-300 transition-all focus:outline-none group cursor-pointer"
                 aria-expanded={expandedCategories[category]}
-                aria-controls={`skills-${categoryIndex}`}
-              >
+                aria-controls={`skills-${categoryIndex}`}>
                 <span className="flex items-center">
                   <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-purple-400 rounded mr-2 opacity-70 group-hover:opacity-100 transition-opacity"></div>
                   {category}
                 </span>
                 <div className="bg-blue-500/20 rounded-full p-1 group-hover:bg-blue-500/30 transition-all group-hover:scale-110">
-                  {expandedCategories[category] ? 
-                    <ChevronUp size={18} /> : 
-                    <ChevronDown size={18} />}
+                  {expandedCategories[category] ? (
+                    <ChevronUp size={18} />
+                  ) : (
+                    <ChevronDown size={18} />
+                  )}
                 </div>
               </button>
-              
+
               {expandedCategories[category] && (
-                <motion.div 
+                <motion.div
                   id={`skills-${categoryIndex}`}
                   initial={{ opacity: 0, height: 0, overflow: "hidden" }}
                   animate={{ opacity: 1, height: "auto", overflow: "visible" }}
                   exit={{ opacity: 0, height: 0, overflow: "hidden" }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-2"
-                >
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-2">
                   {(categorySkills as string[]).map(
                     (skill: string, index: number) => (
                       <SkillBadge

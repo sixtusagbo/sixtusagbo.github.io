@@ -1,3 +1,46 @@
+// Skills data organized by categories
+export const skillsData: Record<string, string[]> = {
+  "Programming Languages & Frameworks": [
+    "Dart",
+    "Flutter",
+    "Python",
+    "Flask",
+    "FastAPI",
+    "JavaScript",
+    "React",
+    "NextJS",
+    "NodeJS",
+    "TypeScript",
+    "NextAuth",
+    "Redis",
+    "PHP",
+    "Laravel",
+    "C#",
+  ],
+  "Development Tools & Practices": [
+    "Git",
+    "Testing",
+    "Database Management",
+    "Shell Scripting",
+    "SysAdmin",
+    "SRE",
+    "DevOps",
+  ],
+  "Soft Skills & Abilities": [
+    "Collaboration",
+    "Teamwork",
+    "Resilience",
+    "Dedication",
+    "Leadership",
+    "Problem-solving",
+    "Adaptability",
+    "AI Coding tools",
+  ],
+};
+
+// Flattened skills array for backward compatibility
+export const skills = Object.values(skillsData).flat();
+
 // Social links used in multiple components
 export const socialLinks = {
   twitter: {
@@ -138,18 +181,6 @@ export const experiences = [
       "Worked with T3 Stack based projects",
     ],
   },
-];
-
-// Skills data
-export const skills = [
-  "Flutter & Dart",
-  "React & NextJS",
-  "Python & Flask",
-  "TypeScript",
-  "PHP & Laravel",
-  "Git & DevOps",
-  "Database Management",
-  "System Administration",
 ];
 
 // Education data

@@ -9,11 +9,13 @@ interface SocialLinksProps {
     blog: { url: string; label: string };
   };
   className?: string;
+  showEmail?: boolean;
 }
 
 const SocialLinks = ({
   links,
   className = "flex justify-center space-x-6",
+  showEmail = true,
 }: SocialLinksProps) => {
   return (
     <div className={className}>
@@ -41,14 +43,16 @@ const SocialLinks = ({
         aria-label={links.github.label}>
         <Github size={20} />
       </a>
-      <a
-        href={links.email.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-300 hover:text-white transition-colors"
-        aria-label={links.email.label}>
-        <Mail size={20} />
-      </a>
+      {showEmail && (
+        <a
+          href={links.email.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-300 hover:text-white transition-colors"
+          aria-label={links.email.label}>
+          <Mail size={20} />
+        </a>
+      )}
       <a
         href={links.blog.url}
         target="_blank"

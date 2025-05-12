@@ -518,6 +518,7 @@ function Home({ socialLinks }: HomeProps) {
                     <SocialLinks
                       links={socialLinks}
                       className="flex gap-4 mt-2"
+                      showEmail={false}
                     />
                   </div>
                 </div>

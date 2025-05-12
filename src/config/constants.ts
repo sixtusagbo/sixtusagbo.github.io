@@ -82,6 +82,7 @@ export const projects = [
     image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",
     tech: ["Flutter", "Dart", "Firebase"],
     links: {
+      live: "https://lifepadi.com",
       playstore:
         "https://play.google.com/store/apps/details?id=com.lifepadi.app",
       appstore: "https://apps.apple.com/us/app/lifepadi/id6741829265",
@@ -110,7 +111,7 @@ export const projects = [
     },
   },
   {
-    title: "uStackSchool",
+    title: "ustackschool",
     description: "Educational platform built with NextJS and TypeScript",
     image: "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg",
     tech: ["NextJS", "TypeScript", "TailwindCSS"],
@@ -125,7 +126,6 @@ export const projects = [
     image: "https://images.pexels.com/photos/5905555/pexels-photo-5905555.jpeg",
     tech: ["Flutter", "Dart", "Firebase", "Cloud Firestore"],
     links: {
-      playstore: "https://play.google.com/store/apps/details?id=com.aceitpro",
       github: "https://github.com/sixtusagbo/aceit",
     },
   },

@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface ProjectCardProps {
@@ -12,6 +12,7 @@ interface ProjectCardProps {
       github?: string;
       playstore?: string;
       appstore?: string;
+      docs?: string;
     };
   };
   index: number;
@@ -47,7 +48,49 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
-              <Github size={20} />
+              <img
+                src="/images/github-mark.svg"
+                alt="GitHub"
+                width={20}
+                height={20}
+              />
+            </a>
+          )}
+          {project.links.docs && (
+            <a
+              href={project.links.docs}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
+              <FileText size={20} />
+            </a>
+          )}
+          {project.links.playstore && (
+            <a
+              href={project.links.playstore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
+              <img
+                src="/images/playstore.svg"
+                alt="Play Store"
+                width={20}
+                height={20}
+              />
+            </a>
+          )}
+          {project.links.appstore && (
+            <a
+              href={project.links.appstore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
+              <img
+                src="/images/apple-black-logo.svg"
+                alt="App Store"
+                width={20}
+                height={20}
+              />
             </a>
           )}
         </div>

@@ -14,7 +14,7 @@ import {
   MessageSquare,
   MapPin,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { skillsData, blogPosts } from "../config/constants";
 import { projects } from "../config/projects";
 import {
@@ -35,6 +35,26 @@ interface HomeProps {
     email: { url: string; label: string };
     blog: { url: string; label: string };
   };
+}
+
+// ScrollToTop component to handle scroll behavior
+function ScrollToTop() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if the URL has a hash
+    if (location.hash === "#contact") {
+      // Wait for the next tick to ensure the DOM has updated
+      setTimeout(() => {
+        const element = document.getElementById("contact");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 0);
+    }
+  }, [location]);
+
+  return null;
 }
 
 function Home({ socialLinks }: HomeProps) {
@@ -105,6 +125,7 @@ function Home({ socialLinks }: HomeProps) {
 
   return (
     <div className="space-y-12">
+      <ScrollToTop />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center backdrop-blur-xl bg-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
         {/* Animated background with particles */}

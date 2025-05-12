@@ -68,7 +68,7 @@ export const socialLinks = {
 // Navigation items used in the app
 export const navigation = [
   { name: "Home", path: "/" },
-  { name: "Portfolio", path: "/portfolio" },
+  { name: "Projects", path: "/projects" },
   { name: "Resume", path: "/resume" },
   { name: "Blog", path: "/blog" },
   { name: "Contact", path: "/contact" },
@@ -77,12 +77,14 @@ export const navigation = [
 // Featured projects data used in multiple components
 export const projects = [
   {
-    title: "uStackSchool",
-    description: "Educational platform built with NextJS and TypeScript",
-    image: "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg",
-    tech: ["NextJS", "TypeScript", "TailwindCSS"],
+    title: "Lifepadi",
+    description: "E-commerce and logistics mobile app",
+    image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",
+    tech: ["Flutter", "Dart", "Firebase"],
     links: {
-      live: "https://ustackschool.com",
+      playstore:
+        "https://play.google.com/store/apps/details?id=com.lifepadi.app",
+      appstore: "https://apps.apple.com/us/app/lifepadi/id6741829265",
     },
   },
   {
@@ -108,16 +110,15 @@ export const projects = [
     },
   },
   {
-    title: "Lifepadi",
-    description: "E-commerce and logistics mobile app",
-    image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",
-    tech: ["Flutter", "Dart", "Firebase"],
+    title: "uStackSchool",
+    description: "Educational platform built with NextJS and TypeScript",
+    image: "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg",
+    tech: ["NextJS", "TypeScript", "TailwindCSS"],
     links: {
-      playstore:
-        "https://play.google.com/store/apps/details?id=com.lifepadi.app",
-      appstore: "https://apps.apple.com/us/app/lifepadi/id6741829265",
+      live: "https://ustackschool.com",
     },
   },
+
   {
     title: "Ace iT Pro",
     description: "Exam preparation mobile app",

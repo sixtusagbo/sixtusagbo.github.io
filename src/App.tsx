@@ -6,7 +6,7 @@ import { SocialLinks } from "./components";
 
 // Pages
 import Home from "./pages/Home";
-import Portfolio from "./pages/Projects";
+import Projects from "./pages/Projects";
 import Resume from "./pages/Experience";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
@@ -101,7 +101,7 @@ function App() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
             <Route path="/" element={<Home socialLinks={socialLinks} />} />
-            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />

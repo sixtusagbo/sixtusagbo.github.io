@@ -1,4 +1,4 @@
-import { ExternalLink, FileText } from "lucide-react";
+import { ExternalLink, FileText, Eye } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface ProjectCardProps {
@@ -18,9 +18,15 @@ interface ProjectCardProps {
   };
   index: number;
   onFilterClick?: (tech: string) => void;
+  onImageClick?: (image: string, alt: string) => void;
 }
 
-const ProjectCard = ({ project, index, onFilterClick }: ProjectCardProps) => {
+const ProjectCard = ({
+  project,
+  index,
+  onFilterClick,
+  onImageClick,
+}: ProjectCardProps) => {
   return (
     <motion.div
       key={index}
@@ -34,6 +40,16 @@ const ProjectCard = ({ project, index, onFilterClick }: ProjectCardProps) => {
           alt={project.title}
           className="w-full h-full object-cover"
         />
+        {/* Eye icon overlay */}
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+          onClick={() =>
+            onImageClick && onImageClick(project.image, project.title)
+          }>
+          <div className="p-3 bg-white/20 backdrop-blur-md rounded-full">
+            <Eye size={24} color="white" />
+          </div>
+        </div>
         <div className="absolute top-4 right-4 flex gap-2">
           {project.links.live && (
             <a

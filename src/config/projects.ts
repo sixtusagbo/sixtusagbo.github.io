@@ -57,7 +57,7 @@ export const projects = [
     title: "Vitrine",
     description: "Brand showcase application",
     image: "/images/projects/vitrine.png",
-    tech: ["Python", "Flask", "MySQL", "SQLAlchemy"],
+    tech: ["Python", "Flask", "MySQL", "SQLAlchemy", "JavaScript"],
     links: {
       github: "https://github.com/sixtusagbo/vitrine",
       youtube: "https://www.youtube.com/watch?v=NoJ74GNxGos",

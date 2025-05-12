@@ -2,10 +2,14 @@ import { useState, useMemo, useEffect } from "react";
 import { projects } from "../config/projects";
 import { ProjectCard } from "../components";
 import { X } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Projects() {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [modalImage, setModalImage] = useState<{
+    src: string;
+    alt: string;
+  } | null>(null);
 
   // Check for URL parameters on component mount
   useEffect(() => {
@@ -69,7 +73,7 @@ function Projects() {
   };
 
   return (
-    <div className="space-y-8">
+    <>
       <h1 className="text-4xl font-bold mb-8">All Projects</h1>
 
       {/* Tech filters */}
@@ -131,11 +135,41 @@ function Projects() {
               project={project}
               index={index}
               onFilterClick={toggleFilter}
+              onImageClick={(image, alt) => setModalImage({ src: image, alt })}
             />
           ))}
         </motion.div>
       )}
-    </div>
+
+      {/* Full-screen Image Modal */}
+      <AnimatePresence>
+        {modalImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            onClick={() => setModalImage(null)}
+            style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}>
+            <motion.div
+              className="relative max-w-5xl max-h-[90vh] overflow-hidden rounded-lg"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}>
+              <img
+                src={modalImage.src}
+                alt={modalImage.alt}
+                className="w-full h-auto object-contain"
+              />
+              <button
+                className="absolute top-4 right-4 p-3 bg-dark-purple-800/20 backdrop-blur-md rounded-full hover:bg-dark-purple-800/30 transition-colors"
+                onClick={() => setModalImage(null)}>
+                <X size={24} color="white" />
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 

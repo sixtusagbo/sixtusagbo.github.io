@@ -104,7 +104,7 @@ export const projects = [
     description:
       "API for fetching and analyzing Apple's annual income statements",
     image: "https://images.pexels.com/photos/7567460/pexels-photo-7567460.jpeg",
-    tech: ["Python", "FastAPI", "Vercel"],
+    tech: ["Python", "FastAPI"],
     links: {
       live: "https://finview-api.vercel.app",
       docs: "https://finview-api.vercel.app/docs",
@@ -124,7 +124,7 @@ export const projects = [
     title: "Ace iT Pro",
     description: "Exam preparation mobile app",
     image: "https://images.pexels.com/photos/5905555/pexels-photo-5905555.jpeg",
-    tech: ["Flutter", "Dart", "Firebase", "Cloud Firestore"],
+    tech: ["Flutter", "Dart", "Firebase"],
     links: {
       github: "https://github.com/sixtusagbo/aceit",
     },

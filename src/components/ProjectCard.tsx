@@ -16,9 +16,10 @@ interface ProjectCardProps {
     };
   };
   index: number;
+  onFilterClick?: (tech: string) => void;
 }
 
-const ProjectCard = ({ project, index }: ProjectCardProps) => {
+const ProjectCard = ({ project, index, onFilterClick }: ProjectCardProps) => {
   return (
     <motion.div
       key={index}
@@ -100,7 +101,11 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <p className="text-gray-300 mb-4">{project.description}</p>
         <div className="flex flex-wrap gap-2">
           {project.tech.map((tech, i) => (
-            <span key={i} className="px-3 py-1 rounded-full text-sm bg-white/5">
+            <span
+              key={i}
+              className="px-3 py-1 rounded-full text-sm bg-white/5 hover:bg-white/10 cursor-pointer transition-colors"
+              onClick={() => (onFilterClick ? onFilterClick(tech) : null)}
+              title={`Filter by ${tech}`}>
               {tech}
             </span>
           ))}

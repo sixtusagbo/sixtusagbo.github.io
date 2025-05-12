@@ -13,6 +13,7 @@ interface ProjectCardProps {
       playstore?: string;
       appstore?: string;
       docs?: string;
+      youtube?: string;
     };
   };
   index: number;
@@ -89,6 +90,20 @@ const ProjectCard = ({ project, index, onFilterClick }: ProjectCardProps) => {
               <img
                 src="/images/apple-black-logo.svg"
                 alt="App Store"
+                width={20}
+                height={20}
+              />
+            </a>
+          )}
+          {project.links.youtube && (
+            <a
+              href={project.links.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
+              <img
+                src="/images/youtube.svg"
+                alt="YouTube Demo"
                 width={20}
                 height={20}
               />

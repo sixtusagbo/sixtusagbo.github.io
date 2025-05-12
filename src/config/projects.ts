@@ -60,6 +60,7 @@ export const projects = [
     tech: ["Python", "Flask", "MySQL", "SQLAlchemy"],
     links: {
       github: "https://github.com/sixtusagbo/vitrine",
+      youtube: "https://www.youtube.com/watch?v=NoJ74GNxGos",
     },
   },
 ];

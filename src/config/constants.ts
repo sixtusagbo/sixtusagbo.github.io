@@ -143,6 +143,13 @@ export const experiences = [
 // Education data
 export const education = [
   {
+    institution: "Cyfrin Updraft",
+    degree: "Web3 Development",
+    period: "Nov 2024 - Present",
+    description:
+      "Cyfrin Updraft is a web3 education platform to learn blockchain and smart contract development. It's designed to help developers kickstart and level up their careers as blockchain engineers and security auditors.",
+  },
+  {
     institution: "Nnamdi Azikiwe University",
     degree: "Bachelor's Degree",
     period: "2021 - Present",

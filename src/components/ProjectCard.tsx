@@ -37,7 +37,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 backdrop-blur-md bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+              className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
               <ExternalLink size={20} />
             </a>
           )}
@@ -46,7 +46,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               href={project.links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 backdrop-blur-md bg-white/20 rounded-full hover:bg-white/30 transition-colors">
+              className="p-2 backdrop-blur-md bg-purple-500/20 rounded-full hover:bg-purple-500/30 transition-colors">
               <Github size={20} />
             </a>
           )}

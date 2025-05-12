@@ -74,7 +74,11 @@ function Projects() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mb-8">All Projects</h1>
+      <h1 className="text-4xl font-bold mb-8">
+        {activeFilters.length > 0
+          ? `Projects with: ${activeFilters.join(", ")}`
+          : "My Projects"}
+      </h1>
 
       {/* Tech filters */}
       <div className="mb-6">

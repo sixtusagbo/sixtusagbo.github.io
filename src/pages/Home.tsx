@@ -17,6 +17,7 @@ import { projects } from "../config/projects";
 import { ProjectCard, SkillBadge, BlogPostCard } from "../components";
 
 import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import TechBadge from "../components/TechBadge";
 
 interface HomeProps {
   socialLinks: {
@@ -470,24 +471,6 @@ function Home({ socialLinks }: HomeProps) {
         </div>
       </section>
     </div>
-  );
-}
-
-// Tech badge component for displaying tech stack
-interface TechBadgeProps {
-  icon: React.ReactNode;
-  name: string;
-}
-
-function TechBadge({ icon, name }: TechBadgeProps) {
-  return (
-    <motion.div
-      className="flex items-center gap-1 px-3 py-1.5 rounded-full backdrop-blur-sm bg-white/5 border border-white/10 hover:bg-white/10 transition-all hover:scale-105"
-      whileHover={{ y: -3 }}
-      transition={{ type: "spring", stiffness: 300 }}>
-      {icon}
-      <span className="text-sm">{name}</span>
-    </motion.div>
   );
 }
 

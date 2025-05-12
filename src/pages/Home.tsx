@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { projects, skills } from "../config/constants";
 import { ProjectCard, SkillBadge } from "../components";
 
-import { Twitter, Linkedin, Github, Mail, BookOpen } from "lucide-react";
+import { Twitter, Linkedin, Github, Mail, BookOpen, User } from "lucide-react";
 
 interface HomeProps {
   socialLinks: {
@@ -90,6 +90,57 @@ function Home({ socialLinks }: HomeProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* About Me Section */}
+      <motion.section
+        className="backdrop-blur-xl bg-white/10 rounded-2xl p-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}>
+        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+          <User size={24} />
+          About Me
+        </h2>
+        <div className="md:flex gap-8 items-center">
+          <div className="md:w-1/3 mb-6 md:mb-0">
+            <div className="relative overflow-hidden rounded-xl aspect-square">
+              <img
+                src="/images/me.jpg"
+                alt="Sixtus Agbo"
+                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          </div>
+          <div className="md:w-2/3 space-y-4">
+            <p className="text-lg">
+              Hello👋! I'm Sixtus Miracle Agbo, a passionate Full-Stack
+              Developer with a love for creating elegant, high-performance
+              digital solutions. With expertise in Python, Javascript,
+              TypeScript, Flutter and Dart, I bridge the gap between design and
+              functionality.
+            </p>
+            <p className="text-lg">
+              I've helped startups and established organizations transform their
+              ideas into reality through clean code and innovative thinking. My
+              mission is to build software that not only works flawlessly but
+              delivers exceptional user experiences.
+            </p>
+            <p className="text-lg">
+              When I'm not coding, you'll find me writing technical articles,
+              exploring new technologies, playing basketball or even mentoring
+              upcoming developers. I believe in continuous learning and giving
+              back to the tech community.
+            </p>
+            <div className="pt-4">
+              <Link
+                to="/contact"
+                className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity inline-block">
+                Get In Touch
+              </Link>
+            </div>
+          </div>
+        </div>
+      </motion.section>
 
       {/* Skills Overview */}
       <section className="backdrop-blur-xl bg-white/10 rounded-2xl p-8">

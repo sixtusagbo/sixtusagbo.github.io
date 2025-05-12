@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Send } from "lucide-react";
+import { Mail, MessageSquare, Send, MapPin } from "lucide-react";
 import { socialLinks } from "../config/constants";
 import { SocialLinks } from "../components";
 
@@ -40,6 +40,15 @@ function Contact() {
               <div>
                 <h3 className="font-semibold">Social Media</h3>
                 <SocialLinks links={socialLinks} className="flex gap-4 mt-2" />
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <MapPin size={24} className="text-green-400" />
+              <div>
+                <h3 className="font-semibold">Location</h3>
+                <p className="text-gray-300">
+                  Based in Nigeria • Available for remote work worldwide
+                </p>
               </div>
             </div>
           </div>

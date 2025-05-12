@@ -157,3 +157,23 @@ export const education = [
       "Focusing on algorithms, data structures, and software development methodologies. Actively pursuing knowledge in modern software development practices and maintaining excellent academic performance.",
   },
 ];
+
+// Certifications data
+export const certifications = [
+  {
+    name: "Certified Open Source Developer",
+    provider: "Tublian",
+    date: "May 2024",
+    description:
+      "4 weeks of intense learning about open source. Introduction to Open Source contribution with firstcontributions/firstcontributions repo. Contributed to an open source project - API Dash. Contributed to a T3 Stack based open source project. Used Tublian 8020 to learn some concepts.",
+    link: "https://drive.google.com/file/d/1bEhcGP39ySbfkAuPewiM5_jFj6qfD5m8/view?usp=sharing",
+  },
+  {
+    name: "Certified Software Engineer",
+    provider: "ALX Africa",
+    date: "November 2024",
+    description:
+      "Successfully completed the ALX Software Engineering Program, a highly intensive and immersive training. The program emphasizes mastery of fundamental and advanced concepts in software development through a blend of theory and hands-on projects. During this program, I honed my skills in critical areas such as data structures, algorithms, and low-level programming, while also gaining practical experience with full-stack development.",
+    link: "https://intranet.alxswe.com/certificates/5SfnBmr2h8",
+  },
+];

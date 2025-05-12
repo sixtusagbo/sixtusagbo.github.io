@@ -227,11 +227,7 @@ function Home({ socialLinks }: HomeProps) {
                   <motion.span
                     key={index}
                     className={`inline-block ${
-                      char === "C"
-                        ? "text-blue-400"
-                        : char === "e" && index === 67
-                        ? "text-purple-400"
-                        : ""
+                      index == 0 ? "text-purple-400" : ""
                     } ${char === " " ? "mr-[0.2em]" : ""}`}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}

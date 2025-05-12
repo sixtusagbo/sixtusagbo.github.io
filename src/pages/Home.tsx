@@ -1,61 +1,24 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { Code, ExternalLink, Github } from "lucide-react";
+import { Code } from "lucide-react";
 import { Link } from "react-router-dom";
+import { projects, skills } from "../config/constants";
+import { ProjectCard, SkillBadge } from "../components";
+
+import { Twitter, Linkedin, Github, Mail, BookOpen } from "lucide-react";
 
 interface HomeProps {
-  socialLinks: Array<{
-    icon: React.ReactNode;
-    url: string;
-    label: string;
-  }>;
+  socialLinks: {
+    twitter: { url: string; label: string };
+    linkedin: { url: string; label: string };
+    github: { url: string; label: string };
+    email: { url: string; label: string };
+    blog: { url: string; label: string };
+  };
 }
 
 function Home({ socialLinks }: HomeProps) {
-  const featuredProjects = [
-    {
-      title: "uStackSchool",
-      description: "Educational platform built with NextJS and TypeScript",
-      image:
-        "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg",
-      tech: ["NextJS", "TypeScript", "TailwindCSS"],
-      links: {
-        live: "https://ustackschool.com",
-        github: "https://github.com/sixtusagbo/ustackschool",
-      },
-    },
-    {
-      title: "Lifepadi",
-      description: "E-commerce and logistics mobile app",
-      image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg",
-      tech: ["Flutter", "Dart", "Firebase"],
-      links: {
-        playstore: "https://play.google.com/store/apps/details?id=com.lifepadi",
-        appstore: "https://apps.apple.com/app/lifepadi",
-      },
-    },
-    {
-      title: "Ace iT Pro",
-      description: "Exam preparation mobile app",
-      image:
-        "https://images.pexels.com/photos/5905555/pexels-photo-5905555.jpeg",
-      tech: ["Flutter", "Dart", "SQLite"],
-      links: {
-        playstore: "https://play.google.com/store/apps/details?id=com.aceitpro",
-      },
-    },
-    {
-      title: "Vitrine",
-      description: "Brand showcase application",
-      image:
-        "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg",
-      tech: ["Python", "Flask", "PostgreSQL"],
-      links: {
-        live: "https://vitrine-demo.com",
-        github: "https://github.com/sixtusagbo/vitrine",
-      },
-    },
-  ];
+  // Use first 4 projects as featured projects
+  const featuredProjects = projects.slice(0, 4);
 
   return (
     <div className="space-y-12">
@@ -89,16 +52,41 @@ function Home({ socialLinks }: HomeProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}>
-            {socialLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:text-blue-400 transition-colors backdrop-blur-sm bg-white/5 rounded-lg">
-                {link.icon}
-              </a>
-            ))}
+            <a
+              href={socialLinks.twitter.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 hover:text-blue-400 transition-colors backdrop-blur-sm bg-white/5 rounded-lg">
+              <Twitter size={20} />
+            </a>
+            <a
+              href={socialLinks.linkedin.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 hover:text-blue-400 transition-colors backdrop-blur-sm bg-white/5 rounded-lg">
+              <Linkedin size={20} />
+            </a>
+            <a
+              href={socialLinks.github.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 hover:text-blue-400 transition-colors backdrop-blur-sm bg-white/5 rounded-lg">
+              <Github size={20} />
+            </a>
+            <a
+              href={socialLinks.email.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 hover:text-blue-400 transition-colors backdrop-blur-sm bg-white/5 rounded-lg">
+              <Mail size={20} />
+            </a>
+            <a
+              href={socialLinks.blog.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 hover:text-blue-400 transition-colors backdrop-blur-sm bg-white/5 rounded-lg">
+              <BookOpen size={20} />
+            </a>
           </motion.div>
         </div>
       </section>
@@ -110,24 +98,8 @@ function Home({ socialLinks }: HomeProps) {
           Core Technologies
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            "Flutter & Dart",
-            "React & NextJS",
-            "Python & Flask",
-            "TypeScript",
-            "PHP & Laravel",
-            "Git & DevOps",
-            "Database Management",
-            "System Administration",
-          ].map((skill, index) => (
-            <motion.div
-              key={index}
-              className="backdrop-blur-sm bg-white/5 rounded-xl p-4 text-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}>
-              {skill}
-            </motion.div>
+          {skills.map((skill, index) => (
+            <SkillBadge key={index} skill={skill} index={index} />
           ))}
         </div>
       </section>
@@ -144,53 +116,7 @@ function Home({ socialLinks }: HomeProps) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {featuredProjects.map((project, index) => (
-            <motion.div
-              key={index}
-              className="backdrop-blur-xl bg-white/10 rounded-2xl overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}>
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 right-4 flex gap-2">
-                  {project.links.live && (
-                    <a
-                      href={project.links.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 backdrop-blur-md bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-                      <ExternalLink size={20} />
-                    </a>
-                  )}
-                  {project.links.github && (
-                    <a
-                      href={project.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 backdrop-blur-md bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-                      <Github size={20} />
-                    </a>
-                  )}
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-300 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 rounded-full text-sm bg-white/5">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
       </section>

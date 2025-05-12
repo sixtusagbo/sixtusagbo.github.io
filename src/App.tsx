@@ -1,16 +1,8 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import {
-  Github,
-  Twitter,
-  Linkedin,
-  Mail,
-  BookOpen,
-  Menu,
-  X,
-  Sun,
-  Moon,
-} from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { socialLinks, navigation } from "./config/constants";
+import { SocialLinks } from "./components";
 
 // Pages
 import Home from "./pages/Home";
@@ -22,42 +14,6 @@ import Blog from "./pages/Blog";
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
-
-  const socialLinks = [
-    {
-      icon: <Twitter size={20} />,
-      url: "https://twitter.com/sixtusagbo",
-      label: "Twitter",
-    },
-    {
-      icon: <Linkedin size={20} />,
-      url: "https://linkedin.com/in/sixtusagbo",
-      label: "LinkedIn",
-    },
-    {
-      icon: <Github size={20} />,
-      url: "https://github.com/sixtusagbo",
-      label: "GitHub",
-    },
-    {
-      icon: <Mail size={20} />,
-      url: "mailto:miracleagbosixtus@gmail.com",
-      label: "Email",
-    },
-    {
-      icon: <BookOpen size={20} />,
-      url: "https://sixtusagbo.medium.com/",
-      label: "Blog",
-    },
-  ];
-
-  const navigation = [
-    { name: "Home", path: "/" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Resume", path: "/resume" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
-  ];
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -147,18 +103,7 @@ function App() {
         {/* Footer */}
         <footer className="backdrop-blur-xl bg-white/10 border-t border-white/10 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-center space-x-6">
-              {socialLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors">
-                  {link.icon}
-                </a>
-              ))}
-            </div>
+            <SocialLinks links={socialLinks} />
           </div>
         </footer>
       </div>

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Mail, MessageSquare, Send } from "lucide-react";
+import { socialLinks } from "../config/constants";
+import { SocialLinks } from "../components";
 
 function Contact() {
   return (
@@ -37,9 +39,7 @@ function Contact() {
               <MessageSquare size={24} className="text-purple-400" />
               <div>
                 <h3 className="font-semibold">Social Media</h3>
-                <p className="text-gray-300">
-                  Available on Twitter, LinkedIn, and GitHub
-                </p>
+                <SocialLinks links={socialLinks} className="flex gap-4 mt-2" />
               </div>
             </div>
           </div>

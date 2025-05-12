@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { projects } from "../config/constants";
+import { projects } from "../config/projects";
 import { ProjectCard } from "../components";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";

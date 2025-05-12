@@ -12,7 +12,8 @@ import {
   Code2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projects, skillsData, blogPosts } from "../config/constants";
+import { skillsData, blogPosts } from "../config/constants";
+import { projects } from "../config/projects";
 import { ProjectCard, SkillBadge, BlogPostCard } from "../components";
 
 import { Twitter, Linkedin, Github, Mail } from "lucide-react";

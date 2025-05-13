@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Resume from "./pages/Experience";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -122,6 +123,7 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/detail" element={<BlogDetail />} />
           </Routes>
         </main>
 

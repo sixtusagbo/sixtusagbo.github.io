@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Clock, Calendar } from "lucide-react";
+import { Clock, Calendar, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface BlogPostCardProps {
   post: {
@@ -47,13 +48,11 @@ const BlogPostCard = ({ post, index }: BlogPostCardProps) => {
               </span>
             </div>
           )}
-          <a
-            href={post.link}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/blog/detail"
             className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm p-1.5 rounded-full hover:bg-white/30 transition-colors">
-            <ExternalLink size={16} className="text-white" />
-          </a>
+            <ArrowRight size={16} className="text-white" />
+          </Link>
         </div>
         <div className="p-6 flex-1 flex flex-col">
           <div className="flex items-center space-x-4 mb-3 text-sm text-gray-300">
@@ -71,15 +70,13 @@ const BlogPostCard = ({ post, index }: BlogPostCardProps) => {
             )}
           </div>
           
-          <a 
-            href={post.link}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link 
+            to="/blog/detail"
             className="block">
             <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-400 transition-colors">
               {post.title}
             </h3>
-          </a>
+          </Link>
           <p className="text-gray-300 mb-4">{post.excerpt}</p>
           
           {post.tags && post.tags.length > 1 && (

@@ -83,6 +83,9 @@ export const blogPosts = [
     image:
       "https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg",
     link: "https://sixtusagbo.medium.com/building-scalable-applications",
+    date: "2024-05-10",
+    tags: ["NextJS", "React", "Web Development", "Frontend"],
+    readTime: "6 min read",
   },
   {
     title: "Flutter vs React Native: A Developer's Perspective",
@@ -91,6 +94,9 @@ export const blogPosts = [
     image:
       "https://images.pexels.com/photos/12883026/pexels-photo-12883026.jpeg",
     link: "https://sixtusagbo.medium.com/flutter-vs-react-native",
+    date: "2024-04-22",
+    tags: ["Flutter", "React Native", "Mobile Development", "Comparison"],
+    readTime: "8 min read",
   },
   {
     title: "The Future of Web Development",
@@ -98,6 +104,39 @@ export const blogPosts = [
       "Exploring upcoming trends and technologies shaping the future of web development...",
     image: "https://images.pexels.com/photos/8728285/pexels-photo-8728285.jpeg",
     link: "https://sixtusagbo.medium.com/future-of-web-development",
+    date: "2024-03-15",
+    tags: ["Web Development", "Trends", "Future Tech"],
+    readTime: "5 min read",
+  },
+  {
+    title: "Mastering TypeScript: Advanced Patterns",
+    excerpt:
+      "Dive into advanced TypeScript patterns that will elevate your code quality and developer experience...",
+    image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg",
+    link: "https://sixtusagbo.medium.com/mastering-typescript",
+    date: "2024-02-28",
+    tags: ["TypeScript", "JavaScript", "Programming", "Web Development"],
+    readTime: "10 min read",
+  },
+  {
+    title: "Building a CI/CD Pipeline for Your Projects",
+    excerpt:
+      "Learn how to set up a robust CI/CD pipeline to automate your development workflow and improve code quality...",
+    image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg",
+    link: "https://sixtusagbo.medium.com/ci-cd-pipeline",
+    date: "2024-01-15",
+    tags: ["DevOps", "CI/CD", "Automation", "Git"],
+    readTime: "7 min read",
+  },
+  {
+    title: "Getting Started with Blockchain Development",
+    excerpt:
+      "A beginner's guide to understanding blockchain technology and starting your journey as a blockchain developer...",
+    image: "https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg",
+    link: "https://sixtusagbo.medium.com/blockchain-development",
+    date: "2023-12-05",
+    tags: ["Blockchain", "Web3", "Cryptocurrency", "Smart Contracts"],
+    readTime: "9 min read",
   },
 ];
 

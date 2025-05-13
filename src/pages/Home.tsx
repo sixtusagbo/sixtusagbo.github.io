@@ -291,11 +291,11 @@ function Home({ socialLinks }: HomeProps) {
                 <span className="relative z-10">View My Work</span>
                 <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
               </Link>
-              <a
-                href="#contact"
+              <Link
+                to="/resume"
                 className="px-8 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors">
-                Let's Connect
-              </a>
+                View Resume
+              </Link>
             </motion.div>
 
             {/* Social media links with hover effects */}

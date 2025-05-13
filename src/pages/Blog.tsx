@@ -85,7 +85,12 @@ function Blog() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <h1 className="text-4xl font-bold">Blog Posts</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-4xl font-bold">Blog Posts</h1>
+          <span className="bg-yellow-500/80 text-black text-xs px-2 py-1 rounded-md font-semibold animate-pulse">
+            WIP
+          </span>
+        </div>
         
         {/* Mobile filter toggle */}
         <button 

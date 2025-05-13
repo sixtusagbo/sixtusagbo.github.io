@@ -279,14 +279,23 @@ jobs:
           ))}
         </div>
 
-        {/* Title */}
-        <motion.h1
-          className="text-3xl md:text-4xl lg:text-5xl font-bold"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}>
-          {post.title}
-        </motion.h1>
+        {/* Title with WIP flag */}
+        <div className="flex flex-wrap items-center gap-3">
+          <motion.h1
+            className="text-3xl md:text-4xl lg:text-5xl font-bold"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}>
+            {post.title}
+          </motion.h1>
+          <motion.span
+            className="bg-yellow-500/80 text-black text-xs px-2 py-1 rounded-md font-semibold animate-pulse"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}>
+            WIP
+          </motion.span>
+        </div>
 
         {/* Meta information */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-300">

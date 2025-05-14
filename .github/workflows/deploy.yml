@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "./dist"
-          artifact_name: github-pages
+          name: "github-pages" # Explicitly naming the artifact
 
   # Deployment job
   deploy:
@@ -57,4 +57,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v3
         with:
-          artifact_name: github-pages
+          artifact_name: github-pages # Matches the name used in the upload step

@@ -56,7 +56,7 @@ export const socialLinks = {
     label: "GitHub",
   },
   email: {
-    url: "mailto:miracleagbosixtus@gmail.com",
+    url: "mailto:hi@sixtusagbo.dev",
     label: "Email",
   },
   blog: {

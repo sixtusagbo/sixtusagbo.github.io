@@ -526,9 +526,9 @@ function Home({ socialLinks }: HomeProps) {
                   <div>
                     <h3 className="font-semibold">Email</h3>
                     <a
-                      href="mailto:miracleagbosixtus@gmail.com"
+                      href="mailto:hi@sixtusagbo.dev"
                       className="text-gray-300 hover:text-white">
-                      miracleagbosixtus@gmail.com
+                      hi@sixtusagbo.dev
                     </a>
                   </div>
                 </div>

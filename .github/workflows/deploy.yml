@@ -30,9 +30,9 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Debug: List workspace contents
+      - name: Debug-List workspace contents
         run: ls -al
-      - name: Debug: List build output
+      - name: Debug-List build output
         run: ls -al ./dist
       - name: Setup Pages
         uses: actions/configure-pages@v3

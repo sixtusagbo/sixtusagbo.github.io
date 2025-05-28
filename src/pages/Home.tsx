@@ -347,50 +347,169 @@ function Home({ socialLinks }: HomeProps) {
 
       {/* About Me Section */}
       <motion.section
-        className="backdrop-blur-xl bg-white/10 rounded-2xl p-8"
+        className="relative backdrop-blur-xl bg-white/10 rounded-2xl p-8 border border-white/20 hover:border-white/30 transition-all duration-300"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}>
-        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-          <User size={24} />
-          About Me
-        </h2>
-        <div className="md:flex gap-8 items-center">
-          <div className="md:w-1/3 mb-6 md:mb-0">
-            <div className="relative overflow-hidden rounded-xl aspect-square">
-              <img
-                src="/images/me.jpg"
-                alt="Sixtus Agbo"
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-          </div>
-          <div className="md:w-2/3 space-y-4">
-            <p className="text-lg">
-              Hello👋! I'm Sixtus Miracle Agbo, a passionate Full-Stack
-              Developer with a love for creating elegant, high-performance
-              digital solutions. With expertise in Python, Javascript,
-              TypeScript, Flutter and Dart, I bridge the gap between design and
-              functionality.
-            </p>
-            <p className="text-lg">
-              I've helped startups and established organizations transform their
-              ideas into reality through clean code and innovative thinking. My
-              mission is to build software that not only works flawlessly but
-              delivers exceptional user experiences.
-            </p>
-            <p className="text-lg">
-              When I'm not coding, you'll find me writing technical articles,
-              exploring new technologies, playing basketball or even mentoring
-              upcoming developers. I believe in continuous learning and giving
-              back to the tech community.
-            </p>
-            <div className="pt-4">
-              <a
-                href="#contact"
-                className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity inline-block">
-                Get In Touch
-              </a>
+        {/* Gradient border effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-50"></div>
+
+        <div className="relative z-10">
+          <motion.h2
+            className="text-2xl font-semibold mb-6 flex items-center gap-2"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}>
+            <User size={24} className="text-white" />
+            About Me
+          </motion.h2>
+
+          <div className="lg:flex gap-12 items-start">
+            {/* Enhanced Image Section */}
+            <motion.div
+              className="lg:w-1/3 mb-8 lg:mb-0"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}>
+              <div className="relative group">
+                {/* Main image container */}
+                <div className="relative overflow-hidden rounded-2xl aspect-square bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-1">
+                  <div className="relative overflow-hidden rounded-xl aspect-square">
+                    <img
+                      src="/images/me.jpg"
+                      alt="Sixtus Agbo"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                </div>
+
+                {/* Floating status indicator */}
+                <motion.div
+                  className="absolute -top-2 -right-2 flex items-center gap-2 bg-green-500/20 backdrop-blur-md border border-green-400/30 rounded-full px-3 py-2"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}>
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                  <span className="text-xs font-medium text-green-400">
+                    Available
+                  </span>
+                </motion.div>
+              </div>
+
+              {/* Quick Stats */}
+              <motion.div
+                className="mt-6 grid grid-cols-2 gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.2 }}>
+                <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+                  <div className="text-2xl font-bold text-blue-400">3+</div>
+                  <div className="text-sm text-gray-300">Years Experience</div>
+                </div>
+                <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
+                  <div className="text-2xl font-bold text-purple-400">20+</div>
+                  <div className="text-sm text-gray-300">Projects Built</div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Enhanced Content Section */}
+            <div className="lg:w-2/3 space-y-6">
+              {/* Introduction with animated text */}
+              <motion.div
+                className="space-y-4"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}>
+                <p className="text-lg leading-relaxed text-gray-200">
+                  <span className="text-2xl">👋</span> Hello! I'm{" "}
+                  <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                    Sixtus Miracle Agbo
+                  </span>
+                  , a passionate Full-Stack Developer with a love for creating
+                  elegant, high-performance digital solutions.
+                </p>
+
+                <p className="text-lg leading-relaxed text-gray-200">
+                  With expertise in{" "}
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-500/20 text-blue-400 rounded-md text-sm font-medium">
+                    <Code size={14} />
+                    Python
+                  </span>
+                  ,{" "}
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-md text-sm font-medium">
+                    <Code size={14} />
+                    JavaScript
+                  </span>
+                  ,{" "}
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-sm font-medium">
+                    <Code size={14} />
+                    TypeScript
+                  </span>
+                  , and{" "}
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded-md text-sm font-medium">
+                    <Code size={14} />
+                    Flutter
+                  </span>
+                  , I bridge the gap between design and functionality.
+                </p>
+              </motion.div>
+
+              {/* Achievement highlights */}
+              <motion.div
+                className="space-y-4"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}>
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg mt-1">
+                    <Zap size={16} className="text-white" />
+                  </div>
+                  <p className="text-lg leading-relaxed text-gray-200">
+                    I've helped startups and established organizations transform
+                    their ideas into reality through clean code and innovative
+                    thinking. My mission is to build software that not only
+                    works flawlessly but delivers exceptional user experiences.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mt-1">
+                    <Sparkles size={16} className="text-white" />
+                  </div>
+                  <p className="text-lg leading-relaxed text-gray-200">
+                    When I'm not coding, you'll find me writing technical
+                    articles, exploring new technologies, playing basketball or
+                    mentoring upcoming developers.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Enhanced CTA Section */}
+              <motion.div
+                className="pt-6 flex flex-col sm:flex-row gap-4 items-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.0 }}>
+                <a
+                  href="#contact"
+                  className="relative group px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-all overflow-hidden inline-flex items-center gap-2 w-fit">
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Mail size={18} />
+                    Get In Touch
+                  </span>
+                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                </a>
+
+                <a
+                  href="/resume"
+                  className="px-8 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors inline-flex items-center gap-2 w-fit">
+                  <User size={18} />
+                  View Resume
+                </a>
+              </motion.div>
             </div>
           </div>
         </div>

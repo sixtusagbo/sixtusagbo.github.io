@@ -239,31 +239,16 @@ function Home({ socialLinks }: HomeProps) {
               </motion.div>
             </div>
 
-            {/* Description with typing animation */}
+            {/* Description */}
             <div className="h-20">
               <motion.p
                 className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 0.7 }}>
-                {[
-                  ..."Crafting high-performance websites and mobile apps with a passion for exceptional digital experiences.",
-                ].map((char, index) => (
-                  <motion.span
-                    key={index}
-                    className={`inline-block ${
-                      index == 0 ? "text-purple-400" : ""
-                    } ${char === " " ? "mr-[0.2em]" : ""}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.15,
-                      delay: 0.8 + index * 0.02,
-                      ease: "easeInOut",
-                    }}>
-                    {char === " " ? "\u00A0" : char}
-                  </motion.span>
-                ))}
+                <span className="text-purple-400">C</span>rafting
+                high-performance websites and mobile apps with a passion for
+                exceptional digital experiences.
               </motion.p>
             </div>
 

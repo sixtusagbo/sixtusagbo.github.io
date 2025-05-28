@@ -212,28 +212,20 @@ function Home({ socialLinks }: HomeProps) {
                 <span className="mr-2 text-gray-300">I'm a</span>
                 <div className="relative h-full flex items-center overflow-hidden">
                   <AnimatePresence mode="wait">
-                    {roles.map((role, index) => (
-                      <motion.div
-                        key={role}
-                        className="relative"
-                        initial={{ y: 40, opacity: 0 }}
-                        animate={{
-                          y: roleIndex === index ? 0 : -40,
-                          opacity: roleIndex === index ? 1 : 0,
-                        }}
-                        exit={{ y: -40, opacity: 0 }}
-                        transition={{
-                          y: { type: "spring", stiffness: 300, damping: 30 },
-                          opacity: { duration: 0.2 },
-                        }}
-                        style={{
-                          display: roleIndex === index ? "block" : "none",
-                        }}>
-                        <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                          {role}
-                        </span>
-                      </motion.div>
-                    ))}
+                    <motion.div
+                      key={roles[roleIndex]}
+                      className="relative"
+                      initial={{ y: 40, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -40, opacity: 0 }}
+                      transition={{
+                        y: { type: "spring", stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.2 },
+                      }}>
+                      <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                        {roles[roleIndex]}
+                      </span>
+                    </motion.div>
                   </AnimatePresence>
                 </div>
               </motion.div>

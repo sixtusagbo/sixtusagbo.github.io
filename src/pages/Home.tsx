@@ -494,13 +494,6 @@ function Home({ socialLinks }: HomeProps) {
                   </span>
                   <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                 </a>
-
-                <a
-                  href="/resume"
-                  className="px-8 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors inline-flex items-center gap-2 w-fit">
-                  <User size={18} />
-                  View Resume
-                </a>
               </motion.div>
             </div>
           </div>

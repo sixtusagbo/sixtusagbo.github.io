@@ -389,22 +389,6 @@ function Home({ socialLinks }: HomeProps) {
                   </span>
                 </motion.div>
               </div>
-
-              {/* Quick Stats */}
-              <motion.div
-                className="mt-6 grid grid-cols-2 gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}>
-                <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
-                  <div className="text-2xl font-bold text-blue-400">3+</div>
-                  <div className="text-sm text-gray-300">Years Experience</div>
-                </div>
-                <div className="text-center p-4 bg-white/5 rounded-xl border border-white/10">
-                  <div className="text-2xl font-bold text-purple-400">20+</div>
-                  <div className="text-sm text-gray-300">Projects Built</div>
-                </div>
-              </motion.div>
             </motion.div>
 
             {/* Enhanced Content Section */}

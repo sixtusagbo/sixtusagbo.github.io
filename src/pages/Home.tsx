@@ -127,7 +127,7 @@ function Home({ socialLinks }: HomeProps) {
     <div className="space-y-12">
       <ScrollToTop />
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center backdrop-blur-xl bg-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
+      <section className="relative min-h-screen flex flex-col items-center justify-center backdrop-blur-xl bg-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
         {/* Animated background with particles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-black/30 z-10"></div>
@@ -501,7 +501,7 @@ function Home({ socialLinks }: HomeProps) {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="scroll-mt-24">
+      <section id="contact" className="scroll-mt-20">
         <div className="max-w-3xl mx-auto space-y-8">
           <motion.div
             className="text-center space-y-4"

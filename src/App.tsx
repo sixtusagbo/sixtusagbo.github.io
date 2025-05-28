@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Menu, X, Moon } from "lucide-react";
 import { socialLinks, navigation } from "./config/constants";
@@ -14,11 +14,23 @@ import BlogDetail from "./pages/BlogDetail";
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle("dark");
   };
+
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <Router>
@@ -29,9 +41,14 @@ function App() {
             : "bg-gradient-to-br from-purple-900 via-blue-900 to-black text-white"
         }`}>
         {/* Navigation */}
-        <nav className="backdrop-blur-xl bg-white/10 border-b border-white/10">
+        <nav
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+            isScrolled
+              ? "backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-lg"
+              : "backdrop-blur-md bg-white/5 border-b border-white/10"
+          }`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
+            <div className="flex items-center justify-between h-16">
               <Link
                 to="/"
                 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
@@ -117,7 +134,7 @@ function App() {
         </nav>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
           <Routes>
             <Route path="/" element={<Home socialLinks={socialLinks} />} />
             <Route path="/projects" element={<Projects />} />

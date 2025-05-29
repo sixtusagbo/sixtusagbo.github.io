@@ -458,7 +458,8 @@ function Home({ socialLinks }: HomeProps) {
                   <p className="text-lg leading-relaxed text-gray-200">
                     When I'm not coding, you'll find me writing technical
                     articles, exploring new technologies, playing basketball or
-                    mentoring upcoming developers.
+                    mentoring upcoming developers. I believe in continuos
+                    learning and giving back to the tech community.
                   </p>
                 </div>
               </motion.div>

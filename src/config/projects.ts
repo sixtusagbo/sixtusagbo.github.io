@@ -199,4 +199,84 @@ export const projects = [
       github: "https://github.com/sixtusagbo/place_explorer",
     },
   },
+  {
+    title: "Arvalox",
+    description:
+      "AI-powered B2B SaaS platform for managing accounts receivable with advanced analytics and business intelligence",
+    image: "/images/projects/arvalox.png",
+    tech: [
+      "NextJS",
+      "TypeScript",
+      "FastAPI",
+      "Python",
+      "PostgreSQL",
+      "Redis",
+      "OpenAI",
+      "TailwindCSS",
+      "Cloud",
+      "GCP",
+    ],
+    links: {
+      live: "https://arvalox.com",
+      github: "https://github.com/sixtusagbo/arvalox",
+    },
+  },
+  {
+    title: "Grosonix",
+    description:
+      "AI-driven social media growth platform with content intelligence, cross-platform adaptation, and gamified analytics (Team Project w/ Elizabeth Pfachi, Andrea Ozuem and Mark Okafor)",
+    image: "/images/projects/grosonix.jpg",
+    tech: [
+      "NextJS",
+      "TypeScript",
+      "Supabase",
+      "OpenAI",
+      "TailwindCSS",
+      "Framer Motion",
+    ],
+    links: {
+      github: "https://github.com/sixtusagbo/grosonix",
+      live: "https://grosonix.netlify.app",
+    },
+  },
+  {
+    title: "Watchdog Meme",
+    description:
+      "A cutting-edge web3 meme platform featuring dynamic galleries, stunning animations, and a cyberpunk aesthetic",
+    image: "/images/projects/watchdog_meme.png",
+    tech: [
+      "NextJS",
+      "TypeScript",
+      "TailwindCSS",
+      "Framer Motion",
+      "Web3",
+      "Pump.fun",
+    ],
+    links: {
+      live: "https://thewatchdog.xyz",
+      github: "https://github.com/sixtusagbo/watchdog_meme",
+    },
+  },
+  {
+    title: "Bilingual Translator",
+    description:
+      "Modern translation web application for translating text between 2 languages using Google Translate API (A school assignment)",
+    image: "/images/projects/bilingual_translator.png",
+    tech: ["NextJS", "TypeScript", "TailwindCSS", "API", "Cloud", "GCP"],
+    links: {
+      live: "https://bilingual-translator.vercel.app",
+      github: "https://github.com/sixtusagbo/bilingual_translator",
+    },
+  },
+  {
+    title: "Countdown City",
+    description:
+      "A Next.js birthday countdown timer application with real-time updates and modern design",
+    image: "/images/projects/countdown-city.png",
+    tech: ["NextJS", "TypeScript", "TailwindCSS", "React"],
+    links: {
+      live: "https://countdown-city.vercel.app",
+      github: "https://github.com/sixtusagbo/countdown-city",
+    },
+  },
 ];

@@ -620,9 +620,9 @@ function Home({ socialLinks }: HomeProps) {
                 <div className="flex items-center gap-3">
                   <MapPin size={24} className="text-green-400" />
                   <div>
-                    <h3 className="font-semibold">Location</h3>
+                    <h3 className="font-semibold">Nationality</h3>
                     <p className="text-gray-300">
-                      Based in Nigeria • Available for remote work worldwide
+                      Nigerian • Available for remote work worldwide
                     </p>
                   </div>
                 </div>

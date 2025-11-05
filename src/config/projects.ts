@@ -236,6 +236,7 @@ export const projects = [
     ],
     links: {
       github: "https://github.com/sixtusagbo/grosonix",
+      youtube: "https://youtu.be/IDyYfjzl_78",
       live: "https://grosonix.netlify.app",
     },
   },

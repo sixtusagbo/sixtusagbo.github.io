@@ -1,11 +1,27 @@
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Award, ExternalLink } from "lucide-react";
+import { Briefcase, GraduationCap, Award, ExternalLink, FileText } from "lucide-react";
 import { experiences, education, certifications } from "../config/constants";
 import { ExperienceCard } from "../components";
 
 function Experience() {
   return (
     <div className="space-y-12">
+      {/* Download Resume Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="flex justify-end">
+        <a
+          href="https://drive.google.com/file/d/1B65GzErr4ZqwvoLXkIa7oBYU5AjCp97W/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 inline-flex items-center gap-2 font-medium shadow-lg hover:shadow-xl hover:scale-105">
+          <FileText size={20} />
+          View Resume PDF
+        </a>
+      </motion.div>
+
       {/* Experience Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}

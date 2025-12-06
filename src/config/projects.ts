@@ -84,7 +84,7 @@ export const projects = [
     title: "Lifepadi",
     description: "E-commerce and logistics mobile app",
     image: "/images/projects/lifepadi.png",
-    tech: ["Flutter", "Dart", "Android", "iOS", "Mobile App"],
+    tech: ["Flutter", "Dart", "Android", "iOS", "Mobile App", "Google Maps"],
     links: {
       live: "https://lifepadi.com",
       playstore:

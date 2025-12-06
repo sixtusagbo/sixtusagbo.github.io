@@ -5,7 +5,7 @@ import {
   Clock,
   Share2,
   Bookmark,
-  ThumbsUp,
+  ArrowUpRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -93,25 +93,25 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
         cache: 'npm'
-    
+
     - name: Install dependencies
       run: npm ci
-    
+
     - name: Lint code
       run: npm run lint
-    
+
     - name: Run tests
       run: npm test
-    
+
     - name: Build project
       run: npm run build`,
       },
@@ -122,124 +122,12 @@ jobs:
       },
       {
         type: "subheading",
-        content: "Adding Deployment to Your Pipeline",
-      },
-      {
-        type: "paragraph",
-        content:
-          "Now let's extend our workflow to include deployment to a staging environment and then to production:",
-      },
-      {
-        type: "code",
-        language: "yaml",
-        content: `  deploy-staging:
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build project
-      run: npm run build
-    
-    - name: Deploy to Staging
-      uses: netlify/actions/cli@master
-      with:
-        args: deploy --dir=build --site=\${{ secrets.NETLIFY_SITE_ID_STAGING }}
-      env:
-        NETLIFY_AUTH_TOKEN: \${{ secrets.NETLIFY_AUTH_TOKEN }}
-
-  deploy-production:
-    needs: deploy-staging
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Wait for manual approval
-      uses: trstringer/manual-approval@v1
-      with:
-        secret: \${{ github.TOKEN }}
-        approvers: yourusername
-        minimum-approvals: 1
-        issue-title: 'Deploy to Production'
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build project
-      run: npm run build
-    
-    - name: Deploy to Production
-      uses: netlify/actions/cli@master
-      with:
-        args: deploy --dir=build --prod --site=\${{ secrets.NETLIFY_SITE_ID_PRODUCTION }}
-      env:
-        NETLIFY_AUTH_TOKEN: \${{ secrets.NETLIFY_AUTH_TOKEN }}`,
-      },
-      {
-        type: "paragraph",
-        content:
-          "This extended workflow adds two new jobs: one to deploy to staging automatically after successful tests, and another to deploy to production after manual approval.",
-      },
-      {
-        type: "subheading",
-        content: "Securing Sensitive Information",
-      },
-      {
-        type: "paragraph",
-        content:
-          "Notice that we're using GitHub Secrets to store sensitive information like API tokens. This is a critical security practice. To add secrets to your repository, go to Settings → Secrets and Variables → Actions, and click on 'New repository secret'.",
-      },
-      {
-        type: "subheading",
-        content: "Enhancing Your Pipeline with Quality Checks",
-      },
-      {
-        type: "paragraph",
-        content:
-          "You can further enhance your pipeline by adding more quality checks:",
-      },
-      {
-        type: "list",
-        items: [
-          "Code coverage reporting with tools like Codecov or Coveralls",
-          "Security scanning for vulnerabilities with tools like Snyk",
-          "Performance benchmarking to catch regression issues",
-          "End-to-end testing in a staging environment",
-          "Notifications to Slack or Discord channels",
-        ],
-      },
-      {
-        type: "paragraph",
-        content:
-          "Each of these additions provides an extra layer of confidence in your deployment process.",
-      },
-      {
-        type: "subheading",
         content: "Conclusion",
       },
       {
         type: "paragraph",
         content:
-          "Setting up a CI/CD pipeline requires some initial investment, but the benefits in terms of code quality, team efficiency, and deployment reliability are substantial. By automating your build, test, and deployment processes, you free up more time to focus on what matters most: writing code and delivering value to your users. Start small with basic linting and testing, then gradually expand your pipeline as your project and team grow.",
+          "Setting up a CI/CD pipeline requires some initial investment, but the benefits in terms of code quality, team efficiency, and deployment reliability are substantial. By automating your build, test, and deployment processes, you free up more time to focus on what matters most: writing code and delivering value to your users.",
       },
     ],
   };
@@ -254,152 +142,160 @@ jobs:
     });
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      {/* Back button */}
-      <div>
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-          <ArrowLeft size={18} />
-          <span>Back to all posts</span>
-        </Link>
-      </div>
+    <div className="pt-32 pb-20">
+      <div className="max-w-4xl mx-auto px-6 lg:px-8">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="space-y-8">
+          {/* Back button */}
+          <motion.div variants={itemVariants}>
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
+              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              <span>Back to all posts</span>
+            </Link>
+          </motion.div>
 
-      {/* Header */}
-      <div className="space-y-6">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {post.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="bg-blue-500/20 text-blue-400 text-xs px-3 py-1 rounded-full">
-              {tag}
-            </span>
-          ))}
-        </div>
+          {/* Header */}
+          <motion.div variants={itemVariants} className="space-y-6">
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-neutral-800 rounded-full text-xs font-medium text-neutral-300">
+                  {tag}
+                </span>
+              ))}
+              <span className="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-xs font-medium">
+                WIP
+              </span>
+            </div>
 
-        {/* Title with WIP flag */}
-        <div className="flex flex-wrap items-center gap-3">
-          <motion.h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}>
-            {post.title}
-          </motion.h1>
-          <motion.span
-            className="bg-yellow-500/80 text-black text-xs px-2 py-1 rounded-md font-semibold animate-pulse"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}>
-            WIP
-          </motion.span>
-        </div>
+            {/* Title */}
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+              {post.title}
+            </h1>
 
-        {/* Meta information */}
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-300">
-          <div className="flex items-center gap-2">
+            {/* Meta information */}
+            <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-400">
+              <div className="flex items-center gap-3">
+                <img
+                  src={post.authorImage}
+                  alt={post.author}
+                  className="w-10 h-10 rounded-full object-cover border-2 border-neutral-800"
+                />
+                <span className="font-medium text-white">{post.author}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Calendar size={14} />
+                <span>{formatDate(post.date)}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Clock size={14} />
+                <span>{post.readTime}</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Cover image */}
+          <motion.div
+            variants={itemVariants}
+            className="aspect-video overflow-hidden rounded-3xl">
             <img
-              src={post.authorImage}
-              alt={post.author}
-              className="w-8 h-8 rounded-full object-cover"
+              src={post.coverImage}
+              alt={post.title}
+              className="w-full h-full object-cover"
             />
-            <span>{post.author}</span>
-          </div>
-          <div className="flex items-center">
-            <Calendar size={14} className="mr-1" />
-            <span>{formatDate(post.date)}</span>
-          </div>
-          <div className="flex items-center">
-            <Clock size={14} className="mr-1" />
-            <span>{post.readTime}</span>
-          </div>
-        </div>
-      </div>
+          </motion.div>
 
-      {/* Cover image */}
-      <motion.div
-        className="w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-2xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}>
-        <img
-          src={post.coverImage}
-          alt={post.title}
-          className="w-full h-full object-cover"
-        />
-      </motion.div>
+          {/* Content */}
+          <motion.article
+            variants={itemVariants}
+            className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-12 space-y-6">
+            {post.content.map((section, index) => {
+              switch (section.type) {
+                case "paragraph":
+                  return (
+                    <p
+                      key={index}
+                      className="text-lg leading-relaxed text-neutral-300">
+                      {section.content}
+                    </p>
+                  );
+                case "subheading":
+                  return (
+                    <h2
+                      key={index}
+                      className="text-2xl font-semibold mt-10 mb-4 text-white">
+                      {section.content}
+                    </h2>
+                  );
+                case "list":
+                  return (
+                    <ul key={index} className="space-y-3 pl-1">
+                      {section.items &&
+                        section.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="flex items-start gap-3 text-neutral-300">
+                            <span className="w-1.5 h-1.5 rounded-full bg-neutral-500 mt-2.5 flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                    </ul>
+                  );
+                case "code":
+                  return (
+                    <div
+                      key={index}
+                      className="bg-neutral-950 border border-neutral-800 rounded-xl p-6 overflow-x-auto">
+                      <pre className="text-neutral-300 font-mono text-sm">
+                        <code>{section.content}</code>
+                      </pre>
+                    </div>
+                  );
+                default:
+                  return null;
+              }
+            })}
+          </motion.article>
 
-      {/* Content */}
-      <motion.div
-        className="backdrop-blur-xl bg-white/10 rounded-2xl p-6 md:p-8 space-y-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}>
-        {post.content.map((section, index) => {
-          switch (section.type) {
-            case "paragraph":
-              return (
-                <p
-                  key={index}
-                  className="text-lg leading-relaxed text-gray-200">
-                  {section.content}
-                </p>
-              );
-            case "subheading":
-              return (
-                <h2
-                  key={index}
-                  className="text-2xl font-semibold mt-8 mb-4 text-blue-400">
-                  {section.content}
-                </h2>
-              );
-            case "list":
-              return (
-                <ul key={index} className="space-y-2 list-disc pl-5">
-                  {section.items &&
-                    section.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="text-lg text-gray-200">
-                        {item}
-                      </li>
-                    ))}
-                </ul>
-              );
-            case "code":
-              return (
-                <div
-                  key={index}
-                  className="bg-gray-900/50 p-4 rounded-lg overflow-x-auto">
-                  <pre className="text-gray-200 font-mono text-sm">
-                    <code>{section.content}</code>
-                  </pre>
-                </div>
-              );
-            default:
-              return null;
-          }
-        })}
-      </motion.div>
-
-      {/* Action buttons */}
-      <div className="flex justify-between items-center pt-4 border-t border-white/10">
-        <div className="flex gap-4">
-          <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-            <ThumbsUp size={20} />
-          </button>
-          <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-            <Bookmark size={20} />
-          </button>
-          <button className="p-2 rounded-full hover:bg-white/10 transition-colors">
-            <Share2 size={20} />
-          </button>
-        </div>
-        <Link
-          to="/blog"
-          className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
-          More Posts
-        </Link>
+          {/* Action buttons */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4">
+            <div className="flex gap-2">
+              <button className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl hover:bg-neutral-800 transition-colors">
+                <Bookmark size={20} />
+              </button>
+              <button className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl hover:bg-neutral-800 transition-colors">
+                <Share2 size={20} />
+              </button>
+            </div>
+            <Link
+              to="/blog"
+              className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
+              More Posts
+              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

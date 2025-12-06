@@ -1,31 +1,9 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Code,
-  BookOpen,
-  User,
-  ChevronDown,
-  ChevronUp,
-  Sparkles,
-  Zap,
-  Terminal,
-  Code2,
-  Mail,
-  MessageSquare,
-  MapPin,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { skillsData, blogPosts } from "../config/constants";
 import { projects } from "../config/projects";
-import {
-  ProjectCard,
-  SkillBadge,
-  BlogPostCard,
-  SocialLinks,
-} from "../components";
-
-import { Twitter, Linkedin, Github } from "lucide-react";
-import TechBadge from "../components/TechBadge";
 
 interface HomeProps {
   socialLinks: {
@@ -42,9 +20,7 @@ function ScrollToTop() {
   const location = useLocation();
 
   useEffect(() => {
-    // Check if the URL has a hash
     if (location.hash === "#contact") {
-      // Wait for the next tick to ensure the DOM has updated
       setTimeout(() => {
         const element = document.getElementById("contact");
         if (element) {
@@ -57,14 +33,42 @@ function ScrollToTop() {
   return null;
 }
 
-function Home({ socialLinks }: HomeProps) {
-  // Use first 4 projects as featured projects
-  const featuredProjects = projects.slice(0, 4);
+// Animated counter component
+function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
 
-  // Use first 3 blog posts as recent blog posts
+  useEffect(() => {
+    const duration = 2000;
+    const steps = 60;
+    const stepValue = end / steps;
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += stepValue;
+      if (current >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [end]);
+
+  return (
+    <span>
+      {count}
+      {suffix}
+    </span>
+  );
+}
+
+function Home({ socialLinks }: HomeProps) {
+  const featuredProjects = projects.slice(0, 4);
   const recentBlogPosts = blogPosts.slice(0, 3);
 
-  // State for tracking role rotation
+  // Role rotation
   const [roleIndex, setRoleIndex] = useState(0);
   const roles = [
     "Full-Stack Developer",
@@ -73,575 +77,647 @@ function Home({ socialLinks }: HomeProps) {
     "Problem Solver",
   ];
 
-  // Set up the interval for rotating roles
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
-    }, 2000);
-
-    return () => clearInterval(intervalId); // Clean up on unmount
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
-  // State for tracking which skill categories are expanded
-  const [expandedCategories, setExpandedCategories] = useState<{
-    [key: string]: boolean;
-  }>(() => {
-    // 768px corresponds to Tailwind's "md" breakpoint
-    const isMobile = window.innerWidth < 768;
-    return {
-      "Programming Languages & Frameworks": !isMobile,
-      "Development Tools & Practices": !isMobile,
-      "Soft Skills & Abilities": !isMobile,
-    };
-  });
-
-  // Toggle category expansion
-  const toggleCategory = (category: string) => {
-    setExpandedCategories((prev) => ({
-      ...prev,
-      [category]: !prev[category],
-    }));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
   };
 
-  // Update expanded state on window resize
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 768;
-      // Auto-collapse categories when transitioning to mobile view
-      // and expand them when transitioning to desktop view
-      setExpandedCategories({
-        "Programming Languages & Frameworks": !isMobile,
-        "Development Tools & Practices": !isMobile,
-        "Soft Skills & Abilities": !isMobile,
-      });
-    };
-
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Clean up
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   return (
-    <div className="space-y-12">
+    <div>
       <ScrollToTop />
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center backdrop-blur-xl bg-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
-        {/* Animated background with particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-black/30 z-10"></div>
-          <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg')] bg-cover bg-center opacity-20"></div>
-          {Array.from({ length: 20 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 rounded-full bg-blue-400"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                opacity: 0.4 + Math.random() * 0.6,
-              }}
-              animate={{
-                y: [0, Math.random() * -100, 0],
-                opacity: [0.4, 0.8, 0.4],
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: 5 + Math.random() * 10,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
 
-        <div className="relative z-10 container mx-auto">
-          {/* Code brackets animation */}
-          <div className="hidden md:block">
+      {/* Hero Section - Full Screen Split */}
+      <section className="min-h-screen flex items-center pt-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Content */}
             <motion.div
-              className="absolute -left-4 -top-8 text-blue-400/30 text-7xl font-mono"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}>
-              {"<"}
-            </motion.div>
-            <motion.div
-              className="absolute -right-4 -bottom-8 text-blue-400/30 text-7xl font-mono"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}>
-              {"/>"}
-            </motion.div>
-          </div>
+              transition={{ duration: 0.8 }}
+              className="space-y-8">
+              {/* Status Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-emerald-400 text-sm font-medium">
+                  Available for work
+                </span>
+              </div>
 
-          {/* Main content */}
-          <div className="text-center space-y-8">
-            {/* Intro with glowing effect */}
-            <motion.div
-              className="flex justify-center items-center gap-2 text-sm md:text-base"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}>
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-              <span className="text-green-400">
-                Available for new opportunities
-              </span>
-            </motion.div>
-
-            {/* Name with dynamic animation */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}>
-              <motion.h1
-                className="text-5xl md:text-7xl lg:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-blue-500"
-                initial={{ y: 20 }}
-                animate={{ y: 0 }}
-                transition={{ type: "spring", stiffness: 100, delay: 0.3 }}>
-                Sixtus Miracle Agbo
-              </motion.h1>
-            </motion.div>
-
-            {/* Rotating words for roles */}
-            <div className="h-8 md:h-10 overflow-hidden">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="flex justify-center items-center text-xl md:text-2xl">
-                <span className="mr-2 text-gray-300">I'm a</span>
-                <div className="relative h-full flex items-center overflow-hidden">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={roles[roleIndex]}
-                      className="relative"
-                      initial={{ y: 40, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -40, opacity: 0 }}
-                      transition={{
-                        y: { type: "spring", stiffness: 300, damping: 30 },
-                        opacity: { duration: 0.2 },
-                      }}>
-                      <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                        {roles[roleIndex]}
-                      </span>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Description */}
-            <div className="h-20">
-              <motion.p
-                className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.7 }}>
-                <span className="text-purple-400">C</span>rafting
-                high-performance websites and mobile apps with a passion for
-                exceptional digital experiences.
-              </motion.p>
-            </div>
-
-            {/* Tech stack icons */}
-            <motion.div
-              className="flex justify-center gap-4 flex-wrap max-w-lg mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1 }}>
-              <TechBadge icon={<Code2 size={16} />} name="React" />
-              <TechBadge icon={<Sparkles size={16} />} name="Flutter" />
-              <TechBadge icon={<Terminal size={16} />} name="Python" />
-              <TechBadge icon={<Zap size={16} />} name="TypeScript" />
-            </motion.div>
-
-            {/* CTA buttons */}
-            <motion.div
-              className="flex flex-col md:flex-row justify-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}>
-              <Link
-                to="/projects"
-                className="relative group px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-all overflow-hidden">
-                <span className="relative z-10">View My Work</span>
-                <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-              </Link>
-              <Link
-                to="/resume"
-                className="px-8 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors">
-                View Resume
-              </Link>
-            </motion.div>
-
-            {/* Social media links with hover effects */}
-            <motion.div
-              className="flex justify-center gap-4 py-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.4 }}>
-              <a
-                href={socialLinks.github.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:text-blue-400 transition-all hover:scale-110 backdrop-blur-sm bg-white/5 rounded-lg">
-                <Github size={20} />
-              </a>
-              <a
-                href={socialLinks.linkedin.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:text-blue-400 transition-all hover:scale-110 backdrop-blur-sm bg-white/5 rounded-lg">
-                <Linkedin size={20} />
-              </a>
-              <a
-                href={socialLinks.twitter.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:text-blue-400 transition-all hover:scale-110 backdrop-blur-sm bg-white/5 rounded-lg">
-                <Twitter size={20} />
-              </a>
-              <a
-                href={socialLinks.email.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:text-blue-400 transition-all hover:scale-110 backdrop-blur-sm bg-white/5 rounded-lg">
-                <Mail size={20} />
-              </a>
-              <a
-                href={socialLinks.blog.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 hover:text-blue-400 transition-all hover:scale-110 backdrop-blur-sm bg-white/5 rounded-lg">
-                <BookOpen size={20} />
-              </a>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Scroll down indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{
-            y: [0, 10, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "loop",
-          }}>
-          <div className="w-8 h-12 rounded-full border-2 border-white/20 flex justify-center pt-2">
-            <div className="w-1 h-3 rounded-full bg-white/60"></div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* About Me Section */}
-      <motion.section
-        className="relative backdrop-blur-xl bg-white/10 rounded-2xl p-8 border border-white/20 hover:border-white/30 transition-all duration-300"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}>
-        {/* Gradient border effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-50"></div>
-
-        <div className="relative z-10">
-          <motion.h2
-            className="text-2xl font-semibold mb-6 flex items-center gap-2"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}>
-            <User size={24} className="text-white" />
-            About Me
-          </motion.h2>
-
-          <div className="lg:flex gap-12 items-start">
-            {/* Enhanced Image Section */}
-            <motion.div
-              className="lg:w-1/3 mb-8 lg:mb-0"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}>
-              <div className="relative group">
-                {/* Main image container */}
-                <div className="relative overflow-hidden rounded-2xl aspect-square bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-1">
-                  <div className="relative overflow-hidden rounded-xl aspect-square">
-                    <img
-                      src="/images/me.jpg"
-                      alt="Sixtus Agbo"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
-                </div>
-
-                {/* Floating status indicator */}
-                <motion.div
-                  className="absolute -top-2 -right-2 flex items-center gap-2 bg-green-500/20 backdrop-blur-md border border-green-400/30 rounded-full px-3 py-2"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}>
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                  <span className="text-xs font-medium text-green-400">
-                    Available
+              {/* Main Heading */}
+              <div className="space-y-4">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+                  Hi, I'm{" "}
+                  <span className="bg-gradient-to-r from-white via-neutral-300 to-neutral-500 bg-clip-text text-transparent">
+                    Sixtus
                   </span>
-                </motion.div>
+                </h1>
+                <div className="h-16 md:h-20 overflow-hidden">
+                  <motion.div
+                    key={roleIndex}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -40, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-500">
+                    {roles[roleIndex]}
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-lg">
+                I craft high-performance web and mobile applications with a
+                focus on exceptional user experiences and clean, maintainable
+                code.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  to="/projects"
+                  className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
+                  View My Work
+                  <ArrowRight
+                    size={18}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </Link>
+                <a
+                  href="https://drive.google.com/file/d/1B65GzErr4ZqwvoLXkIa7oBYU5AjCp97W/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 px-6 py-3 border border-neutral-700 rounded-full font-semibold hover:border-neutral-500 hover:bg-neutral-900 transition-all">
+                  <Download size={18} />
+                  Resume
+                </a>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex items-center gap-4 pt-4">
+                <span className="text-sm text-neutral-500">Find me on</span>
+                <div className="flex gap-3">
+                  {[
+                    {
+                      url: socialLinks.github.url,
+                      icon: (
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24">
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                      ),
+                    },
+                    {
+                      url: socialLinks.linkedin.url,
+                      icon: (
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                      ),
+                    },
+                    {
+                      url: socialLinks.twitter.url,
+                      icon: (
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                      ),
+                    },
+                  ].map((social, i) => (
+                    <a
+                      key={i}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-600 transition-all">
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
               </div>
             </motion.div>
 
-            {/* Enhanced Content Section */}
-            <div className="lg:w-2/3 space-y-6">
-              {/* Introduction with animated text */}
-              <motion.div
-                className="space-y-4"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}>
-                <p className="text-lg leading-relaxed text-gray-200">
-                  <span className="text-2xl">👋</span> Hello! I'm{" "}
-                  <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                    Sixtus Miracle Agbo
-                  </span>
-                  , a passionate Full-Stack Developer with a love for creating
-                  elegant, high-performance digital solutions.
-                </p>
-
-                <p className="text-lg leading-relaxed text-gray-200">
-                  With expertise in{" "}
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-500/20 text-blue-400 rounded-md text-sm font-medium">
-                    <Code size={14} />
-                    Python
-                  </span>
-                  ,{" "}
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-md text-sm font-medium">
-                    <Code size={14} />
-                    JavaScript
-                  </span>
-                  ,{" "}
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-sm font-medium">
-                    <Code size={14} />
-                    TypeScript
-                  </span>
-                  , and{" "}
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded-md text-sm font-medium">
-                    <Code size={14} />
-                    Flutter
-                  </span>
-                  , I bridge the gap between design and functionality.
-                </p>
-              </motion.div>
-
-              {/* Achievement highlights */}
-              <motion.div
-                className="space-y-4"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}>
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg mt-1">
-                    <Zap size={16} className="text-white" />
-                  </div>
-                  <p className="text-lg leading-relaxed text-gray-200">
-                    I've helped startups and established organizations transform
-                    their ideas into reality through clean code and innovative
-                    thinking. My mission is to build software that not only
-                    works flawlessly but delivers exceptional user experiences.
-                  </p>
+            {/* Right Content - Image with floating elements */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative">
+              {/* Main Image */}
+              <div className="relative aspect-square max-w-md mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-3xl transform rotate-6"></div>
+                <div className="relative overflow-hidden rounded-3xl">
+                  <img
+                    src="/images/me.jpg"
+                    alt="Sixtus Agbo"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/50 to-transparent"></div>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mt-1">
-                    <Sparkles size={16} className="text-white" />
-                  </div>
-                  <p className="text-lg leading-relaxed text-gray-200">
-                    When I'm not coding, you'll find me writing technical
-                    articles, exploring new technologies, playing basketball or
-                    mentoring upcoming developers. I believe in continuos
-                    learning and giving back to the tech community.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Enhanced CTA Section */}
-              <motion.div
-                className="pt-6 flex flex-col sm:flex-row gap-4 items-start"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}>
-                <a
-                  href="#contact"
-                  className="relative group px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-all overflow-hidden inline-flex items-center gap-2 w-fit">
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Mail size={18} />
-                    Get In Touch
-                  </span>
-                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                </a>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Skills Overview */}
-      <section className="backdrop-blur-xl bg-white/10 rounded-2xl p-8 space-y-8">
-        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-          <Code size={24} />
-          Skills
-        </h2>
-
-        {Object.entries(skillsData).map(
-          ([category, categorySkills], categoryIndex) => (
-            <div key={categoryIndex} className="space-y-4">
-              <button
-                onClick={() => toggleCategory(category)}
-                className="w-full flex items-center justify-between text-xl font-medium text-blue-400 border-b border-blue-500/20 pb-2 hover:text-blue-300 transition-all focus:outline-none group cursor-pointer"
-                aria-expanded={expandedCategories[category]}
-                aria-controls={`skills-${categoryIndex}`}>
-                <span className="flex items-center">
-                  <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-purple-400 rounded mr-2 opacity-70 group-hover:opacity-100 transition-opacity"></div>
-                  {category}
-                </span>
-                <div className="bg-blue-500/20 rounded-full p-1 group-hover:bg-blue-500/30 transition-all group-hover:scale-110">
-                  {expandedCategories[category] ? (
-                    <ChevronUp size={18} />
-                  ) : (
-                    <ChevronDown size={18} />
-                  )}
-                </div>
-              </button>
-
-              {expandedCategories[category] && (
+                {/* Floating Stats Card */}
                 <motion.div
-                  id={`skills-${categoryIndex}`}
-                  initial={{ opacity: 0, height: 0, overflow: "hidden" }}
-                  animate={{ opacity: 1, height: "auto", overflow: "visible" }}
-                  exit={{ opacity: 0, height: 0, overflow: "hidden" }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-2">
-                  {(categorySkills as string[]).map(
-                    (skill: string, index: number) => (
-                      <SkillBadge
-                        key={`${categoryIndex}-${index}`}
-                        skill={skill}
-                        index={categoryIndex * 10 + index}
-                      />
-                    )
-                  )}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="absolute -bottom-6 -left-6 bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-xl">
+                  <div className="flex items-center gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold">
+                        <Counter end={3} />+
+                      </div>
+                      <div className="text-xs text-neutral-500">Years Exp.</div>
+                    </div>
+                    <div className="w-px h-10 bg-neutral-800"></div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold">
+                        <Counter end={20} />+
+                      </div>
+                      <div className="text-xs text-neutral-500">Projects</div>
+                    </div>
+                  </div>
                 </motion.div>
-              )}
-            </div>
-          )
-        )}
+
+                {/* Floating Tech Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="absolute -top-4 -right-4 bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2 shadow-xl">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">⚡</span>
+                    <span className="text-sm font-medium">
+                      React • Flutter • Python
+                    </span>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="hidden lg:flex justify-center mt-20">
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="flex flex-col items-center gap-2 text-neutral-500">
+              <span className="text-sm">Scroll to explore</span>
+              <div className="w-6 h-10 rounded-full border-2 border-neutral-700 flex justify-center pt-2">
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-1.5 h-1.5 rounded-full bg-neutral-500"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Recent Blog Posts */}
-      <section className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold flex items-center gap-2">
-            <BookOpen size={24} />
-            Recent Blog Posts
-          </h2>
-          <Link
-            to="/blog"
-            className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity">
-            View All Posts
-          </Link>
+      {/* About Section - Bento Grid */}
+      <section className="py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="space-y-16">
+            {/* Section Header */}
+            <motion.div variants={itemVariants} className="space-y-4">
+              <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+                About Me
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold max-w-2xl">
+                Passionate about creating impactful digital solutions
+              </h2>
+            </motion.div>
+
+            {/* Bento Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Bio Card - Large */}
+              <motion.div
+                variants={itemVariants}
+                className="md:col-span-2 bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
+                <div className="space-y-6">
+                  <p className="text-lg text-neutral-300 leading-relaxed">
+                    I'm a Full-Stack Developer with expertise in building
+                    scalable web and mobile applications. With a strong
+                    foundation in{" "}
+                    <span className="text-white font-medium">Python</span>,{" "}
+                    <span className="text-white font-medium">
+                      JavaScript/TypeScript
+                    </span>
+                    , and{" "}
+                    <span className="text-white font-medium">Flutter</span>, I
+                    bridge the gap between design and functionality.
+                  </p>
+                  <p className="text-lg text-neutral-300 leading-relaxed">
+                    I've helped startups and organizations transform their ideas
+                    into reality through clean code and innovative thinking. My
+                    mission is to build software that impacts people's lives.
+                  </p>
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    {[
+                      "React",
+                      "Next.js",
+                      "Flutter",
+                      "Python",
+                      "TypeScript",
+                      "Node.js",
+                    ].map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1.5 bg-neutral-800 rounded-full text-sm text-neutral-300">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Location Card */}
+              <motion.div
+                variants={itemVariants}
+                className="bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
+                <div className="h-full flex flex-col justify-between">
+                  <MapPin size={32} className="text-neutral-500" />
+                  <div className="space-y-2 mt-auto">
+                    <h3 className="text-xl font-semibold">Based in Nigeria</h3>
+                    <p className="text-neutral-400 text-sm">
+                      Available for remote work worldwide
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Stats Cards */}
+              {[
+                { value: "3+", label: "Years of Experience" },
+                { value: "20+", label: "Projects Completed" },
+                { value: "100%", label: "Client Satisfaction" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  variants={itemVariants}
+                  className="bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold">{stat.value}</div>
+                    <div className="text-neutral-400">{stat.label}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recentBlogPosts.map((post, index) => (
-            <BlogPostCard key={index} post={post} index={index} />
-          ))}
+      </section>
+
+      {/* Skills Section */}
+      <section className="py-32 bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="space-y-16">
+            <motion.div variants={itemVariants} className="space-y-4">
+              <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+                Skills
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold">
+                Tools & Technologies
+              </h2>
+            </motion.div>
+
+            <div className="space-y-12">
+              {Object.entries(skillsData).map(
+                ([category, skills], categoryIndex) => (
+                  <motion.div
+                    key={category}
+                    variants={itemVariants}
+                    className="space-y-6">
+                    <h3 className="text-xl font-semibold text-neutral-300">
+                      {category}
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {(skills as string[]).map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-xl text-sm font-medium transition-colors cursor-default">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                )
+              )}
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold">Featured Projects</h2>
-          <Link
-            to="/projects"
-            className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity">
-            View All Projects
-          </Link>
+      <section className="py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="space-y-16">
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-4">
+                <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+                  Portfolio
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold">
+                  Featured Projects
+                </h2>
+              </div>
+              <Link
+                to="/projects"
+                className="group inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
+                View all projects
+                <ArrowUpRight
+                  size={18}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
+              </Link>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {featuredProjects.map((project, index) => (
+                <motion.div
+                  key={project.title}
+                  variants={itemVariants}
+                  className="group relative bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-xl font-semibold group-hover:text-neutral-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-neutral-400 text-sm line-clamp-2">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 bg-neutral-800 rounded-md text-xs text-neutral-400">
+                          {tech}
+                        </span>
+                      ))}
+                      {project.tech.length > 3 && (
+                        <span className="px-2 py-1 bg-neutral-800 rounded-md text-xs text-neutral-500">
+                          +{project.tech.length - 3}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex gap-3 pt-2">
+                      {project.links.live && (
+                        <a
+                          href={project.links.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
+                          Live Demo <ArrowUpRight size={14} />
+                        </a>
+                      )}
+                      {project.links.github && (
+                        <a
+                          href={project.links.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
+                          Source <ArrowUpRight size={14} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {featuredProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
+      </section>
+
+      {/* Blog Section */}
+      <section className="py-32 bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="space-y-16">
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-4">
+                <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+                  Blog
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold">
+                  Latest Articles
+                </h2>
+              </div>
+              <Link
+                to="/blog"
+                className="group inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
+                View all posts
+                <ArrowUpRight
+                  size={18}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
+              </Link>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {recentBlogPosts.map((post, index) => (
+                <motion.a
+                  key={post.title}
+                  href={post.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={itemVariants}
+                  className="group block bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-6 space-y-3">
+                    <div className="flex items-center gap-3 text-sm text-neutral-500">
+                      <span>
+                        {new Date(post.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </span>
+                      <span>•</span>
+                      <span>{post.readTime}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold group-hover:text-neutral-300 transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-neutral-400 group-hover:text-white transition-colors">
+                      Read article <ArrowUpRight size={14} />
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="scroll-mt-20">
-        <div className="max-w-3xl mx-auto space-y-8">
+      <section id="contact" className="py-32 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
-            className="text-center space-y-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}>
-            <h2 className="text-2xl font-semibold">Let's Connect</h2>
-            <p className="text-gray-300">
-              I'm always open to discussing new projects, creative ideas, or
-              opportunities to be part of your visions.
-            </p>
-          </motion.div>
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="relative">
+            {/* Background decoration */}
+            <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-950 rounded-3xl"></div>
 
-          <motion.div
-            className="backdrop-blur-xl bg-white/10 rounded-2xl p-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <Mail size={24} className="text-blue-400" />
-                  <div>
-                    <h3 className="font-semibold">Email</h3>
+            <div className="relative bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-16">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <motion.div variants={itemVariants} className="space-y-6">
+                  <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+                    Get in Touch
+                  </span>
+                  <h2 className="text-4xl md:text-5xl font-bold">
+                    Let's work together
+                  </h2>
+                  <p className="text-neutral-400 text-lg">
+                    I'm always open to discussing new projects, creative ideas,
+                    or opportunities to be part of your visions.
+                  </p>
+                  <a
+                    href={socialLinks.email.url}
+                    className="group inline-flex items-center gap-3 text-xl font-semibold hover:text-neutral-300 transition-colors">
+                    <Mail size={24} />
+                    hi@sixtusagbo.dev
+                    <ArrowUpRight
+                      size={20}
+                      className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    />
+                  </a>
+                </motion.div>
+
+                <motion.div variants={itemVariants} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
                     <a
-                      href="mailto:hi@sixtusagbo.dev"
-                      className="text-gray-300 hover:text-white">
-                      hi@sixtusagbo.dev
+                      href={socialLinks.github.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 p-4 bg-neutral-800 hover:bg-neutral-700 rounded-2xl transition-colors">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                      </svg>
+                      GitHub
+                    </a>
+                    <a
+                      href={socialLinks.linkedin.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 p-4 bg-neutral-800 hover:bg-neutral-700 rounded-2xl transition-colors">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                      </svg>
+                      LinkedIn
+                    </a>
+                    <a
+                      href={socialLinks.twitter.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 p-4 bg-neutral-800 hover:bg-neutral-700 rounded-2xl transition-colors">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                      Twitter
+                    </a>
+                    <a
+                      href={socialLinks.blog.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 p-4 bg-neutral-800 hover:bg-neutral-700 rounded-2xl transition-colors">
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path d="M13 12h7v1.5h-7zm0-2.5h7V11h-7zm0 5h7V16h-7zM21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15h-9V6h9v13z" />
+                      </svg>
+                      Blog
                     </a>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MessageSquare size={24} className="text-purple-400" />
-                  <div>
-                    <h3 className="font-semibold">Social Media</h3>
-                    <SocialLinks
-                      links={socialLinks}
-                      className="flex gap-4 mt-2"
-                      showEmail={false}
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin size={24} className="text-green-400" />
-                  <div>
-                    <h3 className="font-semibold">Nationality</h3>
-                    <p className="text-gray-300">
-                      Nigerian • Available for remote work worldwide
-                    </p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="space-y-4">
-                <div className="rounded-lg overflow-hidden border border-white/10 w-full h-[350px] shadow-lg">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8070638.877426228!2d3.378967867064404!3d8.995904548336721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0baf7da48d0d%3A0x99a8fe4168c50bc8!2sNigeria!5e0!3m2!1sen!2sng!4v1747037361004!5m2!1sen!2sng"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Map of Nigeria"
-                    className="w-full h-full"
-                  />
-                </div>
+                  <div className="p-6 bg-neutral-800/50 rounded-2xl">
+                    <div className="flex items-center gap-3">
+                      <MapPin size={20} className="text-neutral-500" />
+                      <div>
+                        <p className="font-medium">Nigeria</p>
+                        <p className="text-sm text-neutral-500">
+                          Available for remote work worldwide
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </motion.div>

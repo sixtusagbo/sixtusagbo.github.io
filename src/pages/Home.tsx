@@ -250,14 +250,14 @@ function Home({ socialLinks }: HomeProps) {
                   <div className="flex items-center gap-4">
                     <div className="text-center">
                       <div className="text-2xl font-bold">
-                        <Counter end={3} />+
+                        <Counter end={5} />+
                       </div>
                       <div className="text-xs text-neutral-500">Years Exp.</div>
                     </div>
                     <div className="w-px h-10 bg-neutral-800"></div>
                     <div className="text-center">
                       <div className="text-2xl font-bold">
-                        <Counter end={20} />+
+                        <Counter end={110} />+
                       </div>
                       <div className="text-xs text-neutral-500">Projects</div>
                     </div>
@@ -383,8 +383,8 @@ function Home({ socialLinks }: HomeProps) {
 
               {/* Stats Cards */}
               {[
-                { value: "3+", label: "Years of Experience" },
-                { value: "20+", label: "Projects Completed" },
+                { value: "5+", label: "Years of Experience" },
+                { value: "110+", label: "Projects Completed" },
                 { value: "100%", label: "Client Satisfaction" },
               ].map((stat, index) => (
                 <motion.div

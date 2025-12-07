@@ -134,7 +134,7 @@ function AppContent() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
               className="md:hidden fixed inset-0 top-20 bg-neutral-950 z-40">
-              <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
+              <div className="flex flex-col items-center justify-start h-full gap-8 px-6 pt-16">
                 {navigation.map((item, index) => (
                   <motion.div
                     key={item.name}

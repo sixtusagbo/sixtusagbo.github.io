@@ -87,9 +87,11 @@ function AppContent() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800"
-            : "bg-transparent"
+          isMenuOpen
+            ? "bg-neutral-950"
+            : isScrolled
+              ? "bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800"
+              : "bg-transparent"
         }`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">

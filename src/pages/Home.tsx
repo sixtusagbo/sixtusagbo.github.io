@@ -234,7 +234,7 @@ function Home({ socialLinks }: HomeProps) {
                 <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-3xl transform rotate-6"></div>
                 <div className="relative overflow-hidden rounded-3xl">
                   <img
-                    src="/images/me.jpg"
+                    src="/images/me.webp"
                     alt="Sixtus Agbo"
                     className="w-full h-full object-cover"
                   />
@@ -373,9 +373,11 @@ function Home({ socialLinks }: HomeProps) {
                 <div className="h-full flex flex-col justify-between">
                   <MapPin size={32} className="text-neutral-500" />
                   <div className="space-y-2 mt-auto">
-                    <h3 className="text-xl font-semibold">Based in Nigeria</h3>
+                    <h3 className="text-xl font-semibold">
+                      Currently in Nigeria
+                    </h3>
                     <p className="text-neutral-400 text-sm">
-                      Available for remote work worldwide
+                      Available for remote, on-site, and hybrid work
                     </p>
                   </div>
                 </div>
@@ -712,7 +714,7 @@ function Home({ socialLinks }: HomeProps) {
                       <div>
                         <p className="font-medium">Nigeria</p>
                         <p className="text-sm text-neutral-500">
-                          Available for remote work worldwide
+                          Available for remote, on-site, and hybrid work
                         </p>
                       </div>
                     </div>

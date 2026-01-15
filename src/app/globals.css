@@ -1,36 +1,37 @@
 @import "tailwindcss";
 
-/* Custom color definitions using Tailwind v4 syntax */
-@theme {
-  --color-dark-purple-950: #13001f;
-  --color-dark-purple-900: #1a0029;
-  --color-dark-purple-800: #230033;
-  --color-dark-blue-950: #000a1f;
-  --color-dark-blue-900: #00102b;
-  --color-dark-blue-800: #001638;
-}
-
 /* Custom scrollbar styles */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-dark-blue-900;
+  background: #0a0a0a;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 hover:bg-gray-400 dark:bg-dark-purple-800 dark:hover:bg-dark-purple-900 rounded-full transition-colors;
+  background: #404040;
+  border-radius: 4px;
 }
 
-/* Custom text highlight styles */
+::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #404040 #0a0a0a;
+}
+
+/* Custom text selection */
 ::selection {
-  @apply bg-dark-purple-800/40 text-white dark:bg-dark-purple-800/60 dark:text-white;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 ::-moz-selection {
-  @apply bg-dark-purple-800/40 text-white dark:bg-dark-purple-800/60 dark:text-white;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }

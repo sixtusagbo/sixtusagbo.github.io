@@ -7,9 +7,16 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { socialLinks, navigation } from "@/config/constants";
 import { motion, AnimatePresence } from "framer-motion";
 
-function NavLink({ item, onClick }: { item: { name: string; path: string }; onClick?: () => void }) {
+function NavLink({
+  item,
+  onClick,
+}: {
+  item: { name: string; path: string };
+  onClick?: () => void;
+}) {
   const pathname = usePathname();
-  const isActive = pathname === item.path ||
+  const isActive =
+    pathname === item.path ||
     (item.path === "/" && pathname === "/") ||
     (item.path !== "/" && pathname.startsWith(item.path));
 
@@ -19,10 +26,17 @@ function NavLink({ item, onClick }: { item: { name: string; path: string }; onCl
         href={item.path}
         onClick={onClick}
         className="group relative py-2 text-sm font-medium tracking-wide uppercase">
-        <span className={`transition-colors ${isActive ? "text-white" : "text-neutral-400 group-hover:text-white"}`}>
+        <span
+          className={`transition-colors ${
+            isActive ? "text-white" : "text-neutral-400 group-hover:text-white"
+          }`}>
           {item.name}
         </span>
-        <span className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
+        <span
+          className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 ${
+            isActive ? "w-full" : "w-0 group-hover:w-full"
+          }`}
+        />
       </a>
     );
   }
@@ -32,10 +46,17 @@ function NavLink({ item, onClick }: { item: { name: string; path: string }; onCl
       href={item.path}
       onClick={onClick}
       className="group relative py-2 text-sm font-medium tracking-wide uppercase">
-      <span className={`transition-colors ${isActive ? "text-white" : "text-neutral-400 group-hover:text-white"}`}>
+      <span
+        className={`transition-colors ${
+          isActive ? "text-white" : "text-neutral-400 group-hover:text-white"
+        }`}>
         {item.name}
       </span>
-      <span className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
+      <span
+        className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 ${
+          isActive ? "w-full" : "w-0 group-hover:w-full"
+        }`}
+      />
     </Link>
   );
 }
@@ -80,15 +101,15 @@ export default function Navigation() {
         isMenuOpen
           ? "bg-neutral-950"
           : isScrolled
-            ? "bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800"
-            : "bg-transparent"
+          ? "bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800"
+          : "bg-transparent"
       }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="relative z-10 group">
             <span className="text-2xl font-bold tracking-tighter">
-              SIXTUS
+              SA
               <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full ml-1 group-hover:animate-ping" />
             </span>
           </Link>
@@ -105,7 +126,10 @@ export default function Navigation() {
             href={socialLinks.email.url}
             className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-white text-neutral-950 rounded-full text-sm font-semibold hover:bg-neutral-200 transition-colors group">
             Let&apos;s Talk
-            <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight
+              size={16}
+              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+            />
           </a>
 
           {/* Mobile menu button */}

@@ -1,8 +1,10 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Award, ArrowUpRight, Download, MapPin, Calendar } from "lucide-react";
-import { experiences, education, certifications } from "../config/constants";
+import { experiences, education, certifications } from "@/config/constants";
 
-function Experience() {
+export default function Experience() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -196,7 +198,7 @@ function Experience() {
             <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-12 text-center space-y-6">
               <h2 className="text-2xl md:text-3xl font-bold">Interested in working together?</h2>
               <p className="text-neutral-400 max-w-xl mx-auto">
-                I'm always open to discussing new projects and opportunities. Let's connect and see how we can collaborate.
+                I&apos;m always open to discussing new projects and opportunities. Let&apos;s connect and see how we can collaborate.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <a
@@ -221,5 +223,3 @@ function Experience() {
     </div>
   );
 }
-
-export default Experience;

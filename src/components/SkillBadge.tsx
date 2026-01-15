@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import {
   Code,
@@ -20,7 +21,7 @@ interface SkillBadgeProps {
 }
 
 // Map skill names to appropriate icons
-const skillIconMap: Record<string, JSX.Element> = {
+const skillIconMap: Record<string, React.ReactNode> = {
   // Programming Languages
   Dart: <Box size={16} />,
   Flutter: <Layers size={16} />,

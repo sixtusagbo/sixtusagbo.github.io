@@ -1,26 +1,19 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { skillsData, blogPosts } from "../config/constants";
-import { projects } from "../config/projects";
-
-interface HomeProps {
-  socialLinks: {
-    twitter: { url: string; label: string };
-    linkedin: { url: string; label: string };
-    github: { url: string; label: string };
-    email: { url: string; label: string };
-    blog: { url: string; label: string };
-  };
-}
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { skillsData, blogPosts, socialLinks } from "@/config/constants";
+import { projects } from "@/config/projects";
 
 // ScrollToTop component to handle scroll behavior
-function ScrollToTop() {
-  const location = useLocation();
+function ScrollToHash() {
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (location.hash === "#contact") {
+    if (typeof window !== "undefined" && window.location.hash === "#contact") {
       setTimeout(() => {
         const element = document.getElementById("contact");
         if (element) {
@@ -28,7 +21,7 @@ function ScrollToTop() {
         }
       }, 0);
     }
-  }, [location]);
+  }, [pathname]);
 
   return null;
 }
@@ -64,7 +57,7 @@ function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
   );
 }
 
-function Home({ socialLinks }: HomeProps) {
+export default function Home() {
   const featuredProjects = projects.slice(0, 4);
   const recentBlogPosts = blogPosts.slice(0, 3);
 
@@ -99,7 +92,7 @@ function Home({ socialLinks }: HomeProps) {
 
   return (
     <div>
-      <ScrollToTop />
+      <ScrollToHash />
 
       {/* Hero Section - Full Screen Split */}
       <section className="min-h-screen flex items-center pt-20">
@@ -125,7 +118,7 @@ function Home({ socialLinks }: HomeProps) {
               {/* Main Heading */}
               <div className="space-y-4">
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-                  Hi, I'm{" "}
+                  Hi, I&apos;m{" "}
                   <span className="bg-gradient-to-r from-white via-neutral-300 to-neutral-500 bg-clip-text text-transparent">
                     Sixtus
                   </span>
@@ -153,7 +146,7 @@ function Home({ socialLinks }: HomeProps) {
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <Link
-                  to="/projects"
+                  href="/projects"
                   className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
                   View My Work
                   <ArrowRight
@@ -331,7 +324,7 @@ function Home({ socialLinks }: HomeProps) {
                 className="md:col-span-2 bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
                 <div className="space-y-6">
                   <p className="text-lg text-neutral-300 leading-relaxed">
-                    I'm a Full-Stack Developer with expertise in building
+                    I&apos;m a Full-Stack Developer with expertise in building
                     scalable web and mobile applications. With a strong
                     foundation in{" "}
                     <span className="text-white font-medium">Python</span>,{" "}
@@ -343,9 +336,9 @@ function Home({ socialLinks }: HomeProps) {
                     bridge the gap between design and functionality.
                   </p>
                   <p className="text-lg text-neutral-300 leading-relaxed">
-                    I've helped startups and organizations transform their ideas
+                    I&apos;ve helped startups and organizations transform their ideas
                     into reality through clean code and innovative thinking. My
-                    mission is to build software that impacts people's lives.
+                    mission is to build software that impacts people&apos;s lives.
                   </p>
                   <div className="flex flex-wrap gap-3 pt-4">
                     {[
@@ -388,7 +381,7 @@ function Home({ socialLinks }: HomeProps) {
                 { value: "5+", label: "Years of Experience" },
                 { value: "110+", label: "Projects Completed" },
                 { value: "100%", label: "Client Satisfaction" },
-              ].map((stat, index) => (
+              ].map((stat) => (
                 <motion.div
                   key={stat.label}
                   variants={itemVariants}
@@ -424,7 +417,7 @@ function Home({ socialLinks }: HomeProps) {
 
             <div className="space-y-12">
               {Object.entries(skillsData).map(
-                ([category, skills], categoryIndex) => (
+                ([category, skills]) => (
                   <motion.div
                     key={category}
                     variants={itemVariants}
@@ -470,7 +463,7 @@ function Home({ socialLinks }: HomeProps) {
                 </h2>
               </div>
               <Link
-                to="/projects"
+                href="/projects"
                 className="group inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
                 View all projects
                 <ArrowUpRight
@@ -481,7 +474,7 @@ function Home({ socialLinks }: HomeProps) {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredProjects.map((project, index) => (
+              {featuredProjects.map((project) => (
                 <motion.div
                   key={project.title}
                   variants={itemVariants}
@@ -563,7 +556,7 @@ function Home({ socialLinks }: HomeProps) {
                 </h2>
               </div>
               <Link
-                to="/blog"
+                href="/blog"
                 className="group inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
                 View all posts
                 <ArrowUpRight
@@ -574,7 +567,7 @@ function Home({ socialLinks }: HomeProps) {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {recentBlogPosts.map((post, index) => (
+              {recentBlogPosts.map((post) => (
                 <motion.a
                   key={post.title}
                   href={post.link}
@@ -634,10 +627,10 @@ function Home({ socialLinks }: HomeProps) {
                     Get in Touch
                   </span>
                   <h2 className="text-4xl md:text-5xl font-bold">
-                    Let's work together
+                    Let&apos;s work together
                   </h2>
                   <p className="text-neutral-400 text-lg">
-                    I'm always open to discussing new projects, creative ideas,
+                    I&apos;m always open to discussing new projects, creative ideas,
                     or opportunities to be part of your visions.
                   </p>
                   <a
@@ -728,5 +721,3 @@ function Home({ socialLinks }: HomeProps) {
     </div>
   );
 }
-
-export default Home;

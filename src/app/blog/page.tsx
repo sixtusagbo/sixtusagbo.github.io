@@ -1,11 +1,13 @@
+"use client";
+
 import { useState, useMemo, useEffect } from "react";
-import { blogPosts } from "../config/constants";
+import { blogPosts } from "@/config/constants";
 import { Filter, Search, X, ArrowUpRight, Calendar, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 type SortOption = "newest" | "oldest" | "title";
 
-function Blog() {
+export default function Blog() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
@@ -247,7 +249,7 @@ function Blog() {
                 </motion.div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {filteredPosts.map((post, index) => (
+                  {filteredPosts.map((post) => (
                     <motion.a
                       key={post.title}
                       href={post.link}
@@ -341,5 +343,3 @@ function Blog() {
     </div>
   );
 }
-
-export default Blog;

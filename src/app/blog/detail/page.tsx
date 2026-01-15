@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -7,9 +9,16 @@ import {
   Bookmark,
   ArrowUpRight,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
-const BlogDetail = () => {
+interface ContentSection {
+  type: string;
+  content?: string;
+  items?: string[];
+  language?: string;
+}
+
+export default function BlogDetail() {
   // Sample blog post data (in real app, this would come from props or context)
   const post = {
     title: "Building a CI/CD Pipeline for Your Projects",
@@ -129,7 +138,7 @@ jobs:
         content:
           "Setting up a CI/CD pipeline requires some initial investment, but the benefits in terms of code quality, team efficiency, and deployment reliability are substantial. By automating your build, test, and deployment processes, you free up more time to focus on what matters most: writing code and delivering value to your users.",
       },
-    ],
+    ] as ContentSection[],
   };
 
   // Format date
@@ -166,7 +175,7 @@ jobs:
           {/* Back button */}
           <motion.div variants={itemVariants}>
             <Link
-              to="/blog"
+              href="/blog"
               className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group">
               <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
               <span>Back to all posts</span>
@@ -289,7 +298,7 @@ jobs:
               </button>
             </div>
             <Link
-              to="/blog"
+              href="/blog"
               className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
               More Posts
               <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -299,6 +308,4 @@ jobs:
       </div>
     </div>
   );
-};
-
-export default BlogDetail;
+}

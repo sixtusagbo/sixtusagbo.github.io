@@ -1,9 +1,14 @@
-import { useState, useMemo, useEffect } from "react";
-import { projects } from "../config/projects";
+"use client";
+
+import { Suspense, useState, useMemo, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { projects } from "@/config/projects";
 import { X, ArrowUpRight, ExternalLink, Filter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function Projects() {
+function ProjectsContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [modalImage, setModalImage] = useState<{
     src: string;
@@ -13,22 +18,21 @@ function Projects() {
 
   // Check for URL parameters on component mount
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const filterParam = url.searchParams.get("filter");
+    const filterParam = searchParams.get("filter");
     if (filterParam) {
       setActiveFilters([filterParam]);
     }
-  }, []);
+  }, [searchParams]);
 
   // Update URL when filters change
   useEffect(() => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("filter");
+    const params = new URLSearchParams();
     activeFilters.forEach((filter) => {
-      url.searchParams.append("filter", filter);
+      params.append("filter", filter);
     });
-    window.history.pushState({}, "", url);
-  }, [activeFilters]);
+    const newUrl = activeFilters.length > 0 ? `?${params.toString()}` : "/projects";
+    router.replace(newUrl, { scroll: false });
+  }, [activeFilters, router]);
 
   // Extract all unique technologies from projects
   const allTechnologies = useMemo(() => {
@@ -96,7 +100,7 @@ function Projects() {
                   : "My Projects"}
               </h1>
               <p className="text-lg text-neutral-400 max-w-2xl">
-                A collection of projects I've worked on, ranging from web applications to mobile apps.
+                A collection of projects I&apos;ve worked on, ranging from web applications to mobile apps.
                 Each project represents a unique challenge and learning experience.
               </p>
             </div>
@@ -166,7 +170,7 @@ function Projects() {
             </motion.div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {filteredProjects.map((project, index) => (
+              {filteredProjects.map((project) => (
                 <motion.div
                   key={project.title}
                   variants={itemVariants}
@@ -335,4 +339,37 @@ function Projects() {
   );
 }
 
-export default Projects;
+function ProjectsLoading() {
+  return (
+    <div className="pt-32 pb-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="space-y-12 animate-pulse">
+          <div className="space-y-4">
+            <div className="h-4 w-24 bg-neutral-800 rounded"></div>
+            <div className="h-12 w-72 bg-neutral-800 rounded"></div>
+            <div className="h-6 w-96 bg-neutral-800 rounded"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800">
+                <div className="aspect-video bg-neutral-800"></div>
+                <div className="p-6 space-y-4">
+                  <div className="h-6 w-48 bg-neutral-800 rounded"></div>
+                  <div className="h-4 w-full bg-neutral-800 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Projects() {
+  return (
+    <Suspense fallback={<ProjectsLoading />}>
+      <ProjectsContent />
+    </Suspense>
+  );
+}

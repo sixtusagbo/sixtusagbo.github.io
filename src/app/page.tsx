@@ -500,7 +500,7 @@ export default function Home() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
-                          Live Demo <ArrowUpRight size={14} />
+                          Live <ArrowUpRight size={14} />
                         </a>
                       )}
                       {project.links.github && (

@@ -34,6 +34,15 @@ function ProjectsContent() {
     router.replace(newUrl, { scroll: false });
   }, [activeFilters, router]);
 
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setModalImage(null);
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
   // Extract all unique technologies from projects
   const allTechnologies = useMemo(() => {
     const techSet = new Set<string>();
@@ -248,7 +257,7 @@ function ProjectsContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
-                          Live Demo <ArrowUpRight size={14} />
+                          Live <ArrowUpRight size={14} />
                         </a>
                       )}
                       {project.links.github && (
@@ -266,7 +275,7 @@ function ProjectsContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
-                          Play Store <ArrowUpRight size={14} />
+                          Google Play Store <ArrowUpRight size={14} />
                         </a>
                       )}
                       {project.links.appstore && (
@@ -275,7 +284,7 @@ function ProjectsContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
-                          App Store <ArrowUpRight size={14} />
+                          Apple App Store <ArrowUpRight size={14} />
                         </a>
                       )}
                       {project.links.docs && (
@@ -312,26 +321,17 @@ function ProjectsContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/95 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/95 px-4 pt-24 pb-4 cursor-pointer"
             onClick={() => setModalImage(null)}>
-            <motion.div
+            <motion.img
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="relative max-w-5xl w-full"
-              onClick={(e) => e.stopPropagation()}>
-              <img
-                src={modalImage.src}
-                alt={modalImage.alt}
-                className="w-full h-auto rounded-2xl"
-              />
-              <button
-                onClick={() => setModalImage(null)}
-                className="absolute top-4 right-4 p-3 bg-neutral-900/80 backdrop-blur-sm rounded-full hover:bg-neutral-800 transition-colors">
-                <X size={24} />
-              </button>
-            </motion.div>
+              src={modalImage.src}
+              alt={modalImage.alt}
+              className="max-w-full max-h-full w-auto h-auto object-contain rounded-2xl"
+            />
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,5 +1,37 @@
 export const projects = [
   {
+    title: "Food Pilot",
+    description:
+      "AI-powered eating companion that helps build healthy eating habits through personalized meal recommendations, smart reminders, and visual progress tracking",
+    image: "/images/projects/foodpilot.png",
+    tech: [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "OpenAI",
+      "Riverpod",
+      "Mobile App",
+      "Android",
+      "iOS",
+    ],
+    links: {
+      live: "https://foodpilot.app",
+      github: "https://github.com/sixtusagbo/foodpilot",
+      appstore: "https://apps.apple.com/us/app/food-pilot/id6756402994",
+    },
+  },
+  {
+    title: "Just Fucking Use Flutter",
+    description:
+      "A satirical manifesto website making the case for Flutter as the ultimate cross-platform development framework",
+    image: "/images/projects/justfuckinguseflutter.png",
+    tech: ["Flutter", "Dart", "Web"],
+    links: {
+      live: "https://justfuckinguseflutter.com",
+      github: "https://github.com/sixtusagbo/justfuckinguseflutter",
+    },
+  },
+  {
     title: "Arvalox",
     description:
       "AI-powered B2B SaaS platform for managing accounts receivable with advanced analytics and business intelligence",

@@ -17,7 +17,7 @@ function ProjectsContent() {
   } | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
-  // Check for URL parameters on component mount
+  // Sync URL parameters to state on mount only
   useEffect(() => {
     const filterParam = searchParams.get("filter");
     if (filterParam) {
@@ -27,9 +27,10 @@ function ProjectsContent() {
     if (yearParam) {
       setYearFilter(parseInt(yearParam));
     }
-  }, [searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Update URL when filters change
+  // Update URL when filters change (debounced to avoid conflicts)
   useEffect(() => {
     const params = new URLSearchParams();
     activeFilters.forEach((filter) => {

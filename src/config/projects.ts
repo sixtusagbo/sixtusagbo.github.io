@@ -30,6 +30,7 @@ export const projects = [
       live: "https://justfuckinguseflutter.com",
       github: "https://github.com/sixtusagbo/justfuckinguseflutter",
     },
+    year: 2025,
   },
   {
     title: "Arvalox",
@@ -52,6 +53,7 @@ export const projects = [
       live: "https://arvalox.com",
       github: "https://github.com/sixtusagbo/arvalox",
     },
+    year: 2025,
   },
   {
     title: "Grosonix",
@@ -71,6 +73,7 @@ export const projects = [
       youtube: "https://youtu.be/IDyYfjzl_78",
       live: "https://grosonix.netlify.app",
     },
+    year: 2025,
   },
   {
     title: "Watchdog Meme",
@@ -89,6 +92,7 @@ export const projects = [
       live: "https://thewatchdog.xyz",
       github: "https://github.com/sixtusagbo/watchdog_meme",
     },
+    year: 2025,
   },
   {
     title: "Bilingual Translator",
@@ -100,6 +104,7 @@ export const projects = [
       live: "https://bilingual-translator.vercel.app",
       github: "https://github.com/sixtusagbo/bilingual_translator",
     },
+    year: 2025,
   },
   {
     title: "Countdown City",
@@ -111,6 +116,7 @@ export const projects = [
       live: "https://countdown-city.vercel.app",
       github: "https://github.com/sixtusagbo/countdown-city",
     },
+    year: 2025,
   },
   {
     title: "Lifepadi",
@@ -134,6 +140,7 @@ export const projects = [
       live: "https://finview-omega.vercel.app",
       github: "https://github.com/sixtusagbo/finview",
     },
+    year: 2025,
   },
   {
     title: "FinView API",
@@ -146,6 +153,7 @@ export const projects = [
       docs: "https://finview-api.vercel.app/docs",
       github: "https://github.com/sixtusagbo/finview-api",
     },
+    year: 2025,
   },
   {
     title: "uStackSchool",
@@ -155,6 +163,25 @@ export const projects = [
     links: {
       live: "https://devops-213600042639.europe-west2.run.app/",
     },
+  },
+  {
+    title: "Portfolio",
+    description:
+      "Personal portfolio website showcasing my projects, skills, and experience as a software engineer",
+    image: "/images/projects/portfolio.png",
+    tech: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "TailwindCSS",
+      "Framer Motion",
+      "Portfolio",
+    ],
+    links: {
+      live: "https://sixtusagbo.com",
+      github: "https://github.com/sixtusagbo/sixtusagbo.github.io",
+    },
+    year: 2023,
   },
   {
     title: "Ace iT Pro",
@@ -173,6 +200,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/aceit",
     },
+    year: 2024,
   },
   {
     title: "Shipa Express",
@@ -183,6 +211,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/shipa-express",
     },
+    year: 2024,
   },
   {
     title: "Argent de Niro",
@@ -193,6 +222,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/argent-de-niro",
     },
+    year: 2023,
   },
   {
     title: "Vitrine",
@@ -211,6 +241,7 @@ export const projects = [
       github: "https://github.com/sixtusagbo/vitrine",
       youtube: "https://www.youtube.com/watch?v=NoJ74GNxGos",
     },
+    year: 2023,
   },
   {
     title: "EasyRead",
@@ -232,6 +263,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/alx-files_manager",
     },
+    year: 2024,
   },
   {
     title: "File Shield",
@@ -242,6 +274,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/file_shield",
     },
+    year: 2023,
   },
   {
     title: "Mirablog",
@@ -252,6 +285,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/mirablog",
     },
+    year: 2022,
   },
   {
     title: "Mimi Blog",
@@ -262,6 +296,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/mimi-blog",
     },
+    year: 2023,
   },
   {
     title: "Transport Management System",
@@ -272,6 +307,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/transport_management_system",
     },
+    year: 2021,
   },
   {
     title: "Brew",
@@ -281,6 +317,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/brew",
     },
+    year: 2022,
   },
   {
     title: "My Day",
@@ -291,6 +328,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/my_day",
     },
+    year: 2022,
   },
   {
     title: "Contact Manager",
@@ -301,6 +339,7 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/contact_manager",
     },
+    year: 2023,
   },
   {
     title: "Place Explorer",
@@ -311,5 +350,6 @@ export const projects = [
     links: {
       github: "https://github.com/sixtusagbo/place_explorer",
     },
+    year: 2023,
   },
 ];

@@ -3,13 +3,14 @@
 import { Suspense, useState, useMemo, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { projects } from "@/config/projects";
-import { X, ArrowUpRight, ExternalLink, Filter } from "lucide-react";
+import { X, ArrowUpRight, ExternalLink, Filter, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [yearFilter, setYearFilter] = useState<number | null>(null);
   const [modalImage, setModalImage] = useState<{
     src: string;
     alt: string;
@@ -22,6 +23,10 @@ function ProjectsContent() {
     if (filterParam) {
       setActiveFilters([filterParam]);
     }
+    const yearParam = searchParams.get("year");
+    if (yearParam) {
+      setYearFilter(parseInt(yearParam));
+    }
   }, [searchParams]);
 
   // Update URL when filters change
@@ -30,9 +35,12 @@ function ProjectsContent() {
     activeFilters.forEach((filter) => {
       params.append("filter", filter);
     });
-    const newUrl = activeFilters.length > 0 ? `?${params.toString()}` : "/projects";
+    if (yearFilter) {
+      params.set("year", yearFilter.toString());
+    }
+    const newUrl = params.toString() ? `?${params.toString()}` : "/projects";
     router.replace(newUrl, { scroll: false });
-  }, [activeFilters, router]);
+  }, [activeFilters, yearFilter, router]);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -52,15 +60,28 @@ function ProjectsContent() {
     return Array.from(techSet).sort();
   }, []);
 
-  // Filter projects based on active filters
+  // Extract all unique years from projects (sorted descending)
+  const allYears = useMemo(() => {
+    const yearSet = new Set<number>();
+    projects.forEach((project) => {
+      if (project.year) yearSet.add(project.year);
+    });
+    return Array.from(yearSet).sort((a, b) => b - a);
+  }, []);
+
+  // Filter projects based on active filters and year
   const filteredProjects = useMemo(() => {
-    if (activeFilters.length === 0) {
-      return projects;
+    let filtered = projects;
+    if (activeFilters.length > 0) {
+      filtered = filtered.filter((project) =>
+        activeFilters.every((filter) => project.tech.includes(filter))
+      );
     }
-    return projects.filter((project) =>
-      activeFilters.every((filter) => project.tech.includes(filter))
-    );
-  }, [activeFilters]);
+    if (yearFilter) {
+      filtered = filtered.filter((project) => project.year === yearFilter);
+    }
+    return filtered;
+  }, [activeFilters, yearFilter]);
 
   // Handle tech filter click
   const toggleFilter = (tech: string) => {
@@ -76,7 +97,10 @@ function ProjectsContent() {
   // Clear all filters
   const clearFilters = () => {
     setActiveFilters([]);
+    setYearFilter(null);
   };
+
+  const hasActiveFilters = activeFilters.length > 0 || yearFilter !== null;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -104,8 +128,8 @@ function ProjectsContent() {
             <div className="space-y-4">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">Portfolio</span>
               <h1 className="text-4xl md:text-6xl font-bold">
-                {activeFilters.length > 0
-                  ? `Projects with ${activeFilters.join(", ")}`
+                {hasActiveFilters
+                  ? `Projects${yearFilter ? ` from ${yearFilter}` : ""}${activeFilters.length > 0 ? ` with ${activeFilters.join(", ")}` : ""}`
                   : "My Projects"}
               </h1>
               <p className="text-lg text-neutral-400 max-w-2xl">
@@ -120,9 +144,9 @@ function ProjectsContent() {
               className="md:hidden flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-xl text-sm font-medium">
               <Filter size={16} />
               {showFilters ? "Hide Filters" : "Show Filters"}
-              {activeFilters.length > 0 && (
+              {hasActiveFilters && (
                 <span className="px-2 py-0.5 bg-white text-neutral-950 rounded-full text-xs">
-                  {activeFilters.length}
+                  {activeFilters.length + (yearFilter ? 1 : 0)}
                 </span>
               )}
             </button>
@@ -133,8 +157,8 @@ function ProjectsContent() {
             variants={itemVariants}
             className={`space-y-4 ${showFilters ? "block" : "hidden md:block"}`}>
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-medium text-neutral-400 uppercase tracking-wider">Filter by Technology</h2>
-              {activeFilters.length > 0 && (
+              <h2 className="text-sm font-medium text-neutral-400 uppercase tracking-wider">Filters</h2>
+              {hasActiveFilters && (
                 <button
                   onClick={clearFilters}
                   className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1">
@@ -143,7 +167,28 @@ function ProjectsContent() {
                 </button>
               )}
             </div>
-            <div className="flex flex-wrap gap-2">
+
+            {/* Year Filter */}
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-neutral-500">Year:</span>
+              <div className="relative">
+                <select
+                  value={yearFilter ?? ""}
+                  onChange={(e) => setYearFilter(e.target.value ? parseInt(e.target.value) : null)}
+                  className="appearance-none bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2 pr-10 text-sm font-medium text-neutral-300 hover:border-neutral-700 focus:outline-none focus:border-neutral-600 cursor-pointer">
+                  <option value="">All Years</option>
+                  {allYears.map((year) => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </select>
+                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Technology Filter */}
+            <div className="space-y-2">
+              <span className="text-sm text-neutral-500">Technology:</span>
+              <div className="flex flex-wrap gap-2">
               {allTechnologies.map((tech) => (
                 <button
                   key={tech}
@@ -156,9 +201,10 @@ function ProjectsContent() {
                   {tech}
                 </button>
               ))}
+              </div>
             </div>
 
-            {activeFilters.length > 0 && (
+            {hasActiveFilters && (
               <p className="text-sm text-neutral-500">
                 Showing {filteredProjects.length} of {projects.length} projects
               </p>
@@ -228,6 +274,9 @@ function ProjectsContent() {
                   <div className="p-6 space-y-4">
                     <h3 className="text-xl font-semibold group-hover:text-neutral-300 transition-colors">
                       {project.title}
+                      {project.year && (
+                        <span className="text-neutral-500 font-normal"> · {project.year}</span>
+                      )}
                     </h3>
                     <p className="text-neutral-400 text-sm leading-relaxed line-clamp-2">
                       {project.description}

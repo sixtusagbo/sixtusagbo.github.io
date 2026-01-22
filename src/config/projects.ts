@@ -129,6 +129,7 @@ export const projects = [
         "https://play.google.com/store/apps/details?id=com.lifepadi.app",
       appstore: "https://apps.apple.com/us/app/lifepadi/id6741829265",
     },
+    year: 2024,
   },
   {
     title: "FinView",
@@ -163,6 +164,7 @@ export const projects = [
     links: {
       live: "https://devops-213600042639.europe-west2.run.app/",
     },
+    year: 2024,
   },
   {
     title: "Portfolio",
@@ -253,6 +255,7 @@ export const projects = [
       playstore:
         "https://play.google.com/store/apps/details?id=com.listacc.easyread",
     },
+    year: 2022,
   },
   {
     title: "File Manager API",

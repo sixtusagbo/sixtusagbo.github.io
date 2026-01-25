@@ -8,7 +8,7 @@ export const projects = [
       "Flutter",
       "Dart",
       "Firebase",
-      "OpenAI",
+      "Gemini",
       "Riverpod",
       "Mobile App",
       "Android",

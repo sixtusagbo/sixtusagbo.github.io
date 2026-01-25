@@ -1,25 +1,25 @@
 export const projects = [
-  // {
-  //   title: "Food Pilot",
-  //   description:
-  //     "AI-powered eating companion that helps build healthy eating habits through personalized meal recommendations, smart reminders, and visual progress tracking",
-  //   image: "/images/projects/foodpilot.png",
-  //   tech: [
-  //     "Flutter",
-  //     "Dart",
-  //     "Firebase",
-  //     "OpenAI",
-  //     "Riverpod",
-  //     "Mobile App",
-  //     "Android",
-  //     "iOS",
-  //   ],
-  //   links: {
-  //     live: "https://foodpilot.app",
-  //     github: "https://github.com/sixtusagbo/foodpilot",
-  //     appstore: "https://apps.apple.com/us/app/food-pilot/id6756402994",
-  //   },
-  // },
+  {
+    title: "Food Pilot",
+    description:
+      "AI-powered eating companion that helps build healthy eating habits through personalized meal recommendations, smart reminders, and visual progress tracking",
+    image: "/images/projects/foodpilot.png",
+    tech: [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "OpenAI",
+      "Riverpod",
+      "Mobile App",
+      "Android",
+      "iOS",
+    ],
+    links: {
+      live: "https://foodpilot.app",
+      github: "https://github.com/sixtusagbo/foodpilot",
+      appstore: "https://apps.apple.com/us/app/food-pilot/id6756402994",
+    },
+  },
   {
     title: "Just Fucking Use Flutter",
     description:

@@ -1,5 +1,8 @@
 import { ExternalLink, FileText, Eye } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+const DESCRIPTION_CHAR_LIMIT = 100;
 
 interface ProjectCardProps {
   project: {
@@ -27,6 +30,13 @@ const ProjectCard = ({
   onFilterClick,
   onImageClick,
 }: ProjectCardProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const shouldTruncate = project.description.length > DESCRIPTION_CHAR_LIMIT;
+  const displayedDescription =
+    shouldTruncate && !isExpanded
+      ? project.description.slice(0, DESCRIPTION_CHAR_LIMIT) + "..."
+      : project.description;
+
   return (
     <motion.div
       key={index}
@@ -129,7 +139,16 @@ const ProjectCard = ({
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-        <p className="text-gray-300 mb-4">{project.description}</p>
+        <p className="text-gray-300 mb-4">
+          {displayedDescription}
+          {shouldTruncate && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="ml-1 text-purple-400 hover:text-purple-300 transition-colors">
+              {isExpanded ? "Show less" : "Show more"}
+            </button>
+          )}
+        </p>
         <div className="flex flex-wrap gap-2">
           {project.tech.map((tech, i) => (
             <span

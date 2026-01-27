@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useMemo, useEffect } from "react";
+import { Suspense, useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { projects } from "@/config/projects";
 import { X, ArrowUpRight, ExternalLink, Filter, ChevronDown } from "lucide-react";
@@ -17,6 +17,8 @@ function ProjectsContent() {
   } | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
+  const [overflowingDescriptions, setOverflowingDescriptions] = useState<Set<string>>(new Set());
+  const descriptionRefs = useRef<Map<string, HTMLParagraphElement>>(new Map());
 
   // Sync URL parameters to state on mount only
   useEffect(() => {
@@ -84,6 +86,26 @@ function ProjectsContent() {
     }
     return filtered;
   }, [activeFilters, yearFilter]);
+
+  // Check which descriptions are actually overflowing
+  useEffect(() => {
+    const checkOverflow = () => {
+      const overflowing = new Set<string>();
+      descriptionRefs.current.forEach((el, title) => {
+        if (el && el.scrollHeight > el.clientHeight) {
+          overflowing.add(title);
+        }
+      });
+      setOverflowingDescriptions(overflowing);
+    };
+    // Small delay to ensure refs are populated after render
+    const timer = setTimeout(checkOverflow, 100);
+    window.addEventListener("resize", checkOverflow);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, [filteredProjects]);
 
   // Handle tech filter click
   const toggleFilter = (tech: string) => {
@@ -294,10 +316,14 @@ function ProjectsContent() {
                       )}
                     </h3>
                     <div>
-                      <p className={`text-neutral-400 text-sm leading-relaxed ${!expandedDescriptions.has(project.title) ? "line-clamp-2" : ""}`}>
+                      <p
+                        ref={(el) => {
+                          if (el) descriptionRefs.current.set(project.title, el);
+                        }}
+                        className={`text-neutral-400 text-sm leading-relaxed ${!expandedDescriptions.has(project.title) ? "line-clamp-2" : ""}`}>
                         {project.description}
                       </p>
-                      {project.description.length > 120 && (
+                      {(overflowingDescriptions.has(project.title) || expandedDescriptions.has(project.title)) && (
                         <button
                           onClick={() => toggleDescription(project.title)}
                           className="text-sm text-white hover:text-neutral-300 transition-colors mt-1">

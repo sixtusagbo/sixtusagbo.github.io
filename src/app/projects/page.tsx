@@ -16,6 +16,7 @@ function ProjectsContent() {
     alt: string;
   } | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
 
   // Sync URL parameters to state on mount only
   useEffect(() => {
@@ -92,6 +93,19 @@ function ProjectsContent() {
       } else {
         return [...prev, tech];
       }
+    });
+  };
+
+  // Toggle description expansion
+  const toggleDescription = (title: string) => {
+    setExpandedDescriptions((prev) => {
+      const next = new Set(prev);
+      if (next.has(title)) {
+        next.delete(title);
+      } else {
+        next.add(title);
+      }
+      return next;
     });
   };
 
@@ -279,9 +293,18 @@ function ProjectsContent() {
                         <span className="text-neutral-500 font-normal"> · {project.year}</span>
                       )}
                     </h3>
-                    <p className="text-neutral-400 text-sm leading-relaxed line-clamp-2">
-                      {project.description}
-                    </p>
+                    <div>
+                      <p className={`text-neutral-400 text-sm leading-relaxed ${!expandedDescriptions.has(project.title) ? "line-clamp-2" : ""}`}>
+                        {project.description}
+                      </p>
+                      {project.description.length > 120 && (
+                        <button
+                          onClick={() => toggleDescription(project.title)}
+                          className="text-sm text-white hover:text-neutral-300 transition-colors mt-1">
+                          {expandedDescriptions.has(project.title) ? "Show less" : "Show more"}
+                        </button>
+                      )}
+                    </div>
 
                     {/* Tech Tags */}
                     <div className="flex flex-wrap gap-2">

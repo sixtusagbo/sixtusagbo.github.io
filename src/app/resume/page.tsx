@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Award, ArrowUpRight, Download, MapPin, Calendar } from "lucide-react";
-import { experiences, education, certifications } from "@/config/constants";
+import { experiences, education, certifications, resumePdfUrl } from "@/config/constants";
 
 export default function Experience() {
   const containerVariants = {
@@ -37,7 +37,7 @@ export default function Experience() {
                 </p>
               </div>
               <a
-                href="https://drive.google.com/file/d/1B65GzErr4ZqwvoLXkIa7oBYU5AjCp97W/view?usp=sharing"
+                href={resumePdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all w-fit">
@@ -208,7 +208,7 @@ export default function Experience() {
                   <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
                 <a
-                  href="https://drive.google.com/file/d/1B65GzErr4ZqwvoLXkIa7oBYU5AjCp97W/view?usp=sharing"
+                  href={resumePdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 border border-neutral-700 rounded-full font-semibold hover:border-neutral-500 hover:bg-neutral-900 transition-all">

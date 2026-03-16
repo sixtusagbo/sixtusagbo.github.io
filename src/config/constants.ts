@@ -1,3 +1,7 @@
+// Resume PDF link
+export const resumePdfUrl =
+  "https://drive.google.com/file/d/1e955wQOSm-nC5xyreAWx6Ts30MJEAOY2/view?usp=drivesdk";
+
 // Skills data organized by categories
 export const skillsData: Record<string, string[]> = {
   "Programming Languages & Frameworks": [

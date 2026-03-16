@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { skillsData, blogPosts, socialLinks } from "@/config/constants";
+import { skillsData, blogPosts, socialLinks, resumePdfUrl } from "@/config/constants";
 import { projects } from "@/config/projects";
 
 // ScrollToTop component to handle scroll behavior
@@ -144,7 +144,7 @@ export default function Home() {
                   />
                 </Link>
                 <a
-                  href="https://drive.google.com/file/d/1B65GzErr4ZqwvoLXkIa7oBYU5AjCp97W/view?usp=sharing"
+                  href={resumePdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 px-6 py-3 border border-neutral-700 rounded-full font-semibold hover:border-neutral-500 hover:bg-neutral-900 transition-all">

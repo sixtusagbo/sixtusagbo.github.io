@@ -1,36 +1,13 @@
 // Resume PDF link
 export const resumePdfUrl =
-  "https://drive.google.com/file/d/1e955wQOSm-nC5xyreAWx6Ts30MJEAOY2/view?usp=drivesdk";
+  "https://drive.google.com/file/d/144RoEI3k7K81k3GuzO8bFUguxP-j64B5/view?usp=sharing";
 
 // Skills data organized by categories
 export const skillsData: Record<string, string[]> = {
-  Languages: [
-    "TypeScript",
-    "JavaScript",
-    "Python",
-    "Dart",
-    "PHP",
-    "C#",
-  ],
-  Frontend: [
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "HTML/CSS",
-  ],
-  Mobile: [
-    "Flutter",
-    "Firebase",
-    "iOS/Android",
-  ],
-  Backend: [
-    "Laravel",
-    "FastAPI",
-    "Flask",
-    "Node.js",
-    "NextAuth",
-    "REST APIs",
-  ],
+  Languages: ["TypeScript", "JavaScript", "Python", "Dart", "PHP", "C#"],
+  Frontend: ["React", "Next.js", "Tailwind CSS", "HTML/CSS"],
+  Mobile: ["Flutter", "Firebase", "iOS/Android"],
+  Backend: ["Laravel", "FastAPI", "Flask", "Node.js", "NextAuth", "REST APIs"],
   "Data & Cloud": [
     "PostgreSQL",
     "MySQL",

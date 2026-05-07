@@ -1,6 +1,6 @@
 // Resume PDF link
 export const resumePdfUrl =
-  "https://drive.google.com/file/d/144RoEI3k7K81k3GuzO8bFUguxP-j64B5/view?usp=sharing";
+  "https://drive.google.com/file/d/157-O10MTE2LfEruSxGbLifau3N2iKwft/view?usp=sharing";
 
 // Skills data organized by categories
 export const skillsData: Record<string, string[]> = {

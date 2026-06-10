@@ -52,11 +52,29 @@ type FeedItem = {
   description?: string;
 };
 
-function toTitleCase(tag: string): string {
-  return tag
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+// Medium categories that title-casing alone would get wrong
+const TAG_OVERRIDES: Record<string, string> = {
+  ai: "AI",
+  "ai-detector": "AI Detector",
+  "5g": "5G",
+  "5g-technology": "5G Technology",
+  cicd: "CI/CD",
+  "ci-cd-pipeline": "CI/CD Pipeline",
+  continuosdeployment: "Continuous Deployment",
+  defi: "DeFi",
+  ios: "iOS",
+  mvp: "MVP",
+  webdev: "Web Dev",
+};
+
+function formatTag(tag: string): string {
+  return (
+    TAG_OVERRIDES[tag] ??
+    tag
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  );
 }
 
 function extOf(url: string): string {
@@ -123,6 +141,31 @@ function extractCover(html: string, images: string[]): {
   return { html, cover: images[0] ?? "" };
 }
 
+/**
+ * Shift heading levels so the top content heading is h2 (the page h1 is the
+ * post title). Fenced code blocks are left untouched.
+ */
+function normalizeHeadings(markdown: string): string {
+  const parts = markdown.split(/(```[\s\S]*?```)/);
+  const prose = parts.filter((p) => !p.startsWith("```")).join("\n");
+  const levels = [...prose.matchAll(/^(#{1,6})\s/gm)].map((m) => m[1].length);
+  if (levels.length === 0) return markdown;
+
+  const shift = 2 - Math.min(...levels);
+  if (shift === 0) return markdown;
+
+  return parts
+    .map((part) =>
+      part.startsWith("```")
+        ? part
+        : part.replace(/^(#{1,6})(\s)/gm, (_, hashes: string, space: string) => {
+            const level = Math.min(6, Math.max(2, hashes.length + shift));
+            return "#".repeat(level) + space;
+          })
+    )
+    .join("");
+}
+
 async function htmlToMarkdown(html: string): Promise<string> {
   const file = await unified()
     .use(rehypeParse, { fragment: true })
@@ -171,14 +214,14 @@ async function main() {
       slug
     );
     const { html, cover } = extractCover(withLocalImages, images);
-    const content = await htmlToMarkdown(html);
+    const content = normalizeHeadings(await htmlToMarkdown(html));
 
     const categories = item.category
       ? Array.isArray(item.category)
         ? item.category
         : [item.category]
       : [];
-    const tags = categories.map(toTitleCase);
+    const tags = categories.map(formatTag);
 
     await Post.findOneAndUpdate(
       { slug },

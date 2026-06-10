@@ -137,6 +137,8 @@ export default function Navigation() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMenuOpen}
             className="md:hidden relative z-10 p-2 -mr-2">
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

@@ -20,7 +20,7 @@ type RowPost = {
 };
 
 const buttonClass =
-  "p-2.5 bg-neutral-800 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-700 transition-colors";
+  "p-3 bg-neutral-800 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-700 transition-colors";
 
 export default function PostRowActions({ post }: { post: RowPost }) {
   const router = useRouter();
@@ -85,7 +85,7 @@ export default function PostRowActions({ post }: { post: RowPost }) {
         disabled={isPending}
         aria-label="Delete post"
         title="Delete post"
-        className="p-2.5 bg-neutral-800 rounded-xl text-neutral-400 hover:text-red-400 hover:bg-neutral-700 transition-colors">
+        className="p-3 bg-neutral-800 rounded-xl text-neutral-400 hover:text-red-400 hover:bg-neutral-700 transition-colors">
         <Trash2 size={16} />
       </button>
     </div>

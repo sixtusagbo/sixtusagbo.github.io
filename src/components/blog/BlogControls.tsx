@@ -72,6 +72,8 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
       {/* Mobile filter toggle */}
       <button
         onClick={() => setShowFilters(!showFilters)}
+        aria-expanded={showFilters}
+        aria-controls="blog-filters"
         className="lg:hidden flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-xl text-sm font-medium">
         <Filter size={16} />
         {showFilters ? "Hide Filters" : "Show Filters"}
@@ -83,10 +85,11 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
       </button>
 
       <aside
+        id="blog-filters"
         className={`lg:w-72 flex-shrink-0 ${
           showFilters ? "block" : "hidden lg:block"
         }`}>
-        <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-6 space-y-6 sticky top-28">
+        <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-6 space-y-6 sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold flex items-center gap-2">
               Filters
@@ -119,7 +122,7 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
                 value={searchValue}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Search posts..."
-                className="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-10 py-2.5 text-sm focus:outline-none focus:border-neutral-600 placeholder-neutral-500"
+                className="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-10 py-2.5 text-sm focus:outline-none focus:border-neutral-400 placeholder-neutral-500"
               />
               {searchValue && (
                 <button
@@ -133,7 +136,7 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
           </div>
 
           {/* Sort */}
-          <div className="space-y-2">
+          <div className="space-y-2" role="group" aria-label="Sort by">
             <span className="text-sm text-neutral-400">Sort by</span>
             <div className="space-y-1">
               {SORT_OPTIONS.map((option) => (
@@ -153,7 +156,7 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div className="space-y-3">
+            <div className="space-y-3" role="group" aria-label="Filter by tag">
               <span className="text-sm text-neutral-400">Filter by tag</span>
               <div className="flex flex-wrap gap-2">
                 {tags.map(({ tag, count }) => (
@@ -167,7 +170,7 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
                         : "bg-neutral-800 text-neutral-400 hover:text-white"
                     }`}>
                     {tag}
-                    <span className="ml-1 opacity-60">{count}</span>
+                    <span className="ml-1.5 opacity-60">({count})</span>
                   </Link>
                 ))}
               </div>

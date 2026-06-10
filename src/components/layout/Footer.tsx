@@ -66,6 +66,7 @@ export default function Footer() {
                 href={socialLinks.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn"
                 className="w-10 h-10 rounded-full border border-neutral-700 flex items-center justify-center hover:border-white hover:bg-white hover:text-neutral-950 transition-all text-neutral-300 hover:text-neutral-950">
                 <svg
                   className="w-5 h-5"
@@ -78,6 +79,7 @@ export default function Footer() {
                 href={socialLinks.twitter.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Twitter / X"
                 className="w-10 h-10 rounded-full border border-neutral-700 flex items-center justify-center hover:border-white hover:bg-white hover:text-neutral-950 transition-all text-neutral-300 hover:text-neutral-950">
                 <svg
                   className="w-5 h-5"
@@ -88,6 +90,7 @@ export default function Footer() {
               </a>
               <a
                 href={socialLinks.email.url}
+                aria-label="Email"
                 className="w-10 h-10 rounded-full border border-neutral-700 flex items-center justify-center hover:border-white hover:bg-white hover:text-neutral-950 transition-all text-neutral-300 hover:text-neutral-950">
                 <svg
                   className="w-5 h-5"

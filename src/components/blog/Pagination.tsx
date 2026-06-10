@@ -71,6 +71,7 @@ export default function Pagination({
           <Link
             key={p}
             href={pageHref(searchParams, p)}
+            aria-label={`Page ${p}`}
             aria-current={p === page ? "page" : undefined}
             className={`min-w-10 px-3 py-2 rounded-xl text-sm font-medium text-center transition-colors ${
               p === page

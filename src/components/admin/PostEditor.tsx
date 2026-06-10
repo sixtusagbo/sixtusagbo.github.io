@@ -124,7 +124,10 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex bg-neutral-900 border border-neutral-800 rounded-full p-1">
+          <div
+            role="group"
+            aria-label="Post status"
+            className="flex bg-neutral-900 border border-neutral-800 rounded-full p-1">
             {(["draft", "published"] as const).map((s) => (
               <button
                 key={s}
@@ -162,12 +165,16 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
       <div className="grid lg:grid-cols-3 gap-6 items-start">
         {/* Main column */}
         <div className="lg:col-span-2 space-y-4">
+          <label htmlFor="post-title" className="sr-only">
+            Post title
+          </label>
           <input
+            id="post-title"
             type="text"
             value={title}
             onChange={(e) => onTitleChange(e.target.value)}
             placeholder="Post title"
-            className="w-full bg-transparent text-3xl font-bold placeholder-neutral-600 focus:outline-none"
+            className="w-full bg-transparent text-3xl font-bold placeholder-neutral-600 focus:outline-none focus:placeholder-neutral-500"
           />
 
           {/* Write / Preview tabs */}

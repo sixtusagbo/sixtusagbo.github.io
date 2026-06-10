@@ -11,6 +11,7 @@ import {
 import { renderMarkdown } from "@/lib/markdown";
 import { formatDate, markdownToPlainText } from "@/lib/utils";
 import { SITE_URL } from "@/config/constants";
+import CodeCopyButtons from "@/components/blog/CodeCopyButtons";
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import ShareButtons from "@/components/blog/ShareButtons";
 import ViewTracker from "@/components/blog/ViewTracker";
@@ -153,6 +154,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     <div className="pt-32 pb-20">
       <ReadingProgress />
       <ViewTracker slug={post.slug} />
+      <CodeCopyButtons />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(post)) }}

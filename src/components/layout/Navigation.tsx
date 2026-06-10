@@ -67,9 +67,11 @@ export default function Navigation() {
   const pathname = usePathname();
 
   // Close menu on route change
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setIsMenuOpen(false);
-  }, [pathname]);
+  }
 
   // Handle scroll effect for navbar
   useEffect(() => {

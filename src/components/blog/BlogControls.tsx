@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Filter, Loader2, Search, X } from "lucide-react";
@@ -26,7 +26,11 @@ export default function BlogControls({ tags }: { tags: TagCount[] }) {
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // Keep the input in sync when the URL changes via back/forward
-  useEffect(() => setSearchValue(q), [q]);
+  const [prevQ, setPrevQ] = useState(q);
+  if (prevQ !== q) {
+    setPrevQ(q);
+    setSearchValue(q);
+  }
 
   const buildParams = (updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams);

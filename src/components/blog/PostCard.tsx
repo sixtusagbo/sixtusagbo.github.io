@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import { formatDate } from "@/lib/utils";
@@ -22,11 +19,7 @@ type PostCardProps = {
 
 export default function PostCard({ post, compact = false }: PostCardProps) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      className="group bg-neutral-900 border border-neutral-800 rounded-3xl overflow-hidden hover:border-neutral-700 transition-all">
+    <article className="group bg-neutral-900 border border-neutral-800 rounded-3xl overflow-hidden hover:border-neutral-700 transition-all">
       <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
         {post.coverImage && (
           <div className="aspect-video overflow-hidden relative">
@@ -92,6 +85,6 @@ export default function PostCard({ post, compact = false }: PostCardProps) {
           </div>
         </div>
       </Link>
-    </motion.article>
+    </article>
   );
 }

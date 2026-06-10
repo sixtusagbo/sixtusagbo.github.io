@@ -68,8 +68,8 @@ function serialize(doc: LeanPost): BlogPost {
     tags: doc.tags ?? [],
     status: doc.status as "draft" | "published",
     publishedAt: doc.publishedAt ? doc.publishedAt.toISOString() : null,
-    createdAt: doc.createdAt.toISOString(),
-    updatedAt: doc.updatedAt.toISOString(),
+    createdAt: doc.createdAt?.toISOString() ?? "",
+    updatedAt: doc.updatedAt?.toISOString() ?? "",
     readingTime: doc.readingTime ?? 1,
     views: doc.views ?? 0,
   };

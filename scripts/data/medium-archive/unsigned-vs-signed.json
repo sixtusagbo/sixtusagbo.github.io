@@ -1,0 +1,13 @@
+{
+  "url": "https://sixtusagbo.medium.com/unsigned-vs-signed-in-c-a52c30878399",
+  "title": "unsigned vs signed in C",
+  "subtitle": "What does unsigned or signed mean in terms of variables?",
+  "datePublished": "2023-07-23T22:30:58Z",
+  "tags": [
+    "c",
+    "cplusplus",
+    "variables",
+    "alxafrica"
+  ],
+  "html": "<figure><img src=\"https://miro.medium.com/v2/1*ytcQcaSW5KUQOeZbQpr_pQ.png\"></figure>\n<p id=\"0766\" class=\"pw-post-body-paragraph oc od hp oe b in of og oh iq oi oj ok ol om on oo op oq or os ot ou ov ow ox hi bg\" data-selectable-paragraph=\"\">The <code class=\"db oy oz pa pb b\">unsigned</code> keyword before a variable in C means that the variable can only contain positive numbers.</p>\n<p id=\"7ca9\" class=\"pw-post-body-paragraph oc od hp oe b in og oh iq oj ok ol on oo op or os ot ov ow vd ox hi bg\" data-selectable-paragraph=\"\">The <code class=\"db oy oz pa pb b\">signed</code> keyword means that a variable can contain negative numbers and also positive numbers.</p>\n<h3 id=\"68e1\" class=\"pc pd hp bb pe pf pg ec ph pi pj ee pk ol pl pm pn op po pp pq ot pr ps pt pu bg\" data-selectable-paragraph=\"\">Here’s a simpler way of understanding it: Do you remember that Math you did in primary school?</h3>\n<p id=\"b042\" class=\"pw-post-body-paragraph oc od hp oe b in pv og oh iq pw oj ok ol px on oo op py or os ot pz ov ow ox hi bg\" data-selectable-paragraph=\"\">They told you that if the number is positive, then you don’t have to put the plus (+) sign infront of it. That is <code class=\"db oy oz pa pb b\">unsigned</code>. It’s only for positive numbers because they don’t have the sign in front of them.</p>\n<p id=\"a87a\" class=\"pw-post-body-paragraph oc od hp oe b in of og oh iq oi oj ok ol om on oo op oq or os ot ou ov ow ox hi bg\" data-selectable-paragraph=\"\">In the case of negative numbers, you have to, you must, it’s compulsory, it’s mandatory for you to put the sign minus (-) in front of it. That’s why it makes sense that a variable that can contain negative numbers should be given the keyword <code class=\"db oy oz pa pb b\">signed</code>.</p>\n<p id=\"6a88\" class=\"pw-post-body-paragraph oc od hp oe b in of og oh iq oi oj ok ol om on oo op oq or os ot ou ov ow ox hi bg\" data-selectable-paragraph=\"\">Note: A <code class=\"db oy oz pa pb b\">signed</code> variable can contain both negative and positive numbers.</p>"
+}

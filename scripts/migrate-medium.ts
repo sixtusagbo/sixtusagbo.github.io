@@ -9,7 +9,7 @@
  * Usage: npx tsx scripts/migrate-medium.ts
  */
 
-import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { XMLParser } from "fast-xml-parser";
@@ -28,6 +28,9 @@ import {
 
 const FEED_URL = "https://medium.com/feed/@sixtusagbo";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+// Older posts the RSS feed no longer carries (it caps at 10), scraped from
+// the Medium post pages into JSON files
+const ARCHIVE_DIR = join(ROOT, "scripts", "data", "medium-archive");
 
 function loadEnvLocal(): void {
   try {
@@ -58,13 +61,22 @@ const TAG_OVERRIDES: Record<string, string> = {
   "ai-detector": "AI Detector",
   "5g": "5G",
   "5g-technology": "5G Technology",
+  alxafrica: "ALX Africa",
+  aws: "AWS",
   cicd: "CI/CD",
   "ci-cd-pipeline": "CI/CD Pipeline",
   continuosdeployment: "Continuous Deployment",
+  cplusplus: "C++",
   defi: "DeFi",
+  "future-of-work": "Future of Work",
+  gcp: "GCP",
   ios: "iOS",
+  javascript: "JavaScript",
   mvp: "MVP",
+  "npm-error": "npm Error",
+  typescript: "TypeScript",
   webdev: "Web Dev",
+  "webpack-5": "Webpack 5",
 };
 
 function formatTag(tag: string): string {
@@ -176,6 +188,61 @@ async function htmlToMarkdown(html: string): Promise<string> {
   return String(file).trim();
 }
 
+type SourcePost = {
+  title: string;
+  slug: string;
+  html: string;
+  pubDate: string;
+  tagSlugs: string[];
+  excerpt?: string;
+};
+
+type ScrapedPost = {
+  url: string;
+  title: string;
+  subtitle: string;
+  datePublished: string;
+  tags: string[];
+  html: string;
+};
+
+function slugFromMediumUrl(url: string): string {
+  const last = new URL(url).pathname.split("/").filter(Boolean).pop() ?? "";
+  return last.replace(/-[0-9a-f]{8,12}$/, "");
+}
+
+async function upsertPost(post: SourcePost): Promise<void> {
+  const { html: withLocalImages, images } = await downloadImages(
+    post.html,
+    post.slug
+  );
+  const { html, cover } = extractCover(withLocalImages, images);
+  const content = normalizeHeadings(await htmlToMarkdown(html));
+  const tags = post.tagSlugs.map(formatTag);
+
+  await Post.findOneAndUpdate(
+    { slug: post.slug },
+    {
+      $set: {
+        title: post.title,
+        excerpt: post.excerpt?.trim() || excerptFromMarkdown(content),
+        content,
+        coverImage: cover,
+        tags,
+        status: "published",
+        publishedAt: new Date(post.pubDate),
+        readingTime: calculateReadingTime(content),
+      },
+      $setOnInsert: { views: 0 },
+    },
+    { upsert: true, runValidators: true }
+  );
+
+  console.log(
+    `  ✓ /blog/${post.slug} (${images.length} image${images.length === 1 ? "" : "s"}, ${tags.length} tags)`
+  );
+}
+
 async function main() {
   loadEnvLocal();
   const uri = process.env.MONGODB_URI;
@@ -199,7 +266,6 @@ async function main() {
   let migrated = 0;
   for (const item of items) {
     const title = String(item.title).trim();
-    const slug = slugify(title);
     console.log(`Migrating: ${title}`);
 
     const rawHtml = item["content:encoded"] ?? item.description ?? "";
@@ -208,47 +274,49 @@ async function main() {
       continue;
     }
 
-    const cleaned = cleanHtml(rawHtml);
-    const { html: withLocalImages, images } = await downloadImages(
-      cleaned,
-      slug
-    );
-    const { html, cover } = extractCover(withLocalImages, images);
-    const content = normalizeHeadings(await htmlToMarkdown(html));
-
     const categories = item.category
       ? Array.isArray(item.category)
         ? item.category
         : [item.category]
       : [];
-    const tags = categories.map(formatTag);
 
-    await Post.findOneAndUpdate(
-      { slug },
-      {
-        $set: {
-          title,
-          excerpt: excerptFromMarkdown(content),
-          content,
-          coverImage: cover,
-          tags,
-          status: "published",
-          publishedAt: new Date(item.pubDate),
-          readingTime: calculateReadingTime(content),
-        },
-        $setOnInsert: { views: 0 },
-      },
-      { upsert: true, runValidators: true }
-    );
+    await upsertPost({
+      title,
+      slug: slugify(title),
+      html: cleanHtml(rawHtml),
+      pubDate: item.pubDate,
+      tagSlugs: categories,
+    });
+    migrated++;
+  }
 
-    console.log(
-      `  ✓ /blog/${slug} (${images.length} image${images.length === 1 ? "" : "s"}, ${tags.length} tags)`
+  // Older posts the feed no longer includes
+  let archiveFiles: string[] = [];
+  try {
+    archiveFiles = readdirSync(ARCHIVE_DIR).filter((f) => f.endsWith(".json"));
+  } catch {
+    // no archive directory
+  }
+  for (const file of archiveFiles) {
+    const item: ScrapedPost = JSON.parse(
+      readFileSync(join(ARCHIVE_DIR, file), "utf8")
     );
+    console.log(`Migrating (archive): ${item.title}`);
+    await upsertPost({
+      title: item.title.trim(),
+      slug: slugFromMediumUrl(item.url),
+      html: item.html,
+      pubDate: item.datePublished,
+      tagSlugs: item.tags,
+      excerpt: item.subtitle,
+    });
     migrated++;
   }
 
   await mongoose.disconnect();
-  console.log(`\nDone. Migrated ${migrated}/${items.length} posts.`);
+  console.log(
+    `\nDone. Migrated ${migrated}/${items.length + archiveFiles.length} posts.`
+  );
 }
 
 main().catch((error) => {

@@ -1,12 +1,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Blog article code blocks (rehype-pretty-code / shiki) */
-.blog-prose [data-rehype-pretty-code-figure] {
+/* Blog article code blocks (rehype-pretty-code / shiki).
+   rehype-pretty-code wraps BLOCK code in <figure> and INLINE code in <span>;
+   scope the block rules to figures so inline code is not turned into a grid block. */
+.blog-prose figure[data-rehype-pretty-code-figure] {
   margin: 1.75em 0;
 }
 
-.blog-prose [data-rehype-pretty-code-figure] pre {
+.blog-prose figure[data-rehype-pretty-code-figure] pre {
   background-color: #0a0a0a;
   border: 1px solid #262626;
   border-radius: 0.75rem;
@@ -14,7 +16,7 @@
   overflow-x: auto;
 }
 
-.blog-prose [data-rehype-pretty-code-figure] code {
+.blog-prose figure[data-rehype-pretty-code-figure] code {
   display: grid;
   background: transparent;
   padding: 0;
@@ -22,8 +24,25 @@
   line-height: 1.7;
 }
 
-.blog-prose [data-rehype-pretty-code-figure] [data-line] {
+.blog-prose figure[data-rehype-pretty-code-figure] [data-line] {
   padding: 0 1.25rem;
+}
+
+/* Inline code: Tailwind Typography adds literal backtick quotes, drop them and
+   give inline code a subtle pill instead. */
+.blog-prose code::before,
+.blog-prose code::after {
+  content: none;
+}
+
+.blog-prose :not(pre) > code {
+  background-color: #262626;
+  color: #e5e5e5;
+  padding: 0.15em 0.4em;
+  border-radius: 0.35rem;
+  font-size: 0.875em;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .blog-prose [data-rehype-pretty-code-title] {

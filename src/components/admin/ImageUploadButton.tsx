@@ -10,6 +10,8 @@ type Props = {
   className?: string;
 };
 
+const MAX_SIZE_MB = 10;
+
 export default function ImageUploadButton({
   onUploaded,
   label = "Upload",
@@ -23,6 +25,10 @@ export default function ImageUploadButton({
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      setError(`Image must be under ${MAX_SIZE_MB}MB`);
+      return;
+    }
 
     setBusy(true);
     setError("");

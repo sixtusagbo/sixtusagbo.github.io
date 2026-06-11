@@ -42,3 +42,11 @@ next-env.d.ts
 
 # playwright
 .playwright-mcp/
+!.env.example
+
+# Debug screenshots / scratch images (real assets live in public/)
+/*.png
+/*.jpg
+/*.jpeg
+/*.gif
+/*.webp

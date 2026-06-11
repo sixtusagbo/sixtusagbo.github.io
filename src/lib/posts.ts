@@ -53,7 +53,7 @@ export type PostInput = {
 };
 
 const LIST_PROJECTION = "-content";
-const DEFAULT_PER_PAGE = 9;
+const DEFAULT_PER_PAGE = 10;
 
 type LeanPost = PostDoc & { _id: unknown; createdAt: Date; updatedAt: Date };
 

@@ -7,6 +7,8 @@ import { ArrowLeft, Eye, Loader2, PenLine, RefreshCw } from "lucide-react";
 import { previewMarkdownAction, savePostAction } from "@/app/admin/actions";
 import type { BlogPost } from "@/lib/posts";
 import { calculateReadingTime, slugify } from "@/lib/utils";
+import { cloudinaryConfigured } from "@/lib/cloudinary";
+import ImageUploadButton from "@/components/admin/ImageUploadButton";
 
 const inputClass =
   "w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-neutral-500 placeholder-neutral-500";
@@ -31,6 +33,7 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(false);
   const previewedContent = useRef<string | null>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const [error, setError] = useState("");
   const [dirty, setDirty] = useState(false);
@@ -73,6 +76,23 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
     markDirty();
     requestAnimationFrame(() => {
       target.selectionStart = target.selectionEnd = selectionStart + 2;
+    });
+  };
+
+  const insertImageMarkdown = (url: string) => {
+    const md = `![](${url})`;
+    const ta = contentRef.current;
+    if (!ta) {
+      setContent((c) => `${c}\n${md}\n`);
+      markDirty();
+      return;
+    }
+    const { selectionStart, selectionEnd, value } = ta;
+    setContent(value.slice(0, selectionStart) + md + value.slice(selectionEnd));
+    markDirty();
+    requestAnimationFrame(() => {
+      ta.focus();
+      ta.selectionStart = ta.selectionEnd = selectionStart + md.length;
     });
   };
 
@@ -199,9 +219,17 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
               <Eye size={14} />
               Preview
             </button>
-            <span className="ml-auto text-xs text-neutral-500">
-              {words} words · {calculateReadingTime(content)} min read
-            </span>
+            <div className="ml-auto flex items-center gap-3">
+              {cloudinaryConfigured && (
+                <ImageUploadButton
+                  label="Insert image"
+                  onUploaded={insertImageMarkdown}
+                />
+              )}
+              <span className="text-xs text-neutral-500">
+                {words} words · {calculateReadingTime(content)} min read
+              </span>
+            </div>
           </div>
 
           {mode === "write" ? (
@@ -212,6 +240,7 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
                 markDirty();
               }}
               onKeyDown={onContentKeyDown}
+              ref={contentRef}
               placeholder="Write your post in Markdown..."
               spellCheck
               className="w-full min-h-[65vh] bg-neutral-900 border border-neutral-800 rounded-3xl p-6 font-mono text-sm leading-relaxed focus:outline-none focus:border-neutral-600 placeholder-neutral-600 resize-y"
@@ -287,9 +316,20 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="cover" className={labelClass}>
-              Cover image URL
-            </label>
+            <div className="flex items-center justify-between gap-2">
+              <label htmlFor="cover" className={labelClass}>
+                Cover image
+              </label>
+              {cloudinaryConfigured && (
+                <ImageUploadButton
+                  label="Upload"
+                  onUploaded={(url) => {
+                    setCoverImage(url);
+                    markDirty();
+                  }}
+                />
+              )}
+            </div>
             <input
               id="cover"
               type="text"

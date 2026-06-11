@@ -74,6 +74,8 @@ npm start
 | `MONGODB_URI` | MongoDB connection string (local mongod or Atlas) |
 | `AUTH_SECRET` | Secret for signing admin session tokens (`openssl rand -hex 32`) |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Admin panel credentials |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name (optional, enables admin image upload) |
+| `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` | Cloudinary unsigned upload preset (optional) |
 
 ### Migrating Medium posts
 

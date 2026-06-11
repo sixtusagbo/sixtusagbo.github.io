@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Calendar, Clock } from "lucide-react";
 import { formatDate } from "@/lib/utils";
@@ -23,11 +24,12 @@ export default function PostCard({ post, compact = false }: PostCardProps) {
       <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
         {post.coverImage && (
           <div className="aspect-video overflow-hidden relative">
-            <img
+            <Image
               src={post.coverImage}
               alt={post.title}
-              loading="lazy"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {post.tags[0] && (
               <span className="absolute top-4 left-4 px-3 py-1 bg-neutral-950/80 backdrop-blur-sm rounded-full text-xs font-medium">

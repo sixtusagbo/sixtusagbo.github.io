@@ -22,5 +22,6 @@ const processor = unified()
 
 export async function renderMarkdown(markdown: string): Promise<string> {
   const file = await processor.process(markdown);
-  return String(file);
+  // Defer offscreen content images so they don't compete with the LCP cover
+  return String(file).replace(/<img /g, '<img loading="lazy" decoding="async" ');
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
@@ -193,9 +194,11 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
           <div className="flex flex-wrap items-center gap-6 text-sm text-neutral-400">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/images/me.webp"
                 alt="Sixtus Miracle Agbo"
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-full object-cover border-2 border-neutral-800"
               />
               <span className="font-medium text-white">
@@ -217,11 +220,14 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
         {/* Cover image */}
         {post.coverImage && (
-          <div className="aspect-video overflow-hidden rounded-3xl border border-neutral-800">
-            <img
+          <div className="relative aspect-video overflow-hidden rounded-3xl border border-neutral-800">
+            <Image
               src={post.coverImage}
               alt={post.title}
-              className="w-full h-full object-cover"
+              fill
+              priority
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="object-cover"
             />
           </div>
         )}
@@ -240,9 +246,11 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
         {/* Author card */}
         <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <img
+          <Image
             src="/images/me.webp"
             alt="Sixtus Miracle Agbo"
+            width={64}
+            height={64}
             className="w-16 h-16 rounded-full object-cover border-2 border-neutral-800"
           />
           <div className="space-y-2">

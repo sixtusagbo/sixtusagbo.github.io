@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
 import Link from "next/link";
@@ -219,11 +220,14 @@ export default function HomePage({
               {/* Main Image */}
               <div className="relative aspect-square max-w-md mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-3xl transform rotate-6"></div>
-                <div className="relative overflow-hidden rounded-3xl">
-                  <img
+                <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                  <Image
                     src="/images/me.webp"
                     alt="Sixtus Agbo"
-                    className="w-full h-full object-cover"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 90vw, 448px"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/50 to-transparent"></div>
                 </div>
@@ -470,11 +474,13 @@ export default function HomePage({
                   key={project.title}
                   variants={itemVariants}
                   className="group relative bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
-                  <div className="aspect-video overflow-hidden">
-                    <img
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6 space-y-4">

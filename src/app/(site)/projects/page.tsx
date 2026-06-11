@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useState, useMemo, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { projects } from "@/config/projects";
 import { X, ArrowUpRight, ExternalLink, Filter, ChevronDown } from "lucide-react";
@@ -271,10 +272,12 @@ function ProjectsContent() {
                   <div
                     className="relative aspect-video overflow-hidden cursor-pointer"
                     onClick={() => setModalImage({ src: project.image, alt: project.title })}>
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-neutral-950/0 group-hover:bg-neutral-950/40 transition-colors flex items-center justify-center">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">

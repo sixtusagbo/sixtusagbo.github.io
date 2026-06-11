@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -105,7 +105,7 @@ export default function HomePage({
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left Content */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -119,7 +119,7 @@ export default function HomePage({
                   </span>
                 </h1>
                 <div className="h-16 md:h-20 overflow-hidden">
-                  <motion.div
+                  <m.div
                     key={roleIndex}
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -127,7 +127,7 @@ export default function HomePage({
                     transition={{ duration: 0.5 }}
                     className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-500">
                     {roles[roleIndex]}
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
 
@@ -209,10 +209,10 @@ export default function HomePage({
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Right Content - Image with floating elements */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -233,7 +233,7 @@ export default function HomePage({
                 </div>
 
                 {/* Floating Stats Card */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
@@ -253,10 +253,10 @@ export default function HomePage({
                       <div className="text-xs text-neutral-500">Projects</div>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
 
                 {/* Floating Tech Badge */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
@@ -264,57 +264,57 @@ export default function HomePage({
                   <span className="text-sm font-medium">
                     React • Flutter • Python
                   </span>
-                </motion.div>
+                </m.div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Scroll Indicator */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
             className="hidden lg:flex justify-center mt-20">
-            <motion.div
+            <m.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
               className="flex flex-col items-center gap-2 text-neutral-500">
               <span className="text-sm">Scroll to explore</span>
               <div className="w-6 h-10 rounded-full border-2 border-neutral-700 flex justify-center pt-2">
-                <motion.div
+                <m.div
                   animate={{ y: [0, 12, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                   className="w-1.5 h-1.5 rounded-full bg-neutral-500"
                 />
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
       {/* About Section - Bento Grid */}
       <section className="py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={containerVariants}
             className="space-y-16">
             {/* Section Header */}
-            <motion.div variants={itemVariants} className="space-y-4">
+            <m.div variants={itemVariants} className="space-y-4">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
                 About Me
               </span>
               <h2 className="text-4xl md:text-5xl font-bold max-w-2xl">
                 Passionate about creating impactful digital solutions
               </h2>
-            </motion.div>
+            </m.div>
 
             {/* Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Bio Card - Large */}
-              <motion.div
+              <m.div
                 variants={itemVariants}
                 className="md:col-span-2 bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
                 <div className="space-y-6">
@@ -352,10 +352,10 @@ export default function HomePage({
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* Location Card */}
-              <motion.div
+              <m.div
                 variants={itemVariants}
                 className="bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
                 <div className="h-full flex flex-col justify-between">
@@ -369,7 +369,7 @@ export default function HomePage({
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* Stats Cards */}
               {[
@@ -377,7 +377,7 @@ export default function HomePage({
                 { value: "110+", label: "Projects Completed" },
                 { value: "100%", label: "Client Satisfaction" },
               ].map((stat) => (
-                <motion.div
+                <m.div
                   key={stat.label}
                   variants={itemVariants}
                   className="bg-neutral-900 rounded-3xl p-8 border border-neutral-800 hover:border-neutral-700 transition-colors">
@@ -385,35 +385,35 @@ export default function HomePage({
                     <div className="text-4xl font-bold">{stat.value}</div>
                     <div className="text-neutral-400">{stat.label}</div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Skills Section */}
       <section className="py-32 bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={containerVariants}
             className="space-y-16">
-            <motion.div variants={itemVariants} className="space-y-4">
+            <m.div variants={itemVariants} className="space-y-4">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
                 Skills
               </span>
               <h2 className="text-4xl md:text-5xl font-bold">
                 Tools & Technologies
               </h2>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-12">
               {Object.entries(skillsData).map(
                 ([category, skills]) => (
-                  <motion.div
+                  <m.div
                     key={category}
                     variants={itemVariants}
                     className="space-y-6">
@@ -429,24 +429,24 @@ export default function HomePage({
                         </span>
                       ))}
                     </div>
-                  </motion.div>
+                  </m.div>
                 )
               )}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* Featured Projects */}
       <section className="py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={containerVariants}
             className="space-y-16">
-            <motion.div
+            <m.div
               variants={itemVariants}
               className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
@@ -466,11 +466,11 @@ export default function HomePage({
                   className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                 />
               </Link>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {featuredProjects.map((project) => (
-                <motion.div
+                <m.div
                   key={project.title}
                   variants={itemVariants}
                   className="group relative bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
@@ -525,10 +525,10 @@ export default function HomePage({
                       )}
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -536,13 +536,13 @@ export default function HomePage({
       {recentPosts.length > 0 && (
       <section className="py-32 bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={containerVariants}
             className="space-y-16">
-            <motion.div
+            <m.div
               variants={itemVariants}
               className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
@@ -562,14 +562,14 @@ export default function HomePage({
                   className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                 />
               </Link>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {recentPosts.map((post) => (
                 <PostCard key={post.slug} post={post} compact />
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
       )}
@@ -577,7 +577,7 @@ export default function HomePage({
       {/* Contact Section */}
       <section id="contact" className="py-32 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -588,7 +588,7 @@ export default function HomePage({
 
             <div className="relative bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-16">
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                <motion.div variants={itemVariants} className="space-y-6">
+                <m.div variants={itemVariants} className="space-y-6">
                   <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
                     Get in Touch
                   </span>
@@ -609,9 +609,9 @@ export default function HomePage({
                       className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                     />
                   </a>
-                </motion.div>
+                </m.div>
 
-                <motion.div variants={itemVariants} className="space-y-6">
+                <m.div variants={itemVariants} className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <a
                       href={socialLinks.github.url}
@@ -676,10 +676,10 @@ export default function HomePage({
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </div>

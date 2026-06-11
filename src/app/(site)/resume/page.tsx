@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Briefcase, GraduationCap, Award, ArrowUpRight, Download, MapPin, Calendar } from "lucide-react";
 import { experiences, education, certifications, resumePdfUrl } from "@/config/constants";
 
@@ -21,13 +21,13 @@ export default function Experience() {
   return (
     <div className="pt-32 pb-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
           className="space-y-24">
           {/* Header */}
-          <motion.div variants={itemVariants} className="space-y-6">
+          <m.div variants={itemVariants} className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div className="space-y-4">
                 <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">Resume</span>
@@ -46,10 +46,10 @@ export default function Experience() {
                 <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Experience Section - Timeline */}
-          <motion.section variants={itemVariants} className="space-y-12">
+          <m.section variants={itemVariants} className="space-y-12">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-2xl">
                 <Briefcase size={24} />
@@ -63,7 +63,7 @@ export default function Experience() {
 
               <div className="space-y-12">
                 {experiences.map((experience, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     variants={itemVariants}
                     className="relative pl-8 md:pl-24">
@@ -104,14 +104,14 @@ export default function Experience() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
-          </motion.section>
+          </m.section>
 
           {/* Certifications Section */}
-          <motion.section variants={itemVariants} className="space-y-12">
+          <m.section variants={itemVariants} className="space-y-12">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-2xl">
                 <Award size={24} />
@@ -121,7 +121,7 @@ export default function Experience() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {certifications.map((cert, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   variants={itemVariants}
                   className="group bg-neutral-900 border border-neutral-800 rounded-3xl p-8 hover:border-neutral-700 transition-colors">
@@ -151,13 +151,13 @@ export default function Experience() {
                       <ArrowUpRight size={14} />
                     </a>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.section>
+          </m.section>
 
           {/* Education Section */}
-          <motion.section variants={itemVariants} className="space-y-12">
+          <m.section variants={itemVariants} className="space-y-12">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-2xl">
                 <GraduationCap size={24} />
@@ -167,7 +167,7 @@ export default function Experience() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {education.map((edu, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   variants={itemVariants}
                   className="group bg-neutral-900 border border-neutral-800 rounded-3xl p-8 hover:border-neutral-700 transition-colors">
@@ -188,13 +188,13 @@ export default function Experience() {
                       {edu.description}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.section>
+          </m.section>
 
           {/* CTA Section */}
-          <motion.section variants={itemVariants}>
+          <m.section variants={itemVariants}>
             <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-12 text-center space-y-6">
               <h2 className="text-2xl md:text-3xl font-bold">Interested in working together?</h2>
               <p className="text-neutral-400 max-w-xl mx-auto">
@@ -217,8 +217,8 @@ export default function Experience() {
                 </a>
               </div>
             </div>
-          </motion.section>
-        </motion.div>
+          </m.section>
+        </m.div>
       </div>
     </div>
   );

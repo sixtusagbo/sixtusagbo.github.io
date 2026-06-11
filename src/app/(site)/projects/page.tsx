@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { projects } from "@/config/projects";
 import { X, ArrowUpRight, ExternalLink, Filter, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 
 function ProjectsContent() {
   const searchParams = useSearchParams();
@@ -156,13 +156,13 @@ function ProjectsContent() {
   return (
     <div className="pt-32 pb-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
           className="space-y-12">
           {/* Header */}
-          <motion.div variants={itemVariants} className="space-y-6">
+          <m.div variants={itemVariants} className="space-y-6">
             <div className="space-y-4">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">Portfolio</span>
               <h1 className="text-4xl md:text-6xl font-bold">
@@ -188,10 +188,10 @@ function ProjectsContent() {
                 </span>
               )}
             </button>
-          </motion.div>
+          </m.div>
 
           {/* Filters */}
-          <motion.div
+          <m.div
             variants={itemVariants}
             className={`space-y-4 ${showFilters ? "block" : "hidden md:block"}`}>
             <div className="flex items-center justify-between">
@@ -247,11 +247,11 @@ function ProjectsContent() {
                 Showing {filteredProjects.length} of {projects.length} projects
               </p>
             )}
-          </motion.div>
+          </m.div>
 
           {/* Projects Grid */}
           {filteredProjects.length === 0 ? (
-            <motion.div
+            <m.div
               variants={itemVariants}
               className="text-center py-20 bg-neutral-900 rounded-3xl border border-neutral-800">
               <p className="text-xl text-neutral-400 mb-4">No projects match the selected filters.</p>
@@ -260,11 +260,11 @@ function ProjectsContent() {
                 className="px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-colors">
                 Clear filters
               </button>
-            </motion.div>
+            </m.div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filteredProjects.map((project) => (
-                <motion.div
+                <m.div
                   key={project.title}
                   variants={itemVariants}
                   className="group relative bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
@@ -409,23 +409,23 @@ function ProjectsContent() {
                       )}
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           )}
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Full-screen Image Modal */}
       <AnimatePresence>
         {modalImage && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/95 px-4 pt-24 pb-4 cursor-pointer"
             onClick={() => setModalImage(null)}>
-            <motion.img
+            <m.img
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -434,7 +434,7 @@ function ProjectsContent() {
               alt={modalImage.alt}
               className="max-w-full max-h-full w-auto h-auto object-contain rounded-2xl"
             />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

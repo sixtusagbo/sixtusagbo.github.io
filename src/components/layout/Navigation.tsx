@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { socialLinks, navigation } from "@/config/constants";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 
 function NavLink({
   item,
@@ -95,7 +95,7 @@ export default function Navigation() {
   }, [isMenuOpen]);
 
   return (
-    <motion.nav
+    <m.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -148,7 +148,7 @@ export default function Navigation() {
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -156,7 +156,7 @@ export default function Navigation() {
             className="md:hidden fixed inset-0 top-20 bg-neutral-950 z-40">
             <div className="flex flex-col items-center justify-start h-full gap-8 px-6 pt-16">
               {navigation.map((item, index) => (
-                <motion.div
+                <m.div
                   key={item.name}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -176,20 +176,20 @@ export default function Navigation() {
                       {item.name}
                     </Link>
                   )}
-                </motion.div>
+                </m.div>
               ))}
-              <motion.a
+              <m.a
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 href={socialLinks.email.url}
                 className="mt-8 px-8 py-4 bg-white text-neutral-950 rounded-full text-lg font-semibold">
                 Let&apos;s Talk
-              </motion.a>
+              </m.a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </m.nav>
   );
 }

@@ -3,7 +3,7 @@ export const projects = [
     title: "Food Pilot",
     description:
       "AI-powered eating companion that helps build healthy eating habits through personalized meal recommendations, smart reminders, and visual progress tracking",
-    image: "/images/projects/foodpilot.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185007/projects/foodpilot.png",
     tech: [
       "Flutter",
       "Dart",
@@ -24,7 +24,7 @@ export const projects = [
     title: "Just Fucking Use Flutter",
     description:
       "A satirical manifesto website making the case for Flutter as the ultimate cross-platform development framework",
-    image: "/images/projects/justfuckinguseflutter.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185009/projects/justfuckinguseflutter.png",
     tech: ["Flutter", "Dart", "Web"],
     links: {
       live: "https://justfuckinguseflutter.com",
@@ -36,7 +36,7 @@ export const projects = [
     title: "Arvalox",
     description:
       "AI-powered B2B SaaS platform for managing accounts receivable with advanced analytics and business intelligence",
-    image: "/images/projects/arvalox.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184985/projects/arvalox.png",
     tech: [
       "NextJS",
       "TypeScript",
@@ -59,7 +59,7 @@ export const projects = [
     title: "Grosonix",
     description:
       "AI-driven social media growth platform with content intelligence, cross-platform adaptation, and gamified analytics (Team Project w/ Elizabeth Pfachi, Andrea Ozuem and Mark Okafor)",
-    image: "/images/projects/grosonix.jpg",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185008/projects/grosonix.jpg",
     tech: [
       "NextJS",
       "TypeScript",
@@ -79,7 +79,7 @@ export const projects = [
     title: "Watchdog Meme",
     description:
       "A cutting-edge web3 meme platform featuring dynamic galleries, stunning animations, and a cyberpunk aesthetic",
-    image: "/images/projects/watchdog_meme.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185039/projects/watchdog_meme.png",
     tech: [
       "NextJS",
       "TypeScript",
@@ -98,7 +98,7 @@ export const projects = [
     title: "Bilingual Translator",
     description:
       "Modern translation web application for translating text between 2 languages using Google Translate API (A school assignment)",
-    image: "/images/projects/bilingual_translator.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184988/projects/bilingual_translator.png",
     tech: ["NextJS", "TypeScript", "TailwindCSS", "API", "Cloud", "GCP"],
     links: {
       live: "https://bilingual-translator.vercel.app",
@@ -110,7 +110,7 @@ export const projects = [
     title: "Countdown City",
     description:
       "A Next.js birthday countdown timer application with real-time updates and modern design",
-    image: "/images/projects/countdown-city.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184997/projects/countdown-city.png",
     tech: ["NextJS", "TypeScript", "TailwindCSS", "React"],
     links: {
       live: "https://countdown-city.vercel.app",
@@ -121,7 +121,7 @@ export const projects = [
   {
     title: "Lifepadi",
     description: "E-commerce and logistics mobile app",
-    image: "/images/projects/lifepadi.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185011/projects/lifepadi.png",
     tech: ["Flutter", "Dart", "Android", "iOS", "Mobile App", "Google Maps"],
     links: {
       live: "https://lifepadi.com",
@@ -135,7 +135,7 @@ export const projects = [
     title: "FinView",
     description:
       "Financial data visualization web application for Apple's annual income statements",
-    image: "/images/projects/finview.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185005/projects/finview.png",
     tech: ["React", "TypeScript", "Vite", "TailwindCSS"],
     links: {
       live: "https://finview-omega.vercel.app",
@@ -147,7 +147,7 @@ export const projects = [
     title: "FinView API",
     description:
       "API for fetching and analyzing Apple's annual income statements",
-    image: "/images/projects/finview-api.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185003/projects/finview-api.png",
     tech: ["Python", "FastAPI", "API"],
     links: {
       live: "https://finview-api.vercel.app",
@@ -159,7 +159,7 @@ export const projects = [
   {
     title: "uStackSchool",
     description: "Educational platform built with NextJS and TypeScript",
-    image: "/images/projects/ustackschool.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185034/projects/ustackschool.png",
     tech: ["NextJS", "TypeScript", "TailwindCSS", "HTML", "CSS"],
     links: {
       live: "https://devops-213600042639.europe-west2.run.app/",
@@ -170,7 +170,7 @@ export const projects = [
     title: "Portfolio",
     description:
       "Personal portfolio website showcasing my projects, skills, and experience as a software engineer",
-    image: "/images/projects/portfolio.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185028/projects/portfolio.png",
     tech: [
       "React",
       "TypeScript",
@@ -188,7 +188,7 @@ export const projects = [
   {
     title: "Ace iT Pro",
     description: "Exam preparation mobile app",
-    image: "/images/projects/aceit.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184980/projects/aceit.png",
     tech: [
       "Flutter",
       "Dart",
@@ -208,7 +208,7 @@ export const projects = [
     title: "Shipa Express",
     description:
       "Developed a logistics platform using Laravel. Streamlined operations with an intuitive admin panel.",
-    image: "/images/projects/shipa-express.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185030/projects/shipa-express.png",
     tech: ["Laravel", "PHP", "SCSS", "JavaScript", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/shipa-express",
@@ -219,7 +219,7 @@ export const projects = [
     title: "Argent de Niro",
     description:
       "Personal finance management app with expense tracking and budget setting features",
-    image: "/images/projects/argent-de-niro.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184982/projects/argent-de-niro.png",
     tech: ["Python", "Flask", "MongoDB", "API", "JavaScript", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/argent-de-niro",
@@ -229,7 +229,7 @@ export const projects = [
   {
     title: "Vitrine",
     description: "Brand showcase application",
-    image: "/images/projects/vitrine.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185035/projects/vitrine.jpg",
     tech: [
       "Python",
       "Flask",
@@ -249,7 +249,7 @@ export const projects = [
     title: "EasyRead",
     description:
       "A digital library app for law students with secure book encryption",
-    image: "/images/projects/easyread.jpg",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185000/projects/easyread.jpg",
     tech: ["Flutter", "Dart", "Mobile App", "Android"],
     links: {
       playstore:
@@ -261,7 +261,7 @@ export const projects = [
     title: "File Manager API",
     description:
       "A robust file management API with authentication and caching capabilities",
-    image: "/images/projects/file-manager-api.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185001/projects/file-manager-api.png",
     tech: ["ExpressJS", "MongoDB", "Redis", "REST API", "NodeJS"],
     links: {
       github: "https://github.com/sixtusagbo/alx-files_manager",
@@ -272,7 +272,7 @@ export const projects = [
     title: "File Shield",
     description:
       "A desktop application that encrypts PDF files using AES encryption",
-    image: "/images/projects/file_shield.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185002/projects/file_shield.png",
     tech: ["Flutter", "Dart", "Desktop"],
     links: {
       github: "https://github.com/sixtusagbo/file_shield",
@@ -283,7 +283,7 @@ export const projects = [
     title: "Mirablog",
     description:
       "A Laravel-based blog application for seamless content management and sharing",
-    image: "/images/projects/mirablog.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185014/projects/mirablog.png",
     tech: ["Laravel", "PHP", "MySQL", "JavaScript", "Bootstrap", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/mirablog",
@@ -294,7 +294,7 @@ export const projects = [
     title: "Mimi Blog",
     description:
       "A simple React blog application with CRUD features and JSON server",
-    image: "/images/projects/mimi-blog.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185013/projects/mimi-blog.png",
     tech: ["React", "JavaScript", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/mimi-blog",
@@ -305,7 +305,7 @@ export const projects = [
     title: "Transport Management System",
     description:
       "Web application for bus seat bookings, cargo management, and online transport fare payments",
-    image: "/images/projects/transport-management-system.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185032/projects/transport-management-system.png",
     tech: ["Laravel", "PHP", "MySQL", "JavaScript", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/transport_management_system",
@@ -315,7 +315,7 @@ export const projects = [
   {
     title: "Brew",
     description: "A coffee errand management app",
-    image: "/images/projects/brew.jpg",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184990/projects/brew.jpg",
     tech: ["Flutter", "Dart", "Firebase", "Mobile App", "Android", "iOS"],
     links: {
       github: "https://github.com/sixtusagbo/brew",
@@ -326,7 +326,7 @@ export const projects = [
     title: "My Day",
     description:
       "A Flutter task management app for enhanced daily productivity",
-    image: "/images/projects/my_day.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185015/projects/my_day.png",
     tech: ["Flutter", "Dart", "SQLite", "Mobile App", "Android", "iOS"],
     links: {
       github: "https://github.com/sixtusagbo/my_day",
@@ -337,7 +337,7 @@ export const projects = [
     title: "Contact Manager",
     description:
       "A React-based contact management application with Redux state management",
-    image: "/images/projects/contact_manager.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781184993/projects/contact_manager.png",
     tech: ["React", "JavaScript", "Redux", "CI/CD", "Bootstrap", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/contact_manager",
@@ -348,7 +348,7 @@ export const projects = [
     title: "Place Explorer",
     description:
       "An application that allows users to locate addresses on a world map",
-    image: "/images/projects/place_explorer.png",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1781185020/projects/place_explorer.png",
     tech: ["Laravel", "TypeScript", "PHP", "Google Maps", "HTML", "CSS"],
     links: {
       github: "https://github.com/sixtusagbo/place_explorer",

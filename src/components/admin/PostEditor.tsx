@@ -97,6 +97,13 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
   };
 
   const save = () => {
+    // Nudge for a cover image before publishing (drafts can skip it)
+    if (status === "published" && !coverImage.trim()) {
+      const proceed = window.confirm(
+        "Publish without a cover image? Posts look much better with one."
+      );
+      if (!proceed) return;
+    }
     setError("");
     startSaving(async () => {
       const result = await savePostAction({

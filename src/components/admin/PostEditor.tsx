@@ -3,19 +3,41 @@
 import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Eye, Loader2, PenLine, RefreshCw } from "lucide-react";
+import {
+  ArrowLeft,
+  Eye,
+  Image as ImageIcon,
+  Loader2,
+  PenLine,
+  RefreshCw,
+} from "lucide-react";
 import { previewMarkdownAction, savePostAction } from "@/app/admin/actions";
 import type { BlogPost } from "@/lib/posts";
 import { calculateReadingTime, slugify } from "@/lib/utils";
 import { cloudinaryConfigured } from "@/lib/cloudinary";
 import ImageUploadButton from "@/components/admin/ImageUploadButton";
+import UnsplashPicker, {
+  type UnsplashPick,
+} from "@/components/admin/UnsplashPicker";
+
+const UNSPLASH_HOME =
+  "https://unsplash.com/?utm_source=sixtusagbo-blog&utm_medium=referral";
+
+const unsplashBtnClass =
+  "inline-flex items-center gap-1.5 px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-xs font-medium text-neutral-300 hover:text-white transition-colors";
 
 const inputClass =
   "w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-neutral-500 placeholder-neutral-500";
 
 const labelClass = "text-sm text-neutral-400";
 
-export default function PostEditor({ post }: { post?: BlogPost }) {
+export default function PostEditor({
+  post,
+  unsplashEnabled = false,
+}: {
+  post?: BlogPost;
+  unsplashEnabled?: boolean;
+}) {
   const router = useRouter();
 
   const [title, setTitle] = useState(post?.title ?? "");
@@ -34,6 +56,10 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
   const [previewLoading, setPreviewLoading] = useState(false);
   const previewedContent = useRef<string | null>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
+  const [unsplashMode, setUnsplashMode] = useState<null | "cover" | "inline">(
+    null
+  );
+  const showUnsplash = cloudinaryConfigured && unsplashEnabled;
 
   const [error, setError] = useState("");
   const [dirty, setDirty] = useState(false);
@@ -79,21 +105,43 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
     });
   };
 
-  const insertImageMarkdown = (url: string) => {
-    const md = `![](${url})`;
+  const insertAtCursor = (text: string) => {
     const ta = contentRef.current;
     if (!ta) {
-      setContent((c) => `${c}\n${md}\n`);
+      setContent((c) => `${c}\n${text}\n`);
       markDirty();
       return;
     }
     const { selectionStart, selectionEnd, value } = ta;
-    setContent(value.slice(0, selectionStart) + md + value.slice(selectionEnd));
+    setContent(value.slice(0, selectionStart) + text + value.slice(selectionEnd));
     markDirty();
     requestAnimationFrame(() => {
       ta.focus();
-      ta.selectionStart = ta.selectionEnd = selectionStart + md.length;
+      ta.selectionStart = ta.selectionEnd = selectionStart + text.length;
     });
+  };
+
+  const insertImageMarkdown = (url: string) => insertAtCursor(`![](${url})`);
+
+  const handleUnsplashPick = (p: UnsplashPick) => {
+    if (unsplashMode === "cover") {
+      setCoverImage(p.url);
+      const line = `*Cover photo by [${p.author}](${p.authorUrl}) on [Unsplash](${UNSPLASH_HOME})*`;
+      // keep a single, deduped cover-credit line at the end of the content
+      setContent((c) => {
+        const cleaned = c
+          .replace(/\n*\*Cover photo by .*?\*\s*$/s, "")
+          .replace(/\s+$/, "");
+        return cleaned ? `${cleaned}\n\n${line}\n` : `${line}\n`;
+      });
+      markDirty();
+    } else {
+      const alt = p.alt.replace(/[[\]]/g, "");
+      insertAtCursor(
+        `![${alt}](${p.url})\n*Photo by [${p.author}](${p.authorUrl}) on [Unsplash](${UNSPLASH_HOME})*\n`
+      );
+    }
+    setUnsplashMode(null);
   };
 
   const save = () => {
@@ -227,14 +275,23 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
               <Eye size={14} />
               Preview
             </button>
-            <div className="ml-auto flex items-center gap-3">
+            <div className="ml-auto flex items-center gap-2">
+              {showUnsplash && (
+                <button
+                  type="button"
+                  onClick={() => setUnsplashMode("inline")}
+                  className={unsplashBtnClass}>
+                  <ImageIcon size={14} />
+                  Unsplash
+                </button>
+              )}
               {cloudinaryConfigured && (
                 <ImageUploadButton
                   label="Insert image"
                   onUploaded={insertImageMarkdown}
                 />
               )}
-              <span className="text-xs text-neutral-500">
+              <span className="text-xs text-neutral-500 ml-1">
                 {words} words · {calculateReadingTime(content)} min read
               </span>
             </div>
@@ -328,15 +385,26 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
               <label htmlFor="cover" className={labelClass}>
                 Cover image
               </label>
-              {cloudinaryConfigured && (
-                <ImageUploadButton
-                  label="Upload"
-                  onUploaded={(url) => {
-                    setCoverImage(url);
-                    markDirty();
-                  }}
-                />
-              )}
+              <div className="flex items-center gap-2">
+                {showUnsplash && (
+                  <button
+                    type="button"
+                    onClick={() => setUnsplashMode("cover")}
+                    className={unsplashBtnClass}>
+                    <ImageIcon size={14} />
+                    Unsplash
+                  </button>
+                )}
+                {cloudinaryConfigured && (
+                  <ImageUploadButton
+                    label="Upload"
+                    onUploaded={(url) => {
+                      setCoverImage(url);
+                      markDirty();
+                    }}
+                  />
+                )}
+              </div>
             </div>
             <input
               id="cover"
@@ -392,6 +460,13 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
           </div>
         </div>
       </div>
+
+      {unsplashMode && (
+        <UnsplashPicker
+          onPick={handleUnsplashPick}
+          onClose={() => setUnsplashMode(null)}
+        />
+      )}
     </div>
   );
 }

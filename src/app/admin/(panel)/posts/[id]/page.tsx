@@ -20,5 +20,10 @@ export default async function EditPostPage({
   }
   if (!post) notFound();
 
-  return <PostEditor post={post} />;
+  return (
+    <PostEditor
+      post={post}
+      unsplashEnabled={Boolean(process.env.UNSPLASH_ACCESS_KEY)}
+    />
+  );
 }

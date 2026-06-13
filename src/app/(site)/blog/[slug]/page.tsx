@@ -39,6 +39,8 @@ export async function generateMetadata({
   const post = await getPostBySlug(slug).catch(() => null);
   if (!post) return { title: "Post Not Found" };
 
+  const ogImage = post.coverImage || `${SITE_URL}/images/me.webp`;
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -55,12 +57,14 @@ export async function generateMetadata({
       modifiedTime: post.updatedAt,
       authors: ["Sixtus Miracle Agbo"],
       tags: post.tags,
+      images: [{ url: ogImage, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
       creator: "@siabormeestic",
+      images: [ogImage],
     },
   };
 }

@@ -82,6 +82,9 @@ export async function savePostAction(
   if (!payload.content.trim()) {
     return { ok: false, error: "Content is required." };
   }
+  if (payload.status === "published" && !(payload.coverImage ?? "").trim()) {
+    return { ok: false, error: "A cover image is required to publish." };
+  }
 
   const previous = payload.id ? await getPostById(payload.id) : null;
   if (payload.id && !previous) {
@@ -140,12 +143,16 @@ export async function deletePostAction(id: string): Promise<void> {
 export async function setPostStatusAction(
   id: string,
   status: "draft" | "published"
-): Promise<void> {
+): Promise<{ ok: boolean; error?: string }> {
   await requireAdmin();
   const post = await getPostById(id);
-  if (!post) return;
+  if (!post) return { ok: false, error: "Post not found." };
+  if (status === "published" && !post.coverImage.trim()) {
+    return { ok: false, error: "Add a cover image before publishing this post." };
+  }
   const saved = await updatePost(id, { ...post, status });
   revalidateBlog([saved?.slug ?? post.slug]);
+  return { ok: true };
 }
 
 export async function previewMarkdownAction(markdown: string): Promise<string> {

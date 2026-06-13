@@ -12,11 +12,26 @@ import {
   createPost,
   deletePost,
   getPostById,
+  imagesReferencedByOtherPosts,
   isSlugTaken,
   updatePost,
   type PostInput,
 } from "@/lib/posts";
 import { renderMarkdown } from "@/lib/markdown";
+import {
+  deleteCloudinaryImages,
+  findCloudinaryUrls,
+} from "@/lib/cloudinary-server";
+
+// Delete the given Cloudinary images, skipping any still used by another post.
+async function cleanupImages(
+  urls: string[],
+  excludeId?: string
+): Promise<void> {
+  if (urls.length === 0) return;
+  const stillUsed = await imagesReferencedByOtherPosts(urls, excludeId);
+  await deleteCloudinaryImages(urls.filter((u) => !stillUsed.has(u)));
+}
 
 export type FormState = { error: string } | null;
 
@@ -79,6 +94,18 @@ export async function savePostAction(
       : await createPost(payload);
     if (!saved) return { ok: false, error: "Post not found." };
 
+    // On edit, remove images that were dropped from the cover/content.
+    if (previous) {
+      const newUrls = new Set(
+        findCloudinaryUrls(saved.coverImage, saved.content)
+      );
+      const removed = findCloudinaryUrls(
+        previous.coverImage,
+        previous.content
+      ).filter((u) => !newUrls.has(u));
+      await cleanupImages(removed, saved.id);
+    }
+
     revalidateBlog([saved.slug, previous?.slug]);
     return { ok: true, id: saved.id, slug: saved.slug };
   } catch (error) {
@@ -104,7 +131,10 @@ export async function checkSlugAction(
 export async function deletePostAction(id: string): Promise<void> {
   await requireAdmin();
   const deleted = await deletePost(id);
-  if (deleted) revalidateBlog([deleted.slug]);
+  if (deleted) {
+    await cleanupImages(findCloudinaryUrls(deleted.coverImage, deleted.content));
+    revalidateBlog([deleted.slug]);
+  }
 }
 
 export async function setPostStatusAction(

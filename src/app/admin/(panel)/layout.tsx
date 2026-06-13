@@ -24,7 +24,6 @@ export default async function AdminLayout({
         <div className="flex md:flex-col items-center md:items-stretch gap-4 md:gap-8 flex-1 min-w-0">
           <Link href="/admin" className="text-2xl font-bold tracking-tighter px-2">
             SA
-            <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full ml-1" />
           </Link>
           <AdminNav />
         </div>

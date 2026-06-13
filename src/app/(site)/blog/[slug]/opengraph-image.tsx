@@ -37,14 +37,6 @@ export default async function OpengraphImage({
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 40, fontWeight: 700 }}>SA</span>
-          <span
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: 9999,
-              backgroundColor: "#34d399",
-            }}
-          />
           <span style={{ fontSize: 28, color: "#a3a3a3", marginLeft: 16 }}>
             sixtusagbo.dev/blog
           </span>

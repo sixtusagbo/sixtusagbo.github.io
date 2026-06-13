@@ -5,7 +5,7 @@ const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 // upload UI and fall back to pasting a URL when Cloudinary isn't configured.
 export const cloudinaryConfigured = Boolean(CLOUD_NAME && UPLOAD_PRESET);
 
-export async function uploadToCloudinary(file: File): Promise<string> {
+async function upload(file: string | File): Promise<string> {
   if (!CLOUD_NAME || !UPLOAD_PRESET) {
     throw new Error("Cloudinary is not configured");
   }
@@ -23,4 +23,14 @@ export async function uploadToCloudinary(file: File): Promise<string> {
   const data = (await res.json()) as { secure_url?: string };
   if (!data.secure_url) throw new Error("Upload returned no URL");
   return data.secure_url;
+}
+
+export function uploadToCloudinary(file: File): Promise<string> {
+  return upload(file);
+}
+
+// Cloudinary's unsigned upload accepts a remote URL as the file, so it fetches
+// and stores the image (used to bring an Unsplash photo into your Cloudinary).
+export function uploadUrlToCloudinary(imageUrl: string): Promise<string> {
+  return upload(imageUrl);
 }

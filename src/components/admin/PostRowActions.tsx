@@ -28,10 +28,14 @@ export default function PostRowActions({ post }: { post: RowPost }) {
 
   const togglePublish = () => {
     startTransition(async () => {
-      await setPostStatusAction(
+      const res = await setPostStatusAction(
         post.id,
         post.status === "published" ? "draft" : "published"
       );
+      if (!res.ok) {
+        alert(res.error);
+        return;
+      }
       router.refresh();
     });
   };

@@ -175,8 +175,9 @@ export default function PostEditor({ post }: { post?: BlogPost }) {
           </div>
           <button
             onClick={save}
-            disabled={isSaving}
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-neutral-950 rounded-full text-sm font-semibold hover:bg-neutral-200 transition-colors disabled:opacity-60">
+            disabled={isSaving || !dirty}
+            title={!dirty ? "No changes to save" : undefined}
+            className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-neutral-950 rounded-full text-sm font-semibold hover:bg-neutral-200 transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
             {isSaving && <Loader2 size={14} className="animate-spin" />}
             {status === "published" ? "Save & Publish" : "Save Draft"}
           </button>

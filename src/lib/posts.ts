@@ -298,3 +298,32 @@ export async function isSlugTaken(
   if (excludeId) filter._id = { $ne: excludeId };
   return (await Post.exists(filter)) !== null;
 }
+
+// Of the given image URLs, which are still used by some other post (so they
+// must not be deleted from Cloudinary).
+export async function imagesReferencedByOtherPosts(
+  urls: string[],
+  excludeId?: string
+): Promise<Set<string>> {
+  await connectDB();
+  if (urls.length === 0) return new Set();
+  const filter: QueryFilter<PostDoc> = {
+    $or: urls.flatMap((url) => [
+      { coverImage: url },
+      { content: { $regex: escapeRegExp(url) } },
+    ]),
+  };
+  if (excludeId) filter._id = { $ne: excludeId };
+  const docs = await Post.find(filter)
+    .select("coverImage content")
+    .lean<LeanPost[]>();
+  const referenced = new Set<string>();
+  for (const url of urls) {
+    if (
+      docs.some((d) => d.coverImage === url || (d.content ?? "").includes(url))
+    ) {
+      referenced.add(url);
+    }
+  }
+  return referenced;
+}

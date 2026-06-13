@@ -112,7 +112,6 @@ export default function Navigation() {
           <Link href="/" className="relative z-10 group">
             <span className="text-2xl font-bold tracking-tighter">
               SA
-              <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full ml-1 group-hover:animate-ping" />
             </span>
           </Link>
 

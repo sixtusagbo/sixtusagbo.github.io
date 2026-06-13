@@ -17,7 +17,6 @@ export default async function LoginPage() {
         <div className="space-y-2 text-center">
           <span className="text-2xl font-bold tracking-tighter">
             SA
-            <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full ml-1" />
           </span>
           <h1 className="text-2xl font-bold">Admin Panel</h1>
           <p className="text-sm text-neutral-400">

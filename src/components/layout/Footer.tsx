@@ -12,7 +12,6 @@ export default function Footer() {
           <div className="space-y-4">
             <span className="text-2xl font-bold tracking-tighter">
               SA
-              <span className="inline-block w-2 h-2 bg-emerald-400 rounded-full ml-1" />
             </span>
             <p className="text-neutral-400 text-sm leading-relaxed">
               Full-Stack Developer crafting exceptional digital experiences.

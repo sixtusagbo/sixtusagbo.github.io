@@ -40,12 +40,15 @@ export async function generateMetadata({
   if (page > 1) canonicalParams.set("page", String(page));
   const canonical = `/blog${canonicalParams.size ? `?${canonicalParams}` : ""}`;
 
+  // Filtered/paginated listings are thin, near-duplicate views of /blog. Keep
+  // them crawlable (so Google still finds the posts) but out of the index.
+  const isFiltered = Boolean(q || tag) || page > 1;
+
   return {
     title,
     description,
     alternates: { canonical },
-    // Search result pages should not be indexed
-    robots: q ? { index: false, follow: true } : undefined,
+    robots: isFiltered ? { index: false, follow: true } : undefined,
     openGraph: {
       type: "website",
       url: canonical,

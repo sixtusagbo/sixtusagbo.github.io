@@ -27,21 +27,10 @@ import { fileURLToPath } from "node:url";
 import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 import { Post } from "../src/lib/models/Post";
+import { loadEnv } from "./load-env";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC_DIR = join(ROOT, "public");
-
-function loadEnv(file: string): void {
-  const path = join(ROOT, file);
-  if (!existsSync(path)) return;
-  for (const line of readFileSync(path, "utf8").split("\n")) {
-    const match = line.match(/^([A-Z_]+)=(.*)$/);
-    if (!match) continue;
-    const [, key, rawVal] = match;
-    if (process.env[key]) continue; // first file wins
-    process.env[key] = rawVal.replace(/^"(.*)"$/, "$1").trim();
-  }
-}
 
 function walk(dir: string): string[] {
   if (!existsSync(dir)) return [];
@@ -91,8 +80,7 @@ function replaceAll(text: string, map: Map<string, string>): string {
 }
 
 async function main() {
-  loadEnv(".env.production");
-  loadEnv(".env.local");
+  loadEnv();
 
   const { MONGODB_URI, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
     process.env;

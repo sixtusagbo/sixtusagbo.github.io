@@ -25,26 +25,13 @@ import {
   excerptFromMarkdown,
   slugify,
 } from "../src/lib/utils";
+import { loadEnv } from "./load-env";
 
 const FEED_URL = "https://medium.com/feed/@sixtusagbo";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // Older posts the RSS feed no longer carries (it caps at 10), scraped from
 // the Medium post pages into JSON files
 const ARCHIVE_DIR = join(ROOT, "scripts", "data", "medium-archive");
-
-function loadEnvLocal(): void {
-  try {
-    const content = readFileSync(join(ROOT, ".env.local"), "utf8");
-    for (const line of content.split("\n")) {
-      const match = line.match(/^([A-Z_]+)=(.*)$/);
-      if (match && !process.env[match[1]]) {
-        process.env[match[1]] = match[2];
-      }
-    }
-  } catch {
-    // no .env.local; rely on the environment
-  }
-}
 
 type FeedItem = {
   title: string;
@@ -244,7 +231,7 @@ async function upsertPost(post: SourcePost): Promise<void> {
 }
 
 async function main() {
-  loadEnvLocal();
+  loadEnv([".env.local"]);
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("MONGODB_URI is not set");
 

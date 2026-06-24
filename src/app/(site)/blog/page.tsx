@@ -4,6 +4,8 @@ import { getAllTags, getPublishedPosts, type PostSort } from "@/lib/posts";
 import PostCard from "@/components/blog/PostCard";
 import BlogControls from "@/components/blog/BlogControls";
 import Pagination from "@/components/blog/Pagination";
+import NewsletterForm from "@/components/blog/NewsletterForm";
+import { newsletterEnabled } from "@/lib/email";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -146,6 +148,8 @@ export default async function BlogPage({
             )}
           </div>
         </div>
+
+        {newsletterEnabled() && <NewsletterForm />}
       </div>
     </div>
   );

@@ -16,6 +16,8 @@ import CodeCopyButtons from "@/components/blog/CodeCopyButtons";
 import ReadingProgress from "@/components/blog/ReadingProgress";
 import ShareButtons from "@/components/blog/ShareButtons";
 import ViewTracker from "@/components/blog/ViewTracker";
+import NewsletterForm from "@/components/blog/NewsletterForm";
+import { newsletterEnabled } from "@/lib/email";
 
 export const revalidate = 3600;
 
@@ -271,6 +273,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             </Link>
           </div>
         </div>
+
+        {/* Newsletter */}
+        {newsletterEnabled() && <NewsletterForm />}
 
         {/* Prev / Next */}
         {(adjacent.prev || adjacent.next) && (

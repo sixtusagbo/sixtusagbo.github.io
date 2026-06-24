@@ -22,6 +22,7 @@ export type BlogPost = {
   updatedAt: string;
   readingTime: number;
   views: number;
+  newsletterSentAt: string | null;
 };
 
 export type PostSort = "newest" | "oldest" | "title";
@@ -72,6 +73,9 @@ function serialize(doc: LeanPost): BlogPost {
     updatedAt: doc.updatedAt?.toISOString() ?? "",
     readingTime: doc.readingTime ?? 1,
     views: doc.views ?? 0,
+    newsletterSentAt: doc.newsletterSentAt
+      ? doc.newsletterSentAt.toISOString()
+      : null,
   };
 }
 
@@ -200,6 +204,27 @@ export async function getAllPublishedSlugs(): Promise<
 export async function incrementViews(slug: string): Promise<void> {
   await connectDB();
   await Post.updateOne({ slug, status: "published" }, { $inc: { views: 1 } });
+}
+
+// Atomically claim the right to email subscribers about this post. Returns the
+// post only on the first published, not-yet-sent call; null otherwise. This
+// guards against duplicate sends when a published post is saved again.
+export async function claimNewsletterSend(
+  id: string
+): Promise<BlogPost | null> {
+  await connectDB();
+  const doc = await Post.findOneAndUpdate(
+    { _id: id, status: "published", newsletterSentAt: null },
+    { $set: { newsletterSentAt: new Date() } },
+    { new: true }
+  ).lean<LeanPost>();
+  return doc ? serialize(doc) : null;
+}
+
+// Undo a claim so a later publish can retry (used when sending fails entirely).
+export async function releaseNewsletterSend(id: string): Promise<void> {
+  await connectDB();
+  await Post.updateOne({ _id: id }, { $set: { newsletterSentAt: null } });
 }
 
 // Admin queries

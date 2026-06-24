@@ -28,6 +28,9 @@ const postSchema = new Schema(
     publishedAt: { type: Date, default: null },
     readingTime: { type: Number, default: 1 },
     views: { type: Number, default: 0 },
+    // Stamped the first time a published post is emailed to subscribers, so it
+    // never goes out twice on re-saves or re-publishes.
+    newsletterSentAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

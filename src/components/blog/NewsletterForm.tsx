@@ -14,7 +14,9 @@ export default function NewsletterForm() {
   >(subscribeAction, null);
 
   return (
-    <section className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-10">
+    <section
+      id="newsletter"
+      className="scroll-mt-28 bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-10">
       <div className="flex items-start gap-4 mb-6">
         <div className="hidden sm:flex w-11 h-11 rounded-2xl bg-neutral-800 items-center justify-center flex-shrink-0">
           <Mail size={20} className="text-neutral-300" />

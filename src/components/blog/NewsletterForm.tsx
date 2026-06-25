@@ -21,7 +21,7 @@ export default function NewsletterForm() {
         </div>
         <div className="space-y-1.5">
           <h2 className="text-xl md:text-2xl font-bold">
-            Subscribe to the newsletter
+            Subscribe to my newsletter
           </h2>
           <p className="text-sm text-neutral-400 max-w-md">
             New posts on web &amp; mobile development, straight to your inbox. No

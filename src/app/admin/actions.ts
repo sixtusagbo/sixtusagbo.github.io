@@ -22,6 +22,22 @@ import {
   deleteCloudinaryImages,
   findCloudinaryUrls,
 } from "@/lib/cloudinary-server";
+import { notifySubscribersOfPost } from "@/lib/newsletter";
+
+// Email subscribers about a freshly published post. Safe to call on every
+// published save: it only sends on the first publish and never blocks the
+// editor if email delivery hiccups.
+async function announceIfPublished(
+  id: string,
+  status: "draft" | "published"
+): Promise<void> {
+  if (status !== "published") return;
+  try {
+    await notifySubscribersOfPost(id);
+  } catch {
+    // Delivery problems must not fail the save/publish itself.
+  }
+}
 
 // Delete the given Cloudinary images, skipping any still used by another post.
 async function cleanupImages(
@@ -110,6 +126,7 @@ export async function savePostAction(
     }
 
     revalidateBlog([saved.slug, previous?.slug]);
+    await announceIfPublished(saved.id, saved.status);
     return { ok: true, id: saved.id, slug: saved.slug };
   } catch (error) {
     if (
@@ -152,6 +169,7 @@ export async function setPostStatusAction(
   }
   const saved = await updatePost(id, { ...post, status });
   revalidateBlog([saved?.slug ?? post.slug]);
+  await announceIfPublished(id, status);
   return { ok: true };
 }
 

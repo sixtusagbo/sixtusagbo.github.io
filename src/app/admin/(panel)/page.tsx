@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Eye, FileText, NotebookPen, Send } from "lucide-react";
+import { ArrowUpRight, Eye, FileText, Mail, NotebookPen, Send } from "lucide-react";
 import { adminListPosts, getStats } from "@/lib/posts";
+import { getSubscriberStats } from "@/lib/subscribers";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
 export default async function AdminDashboard() {
-  const [stats, posts] = await Promise.all([getStats(), adminListPosts()]);
+  const [stats, posts, subscribers] = await Promise.all([
+    getStats(),
+    adminListPosts(),
+    getSubscriberStats(),
+  ]);
   const recent = posts.slice(0, 5);
 
   const cards = [
@@ -15,6 +20,7 @@ export default async function AdminDashboard() {
     { label: "Published", value: stats.published, icon: Send },
     { label: "Drafts", value: stats.drafts, icon: NotebookPen },
     { label: "Total Views", value: stats.totalViews, icon: Eye },
+    { label: "Subscribers", value: subscribers.confirmed, icon: Mail },
   ];
 
   return (
@@ -34,7 +40,7 @@ export default async function AdminDashboard() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {cards.map(({ label, value, icon: Icon }) => (
           <div
             key={label}

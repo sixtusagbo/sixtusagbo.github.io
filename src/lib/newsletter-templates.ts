@@ -23,9 +23,6 @@ function layout(cardRows: string, footerHtml: string): string {
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:28px 12px;">
     <tr><td align="center">
       <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
-        <tr><td style="padding:2px 6px 16px;">
-          <a href="${SITE_URL}" style="font-size:18px;font-weight:700;letter-spacing:-.02em;color:#0a0a0a;text-decoration:none;">Sixtus&nbsp;Agbo</a>
-        </td></tr>
         <tr><td style="background:#ffffff;border:1px solid #e4e4e7;border-radius:16px;overflow:hidden;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="color:#18181b;">
             ${cardRows}

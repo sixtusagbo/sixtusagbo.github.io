@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
+  Check,
   Eye,
   Image as ImageIcon,
   Loader2,
@@ -40,6 +41,9 @@ export default function PostEditor({
 }) {
   const router = useRouter();
 
+  // Held in state (not just props) so that after saving a brand new post we
+  // keep editing that same post instead of creating a duplicate on the next save.
+  const [postId, setPostId] = useState(post?.id);
   const [title, setTitle] = useState(post?.title ?? "");
   const [slug, setSlug] = useState(post?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(post));
@@ -62,6 +66,7 @@ export default function PostEditor({
   const showUnsplash = cloudinaryConfigured && unsplashEnabled;
 
   const [error, setError] = useState("");
+  const [saved, setSaved] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [isSaving, startSaving] = useTransition();
 
@@ -72,7 +77,10 @@ export default function PostEditor({
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty]);
 
-  const markDirty = () => setDirty(true);
+  const markDirty = () => {
+    setDirty(true);
+    setSaved(false);
+  };
 
   const onTitleChange = (value: string) => {
     setTitle(value);
@@ -153,7 +161,7 @@ export default function PostEditor({
     }
     startSaving(async () => {
       const result = await savePostAction({
-        id: post?.id,
+        id: postId,
         title,
         slug,
         excerpt,
@@ -169,8 +177,10 @@ export default function PostEditor({
         setError(result.error);
         return;
       }
+      // Stay in the editor rather than bouncing back to the posts list.
+      setPostId(result.id);
       setDirty(false);
-      router.push("/admin/posts");
+      setSaved(true);
       router.refresh();
     });
   };
@@ -192,11 +202,17 @@ export default function PostEditor({
             Posts
           </Link>
           <h1 className="text-xl font-bold">
-            {post ? "Edit Post" : "New Post"}
+            {postId ? "Edit Post" : "New Post"}
           </h1>
         </div>
 
         <div className="flex items-center gap-3">
+          {saved && !dirty && (
+            <span className="inline-flex items-center gap-1.5 text-sm text-emerald-400">
+              <Check size={14} />
+              Saved
+            </span>
+          )}
           <div
             role="group"
             aria-label="Post status"

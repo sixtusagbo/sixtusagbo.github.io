@@ -205,7 +205,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 alt="Sixtus Miracle Agbo"
                 width={40}
                 height={40}
-                className="w-10 h-10 rounded-full object-cover border-2 border-neutral-800"
+                className="w-10 h-10 flex-shrink-0 rounded-full object-cover border-2 border-neutral-800"
               />
               <span className="font-medium text-white">
                 Sixtus Miracle Agbo
@@ -257,7 +257,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             alt="Sixtus Miracle Agbo"
             width={64}
             height={64}
-            className="w-16 h-16 rounded-full object-cover border-2 border-neutral-800"
+            className="w-16 h-16 flex-shrink-0 rounded-full object-cover border-2 border-neutral-800"
           />
           <div className="space-y-2">
             <p className="font-semibold text-lg">Sixtus Miracle Agbo</p>

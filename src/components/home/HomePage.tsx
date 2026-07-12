@@ -65,7 +65,8 @@ export default function HomePage({
 }: {
   recentPosts: BlogPost[];
 }) {
-  const featuredProjects = projects.slice(0, 4);
+  // projects.ts is maintained newest-first, so the top of the list is the latest
+  const latestProjects = projects.slice(0, 4);
 
   // Role rotation
   const [roleIndex, setRoleIndex] = useState(0);
@@ -392,53 +393,8 @@ export default function HomePage({
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Latest Projects */}
       <section className="py-32 bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-            className="space-y-16">
-            <m.div variants={itemVariants} className="space-y-4">
-              <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
-                Skills
-              </span>
-              <h2 className="text-4xl md:text-5xl font-bold">
-                Tools & Technologies
-              </h2>
-            </m.div>
-
-            <div className="space-y-12">
-              {Object.entries(skillsData).map(
-                ([category, skills]) => (
-                  <m.div
-                    key={category}
-                    variants={itemVariants}
-                    className="space-y-6">
-                    <h3 className="text-xl font-semibold text-neutral-300">
-                      {category}
-                    </h3>
-                    <div className="flex flex-wrap gap-3">
-                      {(skills as string[]).map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-xl text-sm font-medium transition-colors cursor-default">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </m.div>
-                )
-              )}
-            </div>
-          </m.div>
-        </div>
-      </section>
-
-      {/* Featured Projects */}
-      <section className="py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <m.div
             initial="hidden"
@@ -454,7 +410,7 @@ export default function HomePage({
                   Portfolio
                 </span>
                 <h2 className="text-4xl md:text-5xl font-bold">
-                  Featured Projects
+                  Latest Projects
                 </h2>
               </div>
               <Link
@@ -469,7 +425,7 @@ export default function HomePage({
             </m.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredProjects.map((project) => (
+              {latestProjects.map((project) => (
                 <m.div
                   key={project.title}
                   variants={itemVariants}
@@ -527,6 +483,51 @@ export default function HomePage({
                   </div>
                 </m.div>
               ))}
+            </div>
+          </m.div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <m.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={containerVariants}
+            className="space-y-16">
+            <m.div variants={itemVariants} className="space-y-4">
+              <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
+                Skills
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold">
+                Tools & Technologies
+              </h2>
+            </m.div>
+
+            <div className="space-y-12">
+              {Object.entries(skillsData).map(
+                ([category, skills]) => (
+                  <m.div
+                    key={category}
+                    variants={itemVariants}
+                    className="space-y-6">
+                    <h3 className="text-xl font-semibold text-neutral-300">
+                      {category}
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {(skills as string[]).map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-xl text-sm font-medium transition-colors cursor-default">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </m.div>
+                )
+              )}
             </div>
           </m.div>
         </div>

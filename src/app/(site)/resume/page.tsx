@@ -40,10 +40,9 @@ export default function Experience() {
                 href={resumePdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all w-fit">
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all w-fit">
                 <Download size={18} />
                 Download PDF
-                <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             </div>
           </m.div>
@@ -203,9 +202,8 @@ export default function Experience() {
               <div className="flex flex-wrap justify-center gap-4">
                 <a
                   href="mailto:hi@sixtusagbo.dev"
-                  className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
                   Get in Touch
-                  <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
                 <a
                   href={resumePdfUrl}

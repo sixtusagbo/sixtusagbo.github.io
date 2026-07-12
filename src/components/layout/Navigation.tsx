@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { socialLinks, navigation } from "@/config/constants";
 import { m, AnimatePresence } from "framer-motion";
 
@@ -125,12 +125,8 @@ export default function Navigation() {
           {/* CTA Button - Desktop */}
           <a
             href={socialLinks.email.url}
-            className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-white text-neutral-950 rounded-full text-sm font-semibold hover:bg-neutral-200 transition-colors group">
+            className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-white text-neutral-950 rounded-full text-sm font-semibold hover:bg-neutral-200 transition-colors">
             Let&apos;s Talk
-            <ArrowUpRight
-              size={16}
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
           </a>
 
           {/* Mobile menu button */}

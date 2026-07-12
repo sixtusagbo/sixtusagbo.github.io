@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { m } from "framer-motion";
-import { ArrowRight, ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
+import { ArrowUpRight, MapPin, Mail, Download } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { skillsData, socialLinks, resumePdfUrl } from "@/config/constants";
@@ -143,12 +143,8 @@ export default function HomePage({
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/projects"
-                  className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-950 rounded-full font-semibold hover:bg-neutral-200 transition-all">
                   View My Work
-                  <ArrowRight
-                    size={18}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
                 </Link>
                 <a
                   href={resumePdfUrl}

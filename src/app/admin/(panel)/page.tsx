@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Eye, FileText, Mail, NotebookPen, Send } from "lucide-react";
+import { Eye, FileText, Mail, NotebookPen, Send } from "lucide-react";
 import { adminListPosts, getStats } from "@/lib/posts";
 import { getSubscriberStats } from "@/lib/subscribers";
 import { formatDate } from "@/lib/utils";
@@ -36,7 +36,6 @@ export default async function AdminDashboard() {
           href="/admin/posts/new"
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-neutral-950 rounded-full text-sm font-semibold hover:bg-neutral-200 transition-colors self-start sm:self-auto">
           New Post
-          <ArrowUpRight size={16} />
         </Link>
       </div>
 

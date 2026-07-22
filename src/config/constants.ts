@@ -68,6 +68,17 @@ export const navigation = [
 // Experience data
 export const experiences = [
   {
+    company: "CronEdge LLC",
+    position: "Freelance Web Developer",
+    period: "Jun 2026 – Jul 2026",
+    type: "Remote",
+    achievements: [
+      "Designed and built the company's marketing website end to end with Next.js, working from the client's logo as the only existing branding",
+      "Containerized the site with Docker for deployment to the client's self-managed Kubernetes infrastructure",
+      "Delivered ahead of schedule on a fixed-price contract and earned a 5.0 client review",
+    ],
+  },
+  {
     company: "NexSolve Technologies",
     position: "Full-Stack Developer",
     period: "May 2025 – Feb 2026",

@@ -1,5 +1,16 @@
 export const projects = [
   {
+    title: "CronEdge",
+    description:
+      "Marketing website for CronEdge LLC, a US cloud and DevOps consultancy. Designed and built end to end as a freelance engagement",
+    image: "https://res.cloudinary.com/dulmaayem/image/upload/v1784679948/projects/cronedge.png",
+    tech: ["NextJS", "TypeScript", "TailwindCSS", "Docker", "Web"],
+    links: {
+      live: "https://cronedge.com",
+    },
+    year: 2026,
+  },
+  {
     title: "Food Pilot",
     description:
       "AI-powered eating companion that helps build healthy eating habits through personalized meal recommendations, smart reminders, and visual progress tracking",
